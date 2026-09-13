@@ -76,750 +76,471 @@ export type Scene = {
 
 export const SCENES: Scene[] = [
   // ============ 인트로 ============
-  // 1. 파병 군인·죄수 인트로 (0~4.82)
-  {
-    type: "imageShowcase",
-    text: "군인도, 죄수도\n하는 운동",
-    subtitle: "환경의 제약 속에서도",
-    durationInSeconds: 4.82,
-    accent: "#6c5ce7",
-    sceneImage: "scene-intro-soldier.png",
-  },
-
-  // 2. 과학으로 증명 + 프로그램 소개 (4.82~9.6)
-  {
-    type: "imageText",
-    text: "과학으로\n증명된 운동",
-    subtitle: "환경 제약 속 필수 루틴",
-    durationInSeconds: 4.78,
-    accent: "#4A90D9",
-    sceneImage: "scene-victory-strong.png",
-  },
-
-  // 3. 하체·코어 발달 최고 (9.6~15.2)
-  {
-    type: "imageStat",
-    text: "하체 · 코어 발달",
-    statValue: "최고",
-    statLabel: "이보다 효과적일 수 없다",
-    durationInSeconds: 5.6,
-    accent: "#00b894",
-    sceneImage: "scene-victory-strong.png",
-  },
-
-  // 4. 시공간 제약 없음 (15.2~19.28)
-  {
-    type: "highlight",
-    text: "필요 없는 것들",
-    bullets: ["헬스장", "긴 시간", "장비"],
-    durationInSeconds: 4.08,
-    accent: "#e17055",
-    characterImage: "char-07.png",
-  },
-
-  // 5. 방바닥 하나 20분 → 강철 하체 (19.28~26.2)
-  {
-    type: "imageStat",
-    text: "방바닥 하나면",
-    statValue: "20분",
-    statLabel: "강철 하체 · 코어 · 허리",
-    durationInSeconds: 6.92,
-    accent: "#ffd93d",
-    sceneImage: "scene-core-strong.png",
-  },
-
-  // 6. 방바닥+벽 하나면 끝 (26.2~28.44)
+  // 1. 훅: 안 뛰는 사람과의 격차 (0~4.36)
   {
     type: "text",
-    text: "방바닥 하나,\n벽 하나면 끝",
-    durationInSeconds: 2.24,
-    accent: "#74b9ff",
+    text: "매년 벌어지는\n보이지 않는 격차",
+    subtitle: "뛰는 사람 vs 안 뛰는 사람",
+    description: "지금 이 순간에도 몸속에서\n조용히 벌어지고 있습니다",
+    durationInSeconds: 4.36,
+    accent: "#6c5ce7",
     characterImage: "char-01.png",
   },
 
-  // 7. 6동작 서킷 소개 (28.44~33.52)
-  {
-    type: "highlight",
-    text: "하체 · 코어\n동시 폭파",
-    subtitle: "6개 동작 서킷",
-    durationInSeconds: 5.08,
-    accent: "#00cec9",
-    characterImage: "char-09.png",
-  },
-
-  // 8. 왜 이 6개, 왜 이 순서, 자세 (33.52~39.66)
-  {
-    type: "highlight",
-    text: "오늘 다룰 3가지",
-    bullets: ["왜 이 6개", "왜 이 순서", "자세는?"],
-    durationInSeconds: 6.14,
-    accent: "#a29bfe",
-    characterImage: "char-08.png",
-  },
-
-  // ============ 프로그램 순서 ============
-  // 9. 프로그램 순서 (39.66~44.46)
-  {
-    type: "timeline",
-    text: "프로그램 순서",
-    durationInSeconds: 4.8,
-    accent: "#4A90D9",
-    steps: [
-      { label: "스쿼트 스러스트" },
-      { label: "할로우 홀드" },
-      { label: "리버스 런지" },
-    ],
-  },
-
-  // 10. 6동작 나열 (44.46~49.34)
-  {
-    type: "timeline",
-    text: "6개 동작",
-    durationInSeconds: 4.88,
-    accent: "#6c5ce7",
-    steps: [
-      { label: "플랭크" },
-      { label: "점프 스쿼트" },
-      { label: "월 싯 홀드" },
-    ],
-  },
-
-  // 11. 각 동작 40초 (49.34~54.06)
-  {
-    type: "imageStat",
-    text: "각 동작",
-    statValue: "40초",
-    statLabel: "동작 사이 15초 휴식",
-    durationInSeconds: 4.72,
-    accent: "#ffd93d",
-    characterImage: "char-06.png",
-  },
-
-  // 12. 6개=1라운드, 라운드 사이 60초 (54.06~58.22)
-  {
-    type: "imageStat",
-    text: "6개 = 1라운드",
-    statValue: "3R",
-    statLabel: "라운드 사이 60초",
-    durationInSeconds: 4.16,
-    accent: "#00b894",
-    characterImage: "char-02.png",
-  },
-
-  // 13. 15~20분 소요 (58.22~60.32)
-  {
-    type: "imageStat",
-    text: "총 소요 시간",
-    statValue: "15~20분",
-    statLabel: "",
-    durationInSeconds: 2.1,
-    accent: "#fdcb6e",
-    characterImage: "char-01.png",
-  },
-
-  // 14. 동작 하나하나 효과·자세·주의 (60.32~69.06)
+  // 2. 인사 + 통념 도입 (4.36~7.78)
   {
     type: "text",
-    text: "이제 하나씩\n뜯어봅니다",
-    subtitle: "효과 · 자세 · 주의사항",
-    durationInSeconds: 8.74,
-    accent: "#4A90D9",
-    characterImage: "char-08.png",
-  },
-
-  // ============ 1. 스쿼트 스러스트 ============
-  // 15. 첫 번째 동작 소개 (69.06~73.12)
-  {
-    type: "imageText",
-    text: "1. 스쿼트 스러스트",
-    subtitle: "버피에서\n팔굽혀펴기만 뺀 동작",
-    durationInSeconds: 4.06,
-    accent: "#e17055",
-    sceneImage: "scene-squat-thrust.png",
-  },
-
-  // 16. 동작 방법 (73.12~78.7)
-  {
-    type: "imageText",
-    text: "동작 방법",
-    subtitle: "손 짚고 다리 뒤로,\n다시 당기기 반복",
-    durationInSeconds: 5.58,
-    accent: "#4A90D9",
-    sceneImage: "scene-squat-thrust.png",
-  },
-
-  // 17. 일어서거나 엎드린 채 반복 (78.7~83.68)
-  {
-    type: "imageText",
-    text: "두 가지 방식",
-    subtitle: "일어서거나\n엎드린 채 반복",
-    durationInSeconds: 4.98,
-    accent: "#74b9ff",
-    sceneImage: "scene-squat-thrust.png",
-  },
-
-  // 18. 맨 앞에 두는 이유 = 전신 시동 (83.68~89.16)
-  {
-    type: "imageText",
-    text: "왜 맨 앞?",
-    subtitle: "전신 동작으로\n심박수 시동 걸기",
-    durationInSeconds: 5.48,
-    accent: "#00cec9",
-    sceneImage: "scene-circuit-loop.png",
-  },
-
-  // 19. 주의: 허리 꺼짐 금지 (89.16~96.62)
-  {
-    type: "imageText",
-    text: "주의사항",
-    subtitle: "엉덩이 솟거나\n허리 꺼지면 안 됨",
-    durationInSeconds: 7.46,
-    accent: "#d63031",
-    sceneImage: "scene-plank.png",
-  },
-
-  // 20. 머리~발끝 일직선, 배에 힘 (96.62~103.1)
-  {
-    type: "imageText",
-    text: "핵심 자세",
-    subtitle: "머리~발끝 일직선\n엉덩이 · 배에 힘",
-    durationInSeconds: 6.48,
-    accent: "#00b894",
-    sceneImage: "scene-plank.png",
-  },
-
-  // ============ 2. 할로우 홀드 ============
-  // 21. 두 번째 동작 (103.1~107.34)
-  {
-    type: "imageText",
-    text: "2. 할로우 홀드",
-    subtitle: "이번엔 가만히 버티기",
-    durationInSeconds: 4.24,
-    accent: "#6c5ce7",
-    sceneImage: "scene-hollow-hold.png",
-  },
-
-  // 22. 깊은 코어 정적 조임 (107.34~111.56)
-  {
-    type: "imageText",
-    text: "복부 깊은 코어",
-    subtitle: "팔다리 들고\n배에 힘 준 채 버티기",
-    durationInSeconds: 4.22,
-    accent: "#4A90D9",
-    sceneImage: "scene-hollow-hold.png",
-  },
-
-  // 23. 연구: 코어 안정성 → 허리 건강 (111.56~117.2)
-  {
-    type: "imageText",
-    text: "허리 건강에 최고",
-    subtitle: "2019 스포츠 헬스\n코어 안정성 훈련",
-    durationInSeconds: 5.64,
-    accent: "#00b894",
-    sceneImage: "scene-core-strong.png",
-  },
-
-  // 24. 핵심 자세 하나 = 허리 바닥 밀착 (117.2~124.14)
-  {
-    type: "imageText",
-    text: "핵심은 하나",
-    subtitle: "허리를 바닥에\n딱 붙이기",
-    durationInSeconds: 6.94,
-    accent: "#ffd93d",
-    sceneImage: "scene-hollow-hold.png",
-  },
-
-  // 25. 허리 뜨면 코어 운동 안 됨 (124.14~129.42)
-  {
-    type: "imageText",
-    text: "주의",
-    subtitle: "허리 뜨면\n코어 운동 안 됨",
-    durationInSeconds: 5.28,
-    accent: "#d63031",
-    sceneImage: "scene-hollow-hold.png",
-  },
-
-  // 26. 배꼽 눌러넣기, 몸 떨리면 정답 (129.42~136.02)
-  {
-    type: "imageText",
-    text: "이렇게",
-    subtitle: "배꼽 눌러넣고\n몸이 떨리면 정답",
-    durationInSeconds: 6.6,
-    accent: "#00cec9",
-    sceneImage: "scene-hollow-hold.png",
-  },
-
-  // 27. 어려우면 무릎 굽히기 (136.02~140.5)
-  {
-    type: "imageText",
-    text: "어렵다면?",
-    subtitle: "무릎을 살짝\n굽혀서 수행",
-    durationInSeconds: 4.48,
-    accent: "#74b9ff",
-    sceneImage: "scene-hollow-hold.png",
-  },
-
-  // ============ 3. 리버스 런지 ============
-  // 28. 세 번째 동작 (140.5~144.54)
-  {
-    type: "imageText",
-    text: "3. 리버스 런지",
-    subtitle: "이제 한 다리씩 집중",
-    durationInSeconds: 4.04,
-    accent: "#6c5ce7",
-    sceneImage: "scene-reverse-lunge.png",
-  },
-
-  // 29. 왜 뒤로 빼는가 = 무릎부담↓ 엉덩이·뒷벅지 (144.54~149.94)
-  {
-    type: "imageText",
-    text: "왜 뒤로 빼나?",
-    subtitle: "무릎 부담 적고\n엉덩이 · 뒷벅지 집중",
-    durationInSeconds: 5.4,
-    accent: "#4A90D9",
-    sceneImage: "scene-reverse-lunge.png",
-  },
-
-  // 30. 좌우 따로 → 불균형 잡고 코어까지 (149.94~158.3)
-  {
-    type: "imageText",
-    text: "코어까지 덤",
-    subtitle: "좌우 불균형 교정\n균형 잡느라 코어 동원",
-    durationInSeconds: 8.36,
-    accent: "#00b894",
-    sceneImage: "scene-reverse-lunge.png",
-  },
-
-  // 31. 근전도: 단측 하체 = 코어 안정근 더 동원 (158.3~165.54)
-  {
-    type: "barChart",
-    text: "코어 안정근 동원",
-    description: "근전도(EMG) 연구",
-    durationInSeconds: 7.24,
-    accent: "#6c5ce7",
-    barData: [
-      { label: "양다리 운동", value: 62, color: "#636e72" },
-      { label: "한다리 운동", value: 88, color: "#6c5ce7" },
-    ],
-  },
-
-  // 32. 자세: 앞무릎 발끝 안 넘게 (165.54~173.04)
-  {
-    type: "imageText",
-    text: "자세 포인트",
-    subtitle: "앞 무릎이\n발끝 넘지 않게",
-    durationInSeconds: 7.5,
-    accent: "#d63031",
-    sceneImage: "scene-reverse-lunge.png",
-  },
-
-  // 33. 엉덩이 아래로, 상체 세우고 (173.04~182.78)
-  {
-    type: "imageText",
-    text: "이렇게",
-    subtitle: "엉덩이 아래로,\n상체는 세우고",
-    durationInSeconds: 9.74,
-    accent: "#00cec9",
-    sceneImage: "scene-reverse-lunge.png",
-  },
-
-  // ============ 4. 플랭크 ============
-  // 34. 네 번째 동작 (182.78~188.32)
-  {
-    type: "imageText",
-    text: "4. 플랭크",
-    subtitle: "다리 터질 때\n다시 정적으로",
-    durationInSeconds: 5.54,
-    accent: "#6c5ce7",
-    sceneImage: "scene-plank.png",
-  },
-
-  // 35. 움직이는 코어 vs 버티는 코어 (188.32~194.56)
-  {
-    type: "compare",
-    text: "코어를 두 번",
-    durationInSeconds: 6.24,
-    accent: "#4A90D9",
-    compareData: {
-      left: { title: "스쿼트 스러스트", description: "움직이는 코어" },
-      right: { title: "플랭크", description: "버티는 코어" },
-    },
-  },
-
-  // 36. 팔꿈치 어깨 아래, 관건은 엉덩이 (194.56~200.0)
-  {
-    type: "imageText",
-    text: "관건은 엉덩이",
-    subtitle: "솟으면 쉬워지고\n처지면 허리 상함",
-    durationInSeconds: 5.44,
-    accent: "#d63031",
-    sceneImage: "scene-plank.png",
-  },
-
-  // 37. 머리~발뒤꿈치 일직선 (200.0~205.98)
-  {
-    type: "imageText",
-    text: "핵심 자세",
-    subtitle: "머리~발뒤꿈치\n일직선 유지",
-    durationInSeconds: 5.98,
-    accent: "#00b894",
-    sceneImage: "scene-plank.png",
-  },
-
-  // ============ 5. 점프 스쿼트 ============
-  // 38. 다섯 번째 = 서킷의 정점 (205.98~209.78)
-  {
-    type: "imageShowcase",
-    text: "5. 점프 스쿼트",
-    subtitle: "오늘 서킷의 정점",
-    durationInSeconds: 3.8,
-    accent: "#ff7675",
-    sceneImage: "scene-jump-squat.png",
-  },
-
-  // 39. 지친 하체에 폭발력 → 속근 동원 (209.78~215.46)
-  {
-    type: "imageText",
-    text: "속근 동원",
-    subtitle: "지친 하체에\n마지막 폭발력",
-    durationInSeconds: 5.68,
-    accent: "#e17055",
-    sceneImage: "scene-jump-squat.png",
-  },
-
-  // 40. 연구: 하체 파워 발달 우위 (215.46~223.92)
-  {
-    type: "barChart",
-    text: "하체 파워 발달",
-    description: "2016 JSCR 연구",
-    durationInSeconds: 8.46,
-    accent: "#ff7675",
-    barData: [
-      { label: "일반 스쿼트", value: 65, color: "#636e72" },
-      { label: "점프 스쿼트", value: 92, color: "#ff7675" },
-    ],
-  },
-
-  // 41. 착지가 생명, 탄력적으로 흡수 (223.92~231.78)
-  {
-    type: "imageText",
-    text: "착지가 생명",
-    subtitle: "용수철처럼\n탄력적으로 흡수",
-    durationInSeconds: 7.86,
-    accent: "#ffd93d",
-    sceneImage: "scene-jump-squat.png",
-  },
-
-  // 42. 무릎 안 모이게, 아프면 일반 스쿼트 (231.78~238.56)
-  {
-    type: "imageText",
-    text: "무릎 주의",
-    subtitle: "안으로 모이지 않게\n아프면 일반 스쿼트",
-    durationInSeconds: 6.78,
-    accent: "#d63031",
-    sceneImage: "scene-jump-squat.png",
-  },
-
-  // ============ 6. 월 싯 홀드 ============
-  // 43. 여섯 번째 = 벽에 기대 버티기 (238.56~244.52)
-  {
-    type: "imageText",
-    text: "6. 월 싯 홀드",
-    subtitle: "마지막은\n벽에 기대 버티기",
-    durationInSeconds: 5.96,
-    accent: "#6c5ce7",
-    sceneImage: "scene-wall-sit.png",
-  },
-
-  // 44. 선피로 후 정적 수축 (244.52~256.6)
-  {
-    type: "imageText",
-    text: "선피로 후 정적 수축",
-    subtitle: "남은 힘까지 쥐어짜\n근육 완전 소진",
-    durationInSeconds: 12.08,
-    accent: "#00cec9",
-    sceneImage: "scene-wall-sit.png",
-  },
-
-  // 45. 무릎 90도, 발목 위 (256.6~263.04)
-  {
-    type: "imageStat",
-    text: "무릎 각도",
-    statValue: "90°",
-    statLabel: "무릎이 발목 바로 위",
-    durationInSeconds: 6.44,
-    accent: "#ffd93d",
-    sceneImage: "scene-wall-sit.png",
-  },
-
-  // 46. 무릎 발끝 넘으면 발 앞으로, 다리로만 (263.04~272.4)
-  {
-    type: "imageText",
-    text: "자세 조절",
-    subtitle: "발 앞으로 빼고\n다리로만 버티기",
-    durationInSeconds: 9.36,
-    accent: "#00b894",
-    sceneImage: "scene-wall-sit.png",
-  },
-
-  // ============ 원리 종합 ============
-  // 47. 다시 전체 순서 보기 (272.4~277.64)
-  {
-    type: "text",
-    text: "특징이\n느껴지시나요?",
-    subtitle: "전체 순서 다시 보기",
-    durationInSeconds: 5.24,
-    accent: "#4A90D9",
-    characterImage: "char-08.png",
-  },
-
-  // 48. 운동 사이사이 홀드 동작 (277.64~285.64)
-  {
-    type: "compare",
-    text: "동적 ↔ 홀드 교대",
-    durationInSeconds: 8.0,
-    accent: "#6c5ce7",
-    compareData: {
-      left: { title: "동적 동작", description: "스러스트 · 런지 · 점프" },
-      right: { title: "홀드 동작", description: "할로우 · 플랭크 · 월싯" },
-    },
-  },
-
-  // 49. TUT 극대화 (285.64~288.74)
-  {
-    type: "imageText",
-    text: "TUT 극대화",
-    subtitle: "근육 가동시간\n(Time Under Tension)",
-    durationInSeconds: 3.1,
-    accent: "#a29bfe",
-    sceneImage: "scene-core-strong.png",
-  },
-
-  // 50. TUT 증대 → 근비대·힘줄 강화 (288.74~294.04)
-  {
-    type: "highlight",
-    text: "TUT가 늘면",
-    bullets: ["근비대 ↑", "힘줄 강화"],
-    durationInSeconds: 5.3,
-    accent: "#00b894",
-    characterImage: "char-09.png",
-  },
-
-  // 51. 심박수 유지 (294.04~299.86)
-  {
-    type: "imageText",
-    text: "심박수 계속 유지",
-    subtitle: "높은 수치를\n끝까지 유지",
-    durationInSeconds: 5.82,
-    accent: "#e17055",
-    sceneImage: "scene-circuit-loop.png",
-  },
-
-  // 52. 서로 다른 각도 → 균형 발달 (299.86~306.14)
-  {
-    type: "imageText",
-    text: "균형적 발달",
-    subtitle: "하체 · 코어를\n다른 각도로 자극",
-    durationInSeconds: 6.28,
-    accent: "#00cec9",
-    sceneImage: "scene-victory-strong.png",
-  },
-
-  // ============ 결과 (연구 수치) ============
-  // 53. 꾸준히 하면? 실제 연구 수치 (306.14~314.2)
-  {
-    type: "text",
-    text: "꾸준히 하면\n뭐가 달라질까?",
-    subtitle: "실제 연구 수치로",
-    durationInSeconds: 8.06,
-    accent: "#4A90D9",
-    characterImage: "char-10.png",
-  },
-
-  // 54. 2017 연구 + 같은 동작, 주3회 9주, 식단 동일 (314.2~324.94)
-  {
-    type: "imageText",
-    text: "2017 프론티어스\n연구",
-    subtitle: "같은 동작 · 주3회 9주\n식단은 동일 유지",
-    durationInSeconds: 10.74,
-    accent: "#6c5ce7",
-    sceneImage: "scene-victory-strong.png",
-  },
-
-  // 55. 체지방 -1.9kg (324.94~335.12)
-  {
-    type: "imageStat",
-    text: "순수 체지방",
-    statValue: "-1.9kg",
-    statLabel: "대조군 대비\n(체중 약 -2kg)",
-    durationInSeconds: 10.18,
-    accent: "#00b894",
-    sceneImage: "scene-core-strong.png",
-  },
-
-  // 56. 지방만 빠지고 근육은 늘었다 (335.12~338.54)
-  {
-    type: "text",
-    text: "지방만 빠지고\n근육은 늘었다",
+    text: "달리기,\n다들 이렇게 알죠",
+    subtitle: "헬스 건강정보 헬마드",
     durationInSeconds: 3.42,
-    accent: "#55efc4",
+    accent: "#4A90D9",
+    characterImage: "char-02.png",
+  },
+
+  // 3. 흔한 통념 (7.78~12.5)
+  {
+    type: "highlight",
+    text: "흔한 오해",
+    bullets: ["살 빼려고", "숨만 차고", "지루한 유산소"],
+    durationInSeconds: 4.72,
+    accent: "#e17055",
+    characterImage: "char-03.png",
+  },
+
+  // 4. 먼지 쌓인 러닝화 (12.5~15.94)
+  {
+    type: "text",
+    text: "신발장 속\n먼지 쌓인 러닝화",
+    subtitle: "큰맘 먹고 샀지만",
+    durationInSeconds: 3.44,
+    accent: "#fdcb6e",
+    characterImage: "char-04.png",
+  },
+
+  // 5. 대규모 연구, 거의 다 틀렸다 (15.94~22.74)
+  {
+    type: "text",
+    text: "거의 전부\n오해였다",
+    subtitle: "대규모 연구가 내린 결론",
+    description: "수만 명을 십수 년 추적한 데이터",
+    durationInSeconds: 6.8,
+    accent: "#00b894",
+    characterImage: "char-05.png",
+  },
+
+  // 6. 진짜 과학적 이유 4가지 예고 (22.74~29.78)
+  {
+    type: "highlight",
+    text: "오늘 알려드릴\n진짜 이유 4가지",
+    bullets: ["세포 나이", "뇌 크기", "마음 건강", "숨은 내장지방"],
+    durationInSeconds: 7.04,
+    accent: "#a29bfe",
+    characterImage: "char-06.png",
+  },
+
+  // ============ 이유 1: 세포 / 텔로미어 ============
+  // 7. 세포 나이 16살 차이 (29.78~36.46)
+  {
+    type: "imageStat",
+    text: "① 같은 나이, 다른 세포",
+    statValue: "16살",
+    statLabel: "세포 나이 격차, 갈림길은 달리기",
+    durationInSeconds: 6.68,
+    accent: "#00cec9",
+    characterImage: "char-07.png",
+  },
+
+  // 8. 텔로미어 = 신발끈 캡 (36.46~41.08)
+  {
+    type: "text",
+    text: "텔로미어",
+    subtitle: "신발끈 끝 플라스틱 캡",
+    description: "세포의 수명을 지키는 보호막",
+    durationInSeconds: 4.62,
+    accent: "#74b9ff",
+    characterImage: "char-08.png",
+  },
+
+  // 9. 짧아지면 노화·질병 (41.08~45.28)
+  {
+    type: "text",
+    text: "닳아서 짧아지면",
+    subtitle: "노화 · 질병 가속",
+    durationInSeconds: 4.2,
+    accent: "#e17055",
     characterImage: "char-09.png",
   },
 
-  // 57. 근지구력: 푸시업 2.6배 등 (338.54~347.3)
+  // 10. 달리는 사람 텔로미어 김 (45.28~49.7)
   {
-    type: "beforeAfterChart",
-    text: "근지구력 향상",
-    description: "9주 전후 (반복 횟수)",
-    durationInSeconds: 8.76,
-    accent: "#ffd93d",
-    unit: "회",
-    beforeAfterData: [
-      { label: "푸시업", before: 7.5, after: 19.6 },
-      { label: "버피", before: 9, after: 25 },
-      { label: "한다리 스쿼트", before: 18, after: 37 },
+    type: "text",
+    text: "달리는 사람의 텔로미어는\n눈에 띄게 길었다",
+    subtitle: "안 뛰는 사람 대비",
+    durationInSeconds: 4.42,
+    accent: "#00b894",
+    characterImage: "char-10.png",
+  },
+
+  // 11. 울트라마라토너 11% ↑ (49.7~58.46)
+  {
+    type: "barChart",
+    text: "텔로미어 길이 비교",
+    description: "울트라마라톤 주자 vs 일반인",
+    barData: [
+      { label: "일반인", value: 100, color: "#636e72" },
+      { label: "장거리 러너", value: 111, color: "#00b894" },
     ],
-  },
-
-  // 58. 심폐(VO2max) +10% (347.3~353.88)
-  {
-    type: "imageStat",
-    text: "심폐 능력 (VO2max)",
-    statValue: "+10%",
-    statLabel: "최대 산소 섭취량",
-    durationInSeconds: 6.58,
-    accent: "#74b9ff",
-    sceneImage: "scene-circuit-loop.png",
-  },
-
-  // 59. 단 9주로 다 잡았다 (353.88~359.68)
-  {
-    type: "highlight",
-    text: "단 9주, 주 3회",
-    bullets: ["체지방 ↓", "근육 유지", "근지구력 2배", "심폐 ↑"],
-    durationInSeconds: 5.8,
+    durationInSeconds: 8.76,
     accent: "#00b894",
     characterImage: "char-01.png",
   },
 
-  // ============ 정리 ============
-  // 60. 정리: 6동작 (359.68~369.8)
+  // 12. 마라톤 필요 없다 (58.46~62.16)
   {
-    type: "timeline",
-    text: "정리 — 6동작",
-    durationInSeconds: 10.12,
-    accent: "#4A90D9",
-    steps: [
-      { label: "스쿼트 스러스트" },
-      { label: "할로우 홀드" },
-      { label: "리버스 런지" },
-      { label: "플랭크" },
-      { label: "점프 스쿼트" },
-      { label: "월 싯 홀드" },
-    ],
+    type: "text",
+    text: "마라톤은\n필요 없습니다",
+    subtitle: "핵심은 꾸준함",
+    durationInSeconds: 3.7,
+    accent: "#ffd93d",
+    characterImage: "char-02.png",
   },
 
-  // 61. 3라운드 / 동작 15초 / 라운드 60초 (369.8~378.92)
+  // 13. 사망위험 30%↓, 심혈관 45%↓ (62.16~72.58) — 바차트(감소율)
   {
-    type: "highlight",
-    text: "실행 규칙",
-    bullets: ["3라운드", "동작 사이 15초", "라운드 사이 60초"],
-    durationInSeconds: 9.12,
+    type: "barChart",
+    text: "하루 5~10분, 천천히 뛰기",
+    description: "안 뛰는 사람 대비 사망 위험 감소율",
+    barData: [
+      { label: "전체 사망 위험", value: 30, color: "#00b894" },
+      { label: "심혈관 사망 위험", value: 45, color: "#00cec9" },
+    ],
+    durationInSeconds: 10.42,
+    accent: "#00b894",
+    characterImage: "char-03.png",
+  },
+
+  // 14. 수명 3년 ↑ (72.58~77.82)
+  {
+    type: "imageStat",
+    text: "평균 수명",
+    statValue: "+3년",
+    statLabel: "러닝화 한 켤레로 버는 시간",
+    durationInSeconds: 5.24,
+    accent: "#ffd93d",
+    characterImage: "char-04.png",
+  },
+
+  // ============ 이유 2: 뇌 / 해마 ============
+  // 15. 커지는 건 뇌 (77.82~82.04)
+  {
+    type: "text",
+    text: "② 다리로 뛰는데\n뇌가 커진다",
+    subtitle: "가장 놀라운 변화",
+    durationInSeconds: 4.22,
     accent: "#6c5ce7",
+    characterImage: "char-05.png",
+  },
+
+  // 16. 해마 매년 위축 (82.04~87.24)
+  {
+    type: "text",
+    text: "나이 들면\n뇌도 쪼그라든다",
+    subtitle: "기억 담당 '해마'가 매년 위축",
+    durationInSeconds: 5.2,
+    accent: "#e17055",
     characterImage: "char-06.png",
   },
 
-  // 62. 15~20분이면 돌덩이 하체·코어 (378.92~383.58)
-  {
-    type: "imageStat",
-    text: "딱 15~20분",
-    statValue: "돌덩이",
-    statLabel: "하체 · 코어 완성",
-    durationInSeconds: 4.66,
-    accent: "#ffd93d",
-    sceneImage: "scene-victory-strong.png",
-  },
-
-  // ============ 광고 (마이프로틴) ============
-  // 63. 강도 높게 털었다면 단백질 필수 (383.58~394.46)
+  // 17. 건망증 → 치매 (87.24~90.02)
   {
     type: "text",
-    text: "확실한 성장엔\n단백질이 필수",
-    subtitle: "마이프로틴 임팩트 위크",
-    durationInSeconds: 10.88,
+    text: "건망증에서\n치매까지",
+    durationInSeconds: 2.78,
+    accent: "#d63031",
+    characterImage: "char-07.png",
+  },
+
+  // 18. 해마 부피 2% ↑ (90.02~97.22) — 도넛/스탯
+  {
+    type: "imageStat",
+    text: "1년 유산소 운동 후",
+    statValue: "+2%",
+    statLabel: "해마 부피 증가 · 오히려 커졌다",
+    durationInSeconds: 7.2,
+    accent: "#00b894",
+    characterImage: "char-08.png",
+  },
+
+  // 19. 노화 1~2년 되돌림 (97.22~100.96)
+  {
+    type: "imageStat",
+    text: "뇌 노화 시계",
+    statValue: "1~2년",
+    statLabel: "거꾸로 되돌린 수준",
+    durationInSeconds: 3.74,
     accent: "#00cec9",
     characterImage: "char-09.png",
   },
 
-  // 64. 타임세일 기간 (394.46~405.68)
-  {
-    type: "highlight",
-    text: "타임세일",
-    bullets: ["9/8(화) 저녁 7시", "~ 9/9(수) 새벽 1시"],
-    durationInSeconds: 11.22,
-    accent: "#e17055",
-    characterImage: "char-08.png",
-  },
-
-  // 65. 최대 80% + 코드 TEAMMP 41% (405.68~413.7)
-  {
-    type: "imageStat",
-    text: "기본 최대 80% 할인",
-    statValue: "+41%",
-    statLabel: "코드 'TEAMMP' 입력 시\n추가 할인",
-    durationInSeconds: 8.02,
-    accent: "#d63031",
-    characterImage: "char-01.png",
-  },
-
-  // 66. 트렌드 5% + 사은품 2개 (413.7~428.18)
-  {
-    type: "highlight",
-    text: "추가 혜택",
-    bullets: ["트렌드 제품 5% 추가", "사은품 최대 2개"],
-    durationInSeconds: 14.48,
-    accent: "#fdcb6e",
-    characterImage: "char-07.png",
-  },
-
-  // 67. 앱 12만원↑ 1만원 지원금 (428.18~435.0)
-  {
-    type: "imageStat",
-    text: "앱 12만원 이상",
-    statValue: "1만원",
-    statLabel: "제품 지원금 자동 적용",
-    durationInSeconds: 6.82,
-    accent: "#6c5ce7",
-    characterImage: "char-02.png",
-  },
-
-  // 68. 환율 이슈, 할인 때 사면 쌉니다 (435.0~444.68)
+  // 20. BDNF = 뇌세포 비료 (100.96~108.64)
   {
     type: "text",
-    text: "할인할 때\n쟁여두세요",
-    subtitle: "고정 댓글 링크",
-    durationInSeconds: 9.68,
-    accent: "#4A90D9",
+    text: "비디엔에프",
+    subtitle: "뇌세포에게 주는 비료",
+    description: "새 뇌세포가 자라고\n서로 연결되게 만드는 물질",
+    durationInSeconds: 7.68,
+    accent: "#a29bfe",
     characterImage: "char-10.png",
   },
 
-  // 69. 6동작 서킷과 함께 몸 만들기 (444.68~454.46)
+  // 21. 달리기는 머리 운동 (108.64~112.0)
   {
     type: "text",
-    text: "6동작 서킷과 함께\n확실하게",
-    subtitle: "몸 만들어 봅시다",
-    durationInSeconds: 9.78,
+    text: "달리기는\n사실 머리 운동",
+    durationInSeconds: 3.36,
+    accent: "#6c5ce7",
+    characterImage: "char-01.png",
+  },
+
+  // ============ 이유 3: 정신 건강 ============
+  // 22. 항우울제 대신 운동화 처방 (112.0~117.84)
+  {
+    type: "text",
+    text: "③ 항우울제 대신\n운동화를 처방",
+    subtitle: "정신과 진료의 변화",
+    durationInSeconds: 5.84,
+    accent: "#74b9ff",
+    characterImage: "char-02.png",
+  },
+
+  // 23. 하루 15분 → 우울증 위험 ↓ (117.84~123.6)
+  {
+    type: "imageStat",
+    text: "하버드 추적 연구",
+    statValue: "하루 15분",
+    statLabel: "주요 우울증 위험 뚜렷하게 감소",
+    durationInSeconds: 5.76,
+    accent: "#4A90D9",
+    characterImage: "char-03.png",
+  },
+
+  // 24. 16만명, 신체활동↑마다 우울증 26%↓ (123.6~130.64) — 프로그레스 카드
+  {
+    type: "progressCards",
+    text: "16만 명 대규모 분석",
+    description: "신체활동 한 단계 늘 때마다",
+    progressCards: [
+      {
+        label: "우울증 위험 감소",
+        value: 26,
+        maxValue: 100,
+        color: "#4A90D9",
+        description: "저강도 운동까지 효과 확인",
+      },
+    ],
+    durationInSeconds: 7.04,
+    accent: "#4A90D9",
+    characterImage: "char-04.png",
+  },
+
+  // 25. 운동화로 마음의 감기 예방 (130.64~139.02)
+  {
+    type: "text",
+    text: "약이 아니라\n운동화로",
+    subtitle: "마음의 감기를 막는다",
+    description: "머리가 터질 것 같을 때\n딱 15분만 뛰고 오면 맑아지는 이유",
+    durationInSeconds: 8.38,
+    accent: "#a29bfe",
+    characterImage: "char-05.png",
+  },
+
+  // ============ 이유 4: 내장지방 ============
+  // 26. 체중계 그대로여도 위험한 기름 사라짐 (139.02~143.8)
+  {
+    type: "text",
+    text: "④ 체중계는\n그대로여도",
+    subtitle: "숨은 기름부터 사라진다",
+    description: "가장 위험한 지방이 먼저 빠진다",
+    durationInSeconds: 4.78,
+    accent: "#e17055",
+    characterImage: "char-06.png",
+  },
+
+  // 27. 진짜 무서운 건 내장지방 (143.8~148.46)
+  {
+    type: "text",
+    text: "진짜 위험한 건\n내장지방",
+    subtitle: "장기 사이에 낀 기름",
+    durationInSeconds: 4.66,
+    accent: "#d63031",
+    characterImage: "char-07.png",
+  },
+
+  // 28. 당뇨·심장병의 진짜 원인 (148.46~150.9)
+  {
+    type: "text",
+    text: "당뇨 · 심장병의\n진짜 원인",
+    durationInSeconds: 2.44,
+    accent: "#ff7675",
+    characterImage: "char-08.png",
+  },
+
+  // 29. 유산소 > 저항: 내장지방·간지방↓ 인슐린↑ (150.9~159.48) — 비교
+  {
+    type: "compare",
+    text: "유산소 운동의 3연타",
+    compareData: {
+      left: {
+        title: "내장지방 · 간지방",
+        description: "효과적으로 감소",
+      },
+      right: {
+        title: "인슐린 감수성",
+        description: "혈당 처리 능력 상승",
+      },
+    },
+    durationInSeconds: 8.58,
     accent: "#00b894",
     characterImage: "char-09.png",
   },
 
-  // 70. 구독·좋아요·알림·하이프 (454.46~461.61)
+  // 30. 독한 지방부터 녹아내림 (159.48~163.94)
   {
     type: "text",
-    text: "구독 · 좋아요\n알림 · 하이프",
-    subtitle: "오늘도 득근하세요",
-    durationInSeconds: 7.15,
+    text: "거울엔 티가 안 나도",
+    subtitle: "가장 독한 지방부터\n조용히 녹아내린다",
+    durationInSeconds: 4.46,
+    accent: "#00cec9",
+    characterImage: "char-10.png",
+  },
+
+  // ============ 실전 처방 ============
+  // 31. 얼마나 어떻게? 수준별 정리 (163.94~167.9)
+  {
+    type: "text",
+    text: "그럼 얼마나,\n어떻게 뛸까",
+    subtitle: "수준별로 정리",
+    durationInSeconds: 3.96,
     accent: "#ffd93d",
+    characterImage: "char-01.png",
+  },
+
+  // 32. 초급: 주 2~3회, 20~30분 (167.9~174.52)
+  {
+    type: "imageStat",
+    text: "초보자 처방",
+    statValue: "주 2~3회",
+    statLabel: "하루 20~30분이면 충분",
+    durationInSeconds: 6.62,
+    accent: "#00b894",
+    characterImage: "char-02.png",
+  },
+
+  // 33. 대화 되는 속도 (174.52~179.38)
+  {
+    type: "text",
+    text: "속도의 기준",
+    subtitle: "옆 사람과 대화가 될 정도",
+    description: "숨은 살짝 차지만\n말은 끊기지 않는 페이스",
+    durationInSeconds: 4.86,
+    accent: "#74b9ff",
+    characterImage: "char-03.png",
+  },
+
+  // 34. 심박 60~70% 존 (179.38~184.48) — 스탯
+  {
+    type: "imageStat",
+    text: "지방 태우는 마법의 존",
+    statValue: "60~70%",
+    statLabel: "최대 심박수 기준 목표 구간",
+    durationInSeconds: 5.1,
+    accent: "#ffd93d",
+    characterImage: "char-04.png",
+  },
+
+  // 35. 1분 뛰고 2분 걷기, 10%룰 (184.48~190.36) — 타임라인
+  {
+    type: "timeline",
+    text: "시작 공식",
+    accent: "#6c5ce7",
+    steps: [
+      { label: "1분 달리기" },
+      { label: "2분 걷기" },
+      { label: "주간 거리 +10% 이내" },
+    ],
+    durationInSeconds: 5.88,
+    characterImage: "char-05.png",
+  },
+
+  // 36. 10%룰 = 부상 90%↓ (190.36~193.24)
+  {
+    type: "imageStat",
+    text: "10% 원칙 하나로",
+    statValue: "부상 90%",
+    statLabel: "예방할 수 있다",
+    durationInSeconds: 2.88,
+    accent: "#e17055",
+    characterImage: "char-06.png",
+  },
+
+  // 37. 중급: 주간 총량 목표 (193.24~198.42)
+  {
+    type: "text",
+    text: "중급 이상이라면",
+    subtitle: "목표는 주간 총량",
+    durationInSeconds: 5.18,
+    accent: "#4A90D9",
+    characterImage: "char-07.png",
+  },
+
+  // 38. WHO 중강도 150분 / 고강도 75분 (198.42~202.1) — 좌우 비교
+  {
+    type: "compare",
+    text: "세계보건기구 주간 권고량",
+    compareData: {
+      left: {
+        title: "중강도 150분",
+        description: "편하게 오래 뛰기",
+      },
+      right: {
+        title: "고강도 75분",
+        description: "숨찰 만큼 강하게",
+      },
+    },
+    durationInSeconds: 3.68,
+    accent: "#4A90D9",
+    characterImage: "char-08.png",
+  },
+
+  // 39. 케이던스 = 분당 발 닿는 횟수 (202.1~207.88)
+  {
+    type: "text",
+    text: "케이던스",
+    subtitle: "1분에 발이 땅에 닿는 횟수",
+    description: "고수와 초보를 가르는 핵심 지표",
+    durationInSeconds: 5.78,
+    accent: "#a29bfe",
+    characterImage: "char-09.png",
+  },
+
+  // 40. 케이던스 160~180 (207.88~213.0) — 스탯
+  {
+    type: "imageStat",
+    text: "목표 케이던스",
+    statValue: "160~180",
+    statLabel: "180은 프로 선수 평균일 뿐",
+    durationInSeconds: 5.12,
+    accent: "#00cec9",
+    characterImage: "char-10.png",
+  },
+
+  // 41. 잘게 자주 → 무릎 충격↓ 효율↑ (213.0~219.98)
+  {
+    type: "text",
+    text: "넓게 쿵쿵 대신\n잘게 자주",
+    subtitle: "무릎 충격은 줄고\n유산소 효율은 올라간다",
+    durationInSeconds: 6.98,
+    accent: "#00b894",
     characterImage: "char-01.png",
   },
 ];

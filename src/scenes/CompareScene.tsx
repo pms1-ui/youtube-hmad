@@ -60,14 +60,14 @@ const CompareCard: React.FC<{
         style={{
           opacity: boxOpacity,
           transform: `scale(${boxScale})`,
-          padding: "18px 32px",
+          padding: "22px 40px",
           borderRadius: 16,
-          border: `2px solid ${color}`,
-          backgroundColor: "transparent",
-          boxShadow: `0 0 ${20 * glowPulse}px ${color}30`,
+          border: "none",
+          backgroundColor: `${color}26`,
+          boxShadow: `0 0 ${16 * glowPulse}px ${color}20`,
         }}
       >
-        <span style={{ fontSize: 44, fontWeight: 700, color: "#f0f0f0", fontFamily: "SCDream", wordBreak: "keep-all" as const }}>
+        <span style={{ fontSize: 44, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream", wordBreak: "keep-all" as const }}>
           {title}
         </span>
       </div>
@@ -123,12 +123,12 @@ export const CompareScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           padding: isVertical ? "20px 40px" : 60,
         }}
       >
-        <div style={{ opacity: titleOpacity, transform: `scale(${titleScale})`, fontSize: 62, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream", textAlign: "center", marginBottom: 50, wordBreak: "keep-all" as const }}>
+        <div style={{ opacity: titleOpacity, transform: `scale(${titleScale})`, fontSize: 72, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream", textAlign: "center", marginBottom: 50, wordBreak: "keep-all" as const }}>
           {scene.text}
         </div>
 
         {scene.description && (
-          <div style={{ opacity: interpolate(frame, [12, 24], [0, 1], { extrapolateRight: "clamp" }), fontSize: 32, fontWeight: 500, color: "#999", fontFamily: "SCDream", textAlign: "center", marginBottom: 40, wordBreak: "keep-all" as const }}>
+          <div style={{ opacity: interpolate(frame, [12, 24], [0, 1], { extrapolateRight: "clamp" }), fontSize: 34, fontWeight: 500, color: "#8a8f98", fontFamily: "SCDream", textAlign: "center", marginBottom: 40, wordBreak: "keep-all" as const }}>
             {scene.description}
           </div>
         )}

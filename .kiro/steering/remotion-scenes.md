@@ -56,10 +56,10 @@ fileMatchPattern: 'src/**'
 - `beforeAfterChart`: **개수·수치 전/후 비교 전용.** `beforeAfterData: {label,before,after}[]` + `unit`(예: "회"). 항목별로 before(회색)/after(accent) 두 막대를 그룹으로 묶고, 막대 위 실제 값(unit 포함), 그룹 상단에 증가배수(▲2.6배, 2배 미만이면 +%) 자동 표기. `%` 안 붙음.
 - `donutChart`: `donutData: {label,value,color}[]`. 세그먼트 순차 그리기.
 - `lineGraph`: `lineData: {label,value}[]`. 선이 좌→우.
-- `highlight`: 강조 메시지 + bulletValues 있으면 원형 프로그레스, 없으면 카드 그리드.
-- `compare`: 좌우 비교. 타이틀=accent 테두리 박스, 설명=테두리 없는 순수 텍스트(화살표 연결).
+- `highlight`: 강조 메시지 + bulletValues 있으면 원형 프로그레스, 없으면 **카드 세로 1열 스택**(가로 wrap 금지). 카드=accent 옅은 채움 + 왼쪽 accent 바 + accent로 채운 번호 배지.
+- `compare`: 좌우 비교. 타이틀=**accent 옅은 채움 박스(테두리 아웃라인 금지)**, 설명=테두리 없는 순수 텍스트(화살표 연결).
 - `timeline`: 시간순 단계, 연결선과 함께 순차 등장.
-- `imageStat`: 이미지 + 큰 수치 1개 강조. `statValue`(큰 숫자) + `statLabel`(하단 설명) + `text`(상단 라벨). 이미지=`sceneImage` 우선, 없으면 `characterImage` fallback. 중앙 정렬.
+- `imageStat`: 이미지 + 큰 수치 1개 강조. `text`(accent 소형 캡션/eyebrow) → `statValue`(**흰색 대형 수치, 히어로**) → 짧은 accent 구분선 → `statLabel`(하단 설명). 세 요소를 하나의 덩어리로 묶어 배치. 이미지=`sceneImage` 우선, 없으면 `characterImage` fallback. 중앙 정렬. **`statValue`는 짧은 수치 전용**(16살/+3년/60~70% 등) — 긴 문장 넣으면 220px에서 깨짐, 문장은 `text` 타입으로.
 - `imageText`: 이미지 + 짧은 텍스트(title/subtitle/description)를 화면 중앙에 나란히(가로형)/위아래(세로형). 이미지=`sceneImage`→`characterImage` fallback.
 - `imageShowcase`: 이미지가 주인공. 이미지+캡션(text/subtitle)을 화면 정중앙 세로 스택. `sceneImage` 사용.
 
@@ -79,13 +79,20 @@ fileMatchPattern: 'src/**'
 - **캐릭터 없는 장면**: 중앙 정렬(텍스트 화면 전체 사용).
 - **겹침 방지 필수**: 콘텐츠(`right:23%` 영역 내) ↔ 캐릭터 절대 겹치지 않음. 콘텐츠 컨테이너에 `maxWidth:100%`, `overflow:hidden`.
 
+### 카드 디자인 (통일 필수)
+- **빈 테두리 박스 금지.** 카드는 항상 **accent 옅은 채움**(`${accent}1f`~`${accent}26`, 알파 12~15%) + 필요 시 **왼쪽 accent 바**(width 8px). 테두리 아웃라인(`border: 2px solid`)만 있고 안이 투명한 형태는 허전하고 촌스러움 → 금지.
+- **항목이 여러 개면 세로 1열 스택**(`flexDirection: column`, `width: 100%`). 가로 `flexWrap: wrap` 금지 — "가로 4개인데 폭 때문에 3개 뜨고 1개 다음 줄로 넘어가는" 어색한 배치 방지. 카드 폭은 컨테이너에 맞춰 통일(좌우 정렬선 일치).
+- 번호 배지: 떠 있는 테두리 동그라미 대신 **accent로 꽉 채운 원 + 흰 숫자**.
+- compare 좌우 타이틀 박스도 채움 방식(테두리 아웃라인 금지). compare 설명 텍스트는 여전히 박스/테두리 없음.
+
 ### 장면 전환
 - **TransitionOverlay(페이드) 사용 안 함** — 롱폼/숏폼 모두 즉시 전환.
 
 ### 폰트 (SCDream, 에스코어 드림)
 - 파일: `public/fonts/SCDream5.otf`(Medium), `SCDream7.otf`(ExtraBold). Root.tsx에서 `@font-face` + `staticFile()` 등록.
 - 굵은 텍스트(메인 타이틀/subtitle): `fontWeight:700`. 일반(description/범례/카드설명): `fontWeight:500`.
-- 크기: 메인 타이틀(text) 96px / 메인 타이틀(chart·highlight) 58~70px / subtitle 64px / description 32~36px / 카드 라벨 44px / 카드 부연 26px / 차트 범례·라벨 36~38px.
+- 크기: 메인 타이틀(text) 96px / **메인 타이틀(chart·highlight·compare·progressCards·timeline) 72px 통일** / subtitle 64px / description 34px / 카드 라벨 44~54px / 카드 부연 26~34px / 차트 범례·라벨 36~38px.
+- **★ 색 통일: 모든 서브텍스트·description·카드 부연·차트 설명은 회색 `#8a8f98` 하나로 통일**(예전 #888/#999/#ccc/#cccccc 혼용 금지). TextScene subtitle만 accent 유지(의도적 강조).
 
 ### description 줄바꿈
 - 2가지 이상 정보는 반드시 `\n`으로 분리. `|`나 `,`로 이어붙이지 않음. 모든 description에 `whiteSpace:"pre-line"`.
@@ -106,6 +113,7 @@ fileMatchPattern: 'src/**'
 
 ### 사용 금지
 - 별/우주/그라데이션 배경, 상단 뱃지/태그, 반복 아이콘, 장식용 소형 텍스트, 근거 없는 수치, 정적 장면, compare 설명 영역 테두리/박스/배경.
+- **빈 테두리 카드(테두리만 있고 안 투명), 카드 가로 wrap 배치, 배경 radial-gradient 글로우** — 전부 금지.
 
 ## 최소 폰트 사이즈 (절대 기준)
 | 요소 | 최소 | 권장 |
@@ -128,7 +136,7 @@ fileMatchPattern: 'src/**'
 
 ## 숏폼 레이아웃 자동 최적화
 - `const isVertical = width < 1200;` (useVideoConfig의 width)로 감지.
-- BarChart: 숏폼 시 차트 너비 700px로 축소(좌우 여백). Highlight: 숏폼 시 그리드 1열(`1fr`) 강제.
+- BarChart: 숏폼 시 차트 너비 700px로 축소(좌우 여백). Highlight: 롱폼·숏폼 모두 카드 세로 1열 스택(가로 wrap 없음).
 - 롱폼(1920px)은 기존 레이아웃 유지, 숏폼(1080px)에서만 적용.
 
 ## Remotion 시퀀스 채번

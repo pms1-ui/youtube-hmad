@@ -92,12 +92,13 @@ export const ImageStatScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             style={{
               opacity: labelOpacity,
               transform: `translateY(${labelSlide}px)`,
-              fontSize: isVertical ? 60 : 50,
+              fontSize: isVertical ? 60 : 54,
               fontWeight: 700,
-              color: "#ffffff",
+              color: accent,
               fontFamily: "SCDream",
-              marginBottom: 10,
-              lineHeight: 1.3,
+              marginBottom: isVertical ? 6 : 4,
+              lineHeight: 1.25,
+              letterSpacing: 0.5,
               whiteSpace: "pre-line",
               wordBreak: "keep-all" as const,
             }}
@@ -113,7 +114,7 @@ export const ImageStatScene: React.FC<{ scene: Scene }> = ({ scene }) => {
               transform: `scale(${statScale})`,
               fontSize: isVertical ? 200 : 220,
               fontWeight: 700,
-              color: accent,
+              color: "#ffffff",
               fontFamily: "SCDream",
               lineHeight: 1,
             }}
@@ -123,22 +124,34 @@ export const ImageStatScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         )}
 
         {scene.statLabel && (
-          <div
-            style={{
-              opacity: labelOpacity,
-              transform: `translateY(${labelSlide}px)`,
-              marginTop: 16,
-              fontSize: isVertical ? 52 : 42,
-              fontWeight: 500,
-              color: "#cccccc",
-              fontFamily: "SCDream",
-              lineHeight: 1.4,
-              whiteSpace: "pre-line",
-              wordBreak: "keep-all" as const,
-            }}
-          >
-            {scene.statLabel}
-          </div>
+          <>
+            {/* accent 구분선 — statValue와 statLabel을 하나로 묶음 */}
+            <div
+              style={{
+                opacity: labelOpacity,
+                width: interpolate(frame, [labelDelay, labelDelay + 16], [0, 120], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+                height: 5,
+                borderRadius: 3,
+                backgroundColor: accent,
+                margin: `${isVertical ? 20 : 18}px 0 ${isVertical ? 16 : 14}px`,
+              }}
+            />
+            <div
+              style={{
+                opacity: labelOpacity,
+                transform: `translateY(${labelSlide}px)`,
+                fontSize: isVertical ? 52 : 42,
+                fontWeight: 500,
+                color: "#cfd2d8",
+                fontFamily: "SCDream",
+                lineHeight: 1.4,
+                whiteSpace: "pre-line",
+                wordBreak: "keep-all" as const,
+              }}
+            >
+              {scene.statLabel}
+            </div>
+          </>
         )}
       </div>
     </AbsoluteFill>

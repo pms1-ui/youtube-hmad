@@ -75,7 +75,7 @@ export const TimelineScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           style={{
             opacity: titleOpacity,
             transform: `scale(${titleScale})`,
-            fontSize: isVertical ? 90 : 58,
+            fontSize: isVertical ? 90 : 72,
             fontWeight: 700,
             color: "#ffffff",
             fontFamily: "SCDream",
@@ -275,7 +275,7 @@ const TimelineNode: React.FC<{
             style={{
               fontSize: 36,
               fontWeight: 500,
-              color: "#888888",
+              color: "#8a8f98",
               fontFamily: "SCDream",
               textAlign: "center",
               maxWidth: 140,

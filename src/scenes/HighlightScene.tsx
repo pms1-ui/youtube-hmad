@@ -14,10 +14,11 @@ const KeywordCard: React.FC<{
   label: string;
   desc?: string;
   index: number;
+  accent: string;
   frame: number;
   fps: number;
   delay: number;
-}> = ({ label, desc, index, frame, fps, delay }) => {
+}> = ({ label, desc, index, accent, frame, fps, delay }) => {
   const cardScale = spring({
     frame: Math.max(0, frame - delay),
     fps,
@@ -26,41 +27,46 @@ const KeywordCard: React.FC<{
   const cardOpacity = interpolate(frame, [delay, delay + 10], [0, 1], {
     extrapolateRight: "clamp",
   });
-  const slideX = interpolate(frame, [delay, delay + 18], [-50, 0], {
+  const slideX = interpolate(frame, [delay, delay + 18], [-40, 0], {
     extrapolateRight: "clamp",
   });
-
-  // 글로우 활성화
-  const glowActive = interpolate(frame, [delay + 12, delay + 22], [0, 1], {
-    extrapolateRight: "clamp",
-  });
-
-  const borderColor = `rgba(108, 92, 231, ${0.3 + glowActive * 0.4})`;
-  const shadowColor = `rgba(108, 92, 231, ${glowActive * 0.3})`;
 
   return (
     <div
       style={{
         opacity: cardOpacity,
         transform: `scale(${cardScale}) translateX(${slideX}px)`,
+        position: "relative",
         display: "flex",
         alignItems: "center",
-        gap: 18,
-        padding: "18px 32px",
+        gap: 24,
+        padding: "22px 36px",
         borderRadius: 16,
-        border: `2px solid ${borderColor}`,
-        backgroundColor: "transparent",
-        boxShadow: glowActive > 0.5 ? `0 0 20px ${shadowColor}` : "none",
-        minWidth: 240,
+        border: "none",
+        backgroundColor: `${accent}1f`,
+        overflow: "hidden",
+        width: "100%",
       }}
     >
-      {/* 인덱스 */}
+      {/* 왼쪽 accent 바 */}
       <div
         style={{
-          width: 36,
-          height: 36,
+          position: "absolute",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 8,
+          backgroundColor: accent,
+        }}
+      />
+
+      {/* 인덱스 badge — accent 채움 */}
+      <div
+        style={{
+          width: 44,
+          height: 44,
           borderRadius: "50%",
-          border: "2px solid rgba(108, 92, 231, 0.5)",
+          backgroundColor: accent,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -69,9 +75,9 @@ const KeywordCard: React.FC<{
       >
         <span
           style={{
-            fontSize: 20,
+            fontSize: 24,
             fontWeight: 900,
-            color: "#6c5ce7",
+            color: "#ffffff",
             fontFamily: "SCDream",
           }}
         >
@@ -97,7 +103,7 @@ const KeywordCard: React.FC<{
             style={{
               fontSize: 34,
               fontWeight: 500,
-              color: "#888888",
+              color: "#8a8f98",
               fontFamily: "SCDream",
               wordBreak: "keep-all" as const,
             }}
@@ -157,24 +163,12 @@ export const HighlightScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           padding: 80,
         }}
       >
-      {/* 배경 글로우 */}
-      <div
-        style={{
-          position: "absolute",
-          width: 1200,
-          height: 600,
-          borderRadius: 300,
-          opacity: interpolate(frame % 100, [0, 50, 100], [0.15, 0.4, 0.15]),
-          background: `radial-gradient(ellipse, ${accent}0c 0%, transparent 60%)`,
-        }}
-      />
-
       {/* 메인 텍스트 */}
       <div
         style={{
           opacity: titleOpacity,
           transform: `scale(${titleScale})`,
-          fontSize: isVertical ? 110 : 70,
+          fontSize: isVertical ? 110 : 72,
           fontWeight: 700,
           color: "#ffffff",
           fontFamily: "SCDream",
@@ -196,7 +190,7 @@ export const HighlightScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             opacity: interpolate(frame, [18, 32], [0, 1], { extrapolateRight: "clamp" }),
             fontSize: isVertical ? 52 : 34,
             fontWeight: 500,
-            color: "#888888",
+            color: "#8a8f98",
             fontFamily: "SCDream",
             textAlign: "center",
             marginBottom: 45,
@@ -209,17 +203,17 @@ export const HighlightScene: React.FC<{ scene: Scene }> = ({ scene }) => {
       )}
       {!scene.description && <div style={{ marginBottom: 45 }} />}
 
-      {/* 키워드 카드 — flexbox 중앙 정렬, 자동 줄바꿈 */}
+      {/* 키워드 카드 — 세로 1열 스택, 카드 폭 통일 */}
       {bullets.length > 0 && !hasValues && (
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "stretch",
-            gap: 18,
-            maxWidth: hasChar ? "100%" : 1300,
-            overflow: "hidden",
+            gap: 16,
+            width: "100%",
+            maxWidth: hasChar ? 760 : 820,
           }}
         >
           {bullets.map((bullet, i) => (
@@ -228,6 +222,7 @@ export const HighlightScene: React.FC<{ scene: Scene }> = ({ scene }) => {
               label={bullet}
               desc={bulletDescs[i]}
               index={i}
+              accent={accent}
               frame={frame}
               fps={fps}
               delay={30 + i * 14}

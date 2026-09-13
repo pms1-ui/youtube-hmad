@@ -8,10 +8,10 @@ inclusion: always
 주제별 상세 지침은 별도 스티어링으로 분리되어 있다 (이 파일 하단 "지침 지도" 참조).
 
 ## ★ 워크스페이스 / 실행 위치 규칙 (필수)
-- **워크스페이스 루트 = `d:\kiro\youtube\youtube-remotion`** (2026-09 구조 평탄화 완료). 이 폴더 자체가 Remotion 프로젝트 실체(package.json, src, node_modules, tsconfig)이자 git 저장소 루트이며 `.kiro`(스티어링·MCP)도 여기 있다.
+- **워크스페이스 루트 = `d:\kiro\youtube`** (구조 평탄화 완료). 이 폴더 자체가 Remotion 프로젝트 실체(package.json, src, node_modules, tsconfig)이자 git 저장소 루트이며 `.kiro`(스티어링·MCP)도 여기 있다.
   - 파일 편집·스크립트 작성: `src\...`, `script\...` 처럼 **루트 기준 상대경로**로 접근.
-  - npm / remotion / 이미지 생성 / git 등 **명령은 워크스페이스 루트에서 바로 실행**한다. 별도 `cwd` 지정 불필요(기본값이 이미 이 폴더). package.json·.git 모두 여기 있다.
-- ⚠️ 과거엔 `youtube/youtube-remotion` 2단 중첩이었으나 지금은 `youtube-remotion` 단독 루트다. 옛 경로(`d:\kiro\youtube\youtube-remotion\...` 접두어, "cwd를 youtube-remotion으로 지정")를 쓰지 말 것.
+  - npm / remotion / 이미지 생성 / git 등 **명령은 워크스페이스 루트(`d:\kiro\youtube`)에서 바로 실행**한다. 별도 `cwd` 지정 불필요(기본값이 이미 이 폴더). package.json·.git 모두 여기 있다.
+- ⚠️ 과거엔 `youtube/youtube-remotion` 2단 중첩이었으나 지금은 `d:\kiro\youtube`가 단독 루트다. `youtube-remotion` 하위 폴더는 더 이상 없다. 옛 경로(`youtube-remotion\...` 접두어, "cwd를 youtube-remotion으로 지정")를 쓰지 말 것.
 
 ## ★ 포맷 확인 규칙 (필수)
 - 사용자가 영상/스크립트 제작을 요청할 때 **롱폼/숏폼을 명시하지 않으면 반드시 물어볼 것**
@@ -40,7 +40,7 @@ npx remotion render src/index.ts <HealthVideo|ShortVideo> out/<longform|shortfor
 - **★ `--concurrency=8` 항상 포함** (멀티코어 병렬 렌더).
 - **장기 렌더는 백그라운드 프로세스로 실행**하고 출력만 폴링한다. (일반 명령으로 돌리면 타임아웃)
 
-## ★ 폴더 구조 및 용도 (워크스페이스 루트 = `youtube-remotion/`)
+## ★ 폴더 구조 및 용도 (워크스페이스 루트 = `d:\kiro\youtube`)
 
 ```
 (워크스페이스 루트)

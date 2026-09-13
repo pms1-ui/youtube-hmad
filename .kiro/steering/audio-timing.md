@@ -80,7 +80,7 @@ output.export("audio/result/파일명_trimmed.mp3", format="mp3", bitrate="320k"
 ```
 npx remotion render src/index.ts HealthVideo out/longform/파일명.mov --codec=prores --prores-profile=4444 --image-format=png --pixel-format=yuva444p10le --concurrency=8
 ```
-- 명령은 워크스페이스 루트(`d:\kiro\youtube\youtube-remotion`)에서 바로 실행. 장기 렌더는 백그라운드 프로세스로.
+- 명령은 워크스페이스 루트(`d:\kiro\youtube`)에서 바로 실행. 장기 렌더는 백그라운드 프로세스로.
 - 렌더 후 출력 경로(`out/longform/...mov`)만 안내한다.
 
 ### 왜 완성본(오디오 포함)까지 안 뽑나 (결정)

@@ -60,7 +60,7 @@ export const BarChartScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         <div
           style={{
             opacity: titleOpacity,
-            fontSize: isVertical ? 100 : 58,
+            fontSize: isVertical ? 100 : 72,
             fontWeight: 700,
             color: "#ffffff",
             fontFamily: "SCDream",
@@ -74,7 +74,7 @@ export const BarChartScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         </div>
 
         {scene.description && (
-          <div style={{ opacity: interpolate(frame, [12, 24], [0, 1], { extrapolateRight: "clamp" }), fontSize: isVertical ? 52 : 32, color: "#999", fontFamily: "SCDream", textAlign: "center", marginBottom: isVertical ? 20 : 30, wordBreak: "keep-all" as const, whiteSpace: "pre-line" as const }}>
+          <div style={{ opacity: interpolate(frame, [12, 24], [0, 1], { extrapolateRight: "clamp" }), fontSize: isVertical ? 52 : 34, fontWeight: 500, color: "#8a8f98", fontFamily: "SCDream", textAlign: "center", marginBottom: isVertical ? 20 : 30, wordBreak: "keep-all" as const, whiteSpace: "pre-line" as const }}>
             {scene.description}
           </div>
         )}

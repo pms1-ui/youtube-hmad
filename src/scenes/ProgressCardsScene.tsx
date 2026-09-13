@@ -56,13 +56,27 @@ const ProgressCard: React.FC<{
         display: "flex",
         flexDirection: "column",
         gap: 10,
-        padding: "20px 28px",
+        position: "relative",
+        padding: "22px 32px",
         borderRadius: 16,
-        border: `1px solid ${color}30`,
-        backgroundColor: `${color}08`,
+        border: "none",
+        backgroundColor: `${color}1f`,
+        overflow: "hidden",
         minWidth: 420,
       }}
     >
+      {/* 왼쪽 accent 바 */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 8,
+          backgroundColor: color,
+        }}
+      />
+
       {/* 상단: 라벨 + 수치 */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span
@@ -117,7 +131,7 @@ const ProgressCard: React.FC<{
           style={{
             fontSize: 26,
             fontWeight: 500,
-            color: "#888",
+            color: "#8a8f98",
             fontFamily: "SCDream",
             wordBreak: "keep-all" as const,
           }}
@@ -178,7 +192,7 @@ export const ProgressCardsScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           style={{
             opacity: titleOpacity,
             transform: `scale(${titleScale})`,
-            fontSize: isVertical ? 100 : 62,
+            fontSize: isVertical ? 100 : 72,
             fontWeight: 700,
             color: "#ffffff",
             fontFamily: "SCDream",
@@ -195,9 +209,9 @@ export const ProgressCardsScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           <div
             style={{
               opacity: interpolate(frame, [15, 28], [0, 1], { extrapolateRight: "clamp" }),
-              fontSize: 32,
+              fontSize: 34,
               fontWeight: 500,
-              color: "#888",
+              color: "#8a8f98",
               fontFamily: "SCDream",
               textAlign: "center",
               marginBottom: 40,

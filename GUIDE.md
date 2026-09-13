@@ -20,7 +20,7 @@ Remotion 기반 스크립트→영상 자동 생성 시스템. 스크립트를 �
 ## 빠른 참조
 
 ### 실행 위치 (필수)
-- 모든 npm/remotion 명령은 `cwd = d:\kiro\youtube\youtube-remotion`. (루트에서 실행하면 package.json 없어 실패)
+- 모든 npm/remotion 명령은 워크스페이스 루트 `d:\kiro\youtube`에서 바로 실행. (별도 cwd 지정 불필요 — package.json·.git 모두 여기 있음)
 
 ### 롱폼 렌더 (16:9, HealthVideo)
 ```
