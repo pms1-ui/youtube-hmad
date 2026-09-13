@@ -40,6 +40,16 @@ export const ImageStatScene: React.FC<{ scene: Scene }> = ({ scene }) => {
   // sceneImage 우선, 없으면 characterImage로 대체
   const imageSrc = scene.sceneImage || scene.characterImage;
 
+  // statValue 길이에 따라 폰트 크기 자동 조절 (긴 문장은 줄바꿈 폭주 방지)
+  // 공백 제거한 글자 수 기준. 짧은 수치는 크게, 길면 작게.
+  const statLen = (scene.statValue || "").replace(/\s/g, "").length;
+  const baseStat = isVertical ? 200 : 220;
+  let statFontSize = baseStat;
+  if (statLen >= 9) statFontSize = isVertical ? 96 : 104;
+  else if (statLen >= 7) statFontSize = isVertical ? 116 : 128;
+  else if (statLen >= 5) statFontSize = isVertical ? 150 : 168;
+  else if (statLen >= 4) statFontSize = isVertical ? 176 : 196;
+
   return (
     <AbsoluteFill
       style={{
@@ -112,11 +122,13 @@ export const ImageStatScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             style={{
               opacity: statOpacity,
               transform: `scale(${statScale})`,
-              fontSize: isVertical ? 200 : 220,
+              fontSize: statFontSize,
               fontWeight: 700,
               color: "#ffffff",
               fontFamily: "SCDream",
-              lineHeight: 1,
+              lineHeight: 1.1,
+              whiteSpace: "pre-line",
+              wordBreak: "keep-all" as const,
             }}
           >
             {scene.statValue}
