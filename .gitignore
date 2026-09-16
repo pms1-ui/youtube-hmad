@@ -2,6 +2,8 @@
 node_modules/
 out/
 dist/
+# 자막 생성용 파이썬 격리 환경 (재생성 가능)
+.venv-subtitle/
 
 # === 비밀키 ===
 .env
@@ -39,3 +41,5 @@ _*.py
 *_raw.b64
 *_tmp*
 public/_raw/
+__pycache__/
+*.pyc
