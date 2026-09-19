@@ -21,8 +21,11 @@ video_before/
 # 생성 캐릭터 이미지 (재생성 가능한 대용량 PNG)
 public/*.png
 public/image_2026/
+public/images/
 public/mix/
 !public/.gitkeep
+# Type B 힉스필드용 통짜 장면 이미지 (재생성 가능, 대용량)
+img/higgsfield_src/
 
 # 확장자 기반 미디어 제외 (어디든)
 *.mp4

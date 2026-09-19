@@ -133,7 +133,7 @@ export const CompareScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           </div>
         )}
 
-        <div style={{ display: "flex", gap: 80, justifyContent: "center", alignItems: "flex-start" }}>
+        <div style={{ display: "flex", gap: isVertical ? 36 : 80, justifyContent: "center", alignItems: "flex-start" }}>
           <CompareCard title={left.title} description={left.description} color={accent} frame={frame} fps={fps} delay={isVertical ? 5 : 15} side="left" />
           <CompareCard title={right.title} description={right.description} color={accent} frame={frame} fps={fps} delay={isVertical ? 15 : 45} side="right" />
         </div>

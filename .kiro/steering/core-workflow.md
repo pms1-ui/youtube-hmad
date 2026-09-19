@@ -18,6 +18,23 @@ inclusion: always
 - "롱폼 (16:9 유튜브 본영상)인가요, 숏폼 (9:16 쇼츠/릴스)인가요?"
 - 명시된 경우 바로 진행.
 
+## ★ 캐릭터/이미지 작업 타입 구분 규칙 (필수)
+"캐릭터 만들어줘 / 이미지 만들어줘" 류 요청은 목적이 전혀 다른 **두 타입**이 있다.
+요청이 어느 쪽인지 **명확하지 않으면 반드시 "Type A예요, Type B예요?" 물어본 뒤** 진행한다. 절대 임의로 넘겨짚지 말 것.
+
+| 구분 | **Type A — Remotion 캐릭터 컷** | **Type B — 힉스필드 통짜 장면** |
+|------|--------------------------------|--------------------------------|
+| 스티어링 | `character-images.md` | `higgsfield-image-video.md` |
+| 목적 | 롱폼 영상에 **오버레이**할 캐릭터 포즈 컷 | 캐릭터+배경+오브젝트 통짜 장면을 **힉스필드로 영상화** |
+| 배경 | 흰/검정 단색 → **rembg 투명화(PNG)** | **배경 유지(투명화 X)**, 현대 한국 배경 |
+| 이미지 모델 | gpt-image-2 (`/edits`, character-v2 참조) | gpt-image-2 (`/edits`, character-v2 참조) — 동일 |
+| 해상도 | 1024×1536 (세로 캐릭터) | 롱폼 1536×1024 / 숏폼 1024×1536 |
+| 저장 | `public/char-01~10.png` | `img/higgsfield_src/{longform,shortform}/` |
+| 후속 | Remotion이 화면에 얹음 (`characterImage` 필드) | grok_video_v15로 영상화 → `video_output/higgsfield/` |
+
+- **판별 힌트**: "투명/rembg/char-0N/오버레이/script.ts에 넣을" → **Type A**. "힉스필드/영상으로 살려/배경 있는/통짜/한국 배경/움직이는" → **Type B**.
+- 둘 다 gpt-image-2 + character-v2 참조를 쓰므로 "캐릭터 이미지 만들어줘"만으로는 **구분 불가 → 반드시 질문**.
+
 ## 영상 포맷 요약
 
 ### 롱폼 (16:9) — 유튜브 본 영상
@@ -91,7 +108,11 @@ npx remotion render src/index.ts <HealthVideo|ShortVideo> out/<longform|shortfor
 - **`npx tsc --noEmit`는 출력 버퍼링으로 타임아웃처럼 보일 수 있음** → 끝에 `; Write-Output "EXIT=$LASTEXITCODE"` 붙여 **종료코드로 성공 판단**.
 - **git push의 stderr가 PowerShell에서 빨간 글씨로 뜨는 건 정상** → `aaaa..bbbb  main -> main` 라인으로 성공 확인.
 - **PowerShell 한글**: 파일 읽기 `[System.IO.File]::ReadAllText($f,[System.Text.Encoding]::UTF8)`, 콘솔 `chcp 65001`.
+- **`.ps1` 파일은 전부 ASCII로 작성** — 한글 주석/변수가 있으면 `powershell -File` 실행 시 인코딩 오독으로 엉뚱한 라인에서 `" 종결자 없음` 파싱 에러. prefix 등은 영문으로.
+- **`Start-Job` 블록은 홈 디렉토리에서 실행됨** → 잡에 넘기는 경로는 반드시 절대경로(`$root=(Get-Location).Path` 후 `"$root/..."`). 상대경로 쓰면 결과 파일이 엉뚱한 곳/0개.
+- **긴 프롬프트/특수문자는 .ps1 인라인 금지** → 별도 txt(한 줄=한 항목) 저장 후 `Get-Content`로 읽기(이스케이프 지옥 회피).
 - **faster-whisper 등: sandbox_exec 환경과 로컬 파이썬은 별개.** 로컬 전사/렌더는 로컬에 직접 설치 필요.
+- **힉스필드 MCP 400 에러**(`input_schema does not support anyOf/oneOf/allOf at the top level`): `url` 직접연결이 원인. 해결책은 `tools/mcp-sanitize-proxy.mjs` 경유(mcp.json에서 `command:node` + 프록시). 상세는 `higgsfield-image-video.md`. **검증 완료·재발 시 그 문서 참조.**
 
 ## 지침 지도 (주제별 상세 스티어링)
 | 상황 | 참조 스티어링 | 자동 로드 조건 |
@@ -100,7 +121,8 @@ npx remotion render src/index.ts <HealthVideo|ShortVideo> out/<longform|shortfor
 | Remotion 장면/디자인 구현 | `remotion-scenes.md` | `src/**` 편집 시 |
 | 캐릭터 이미지 생성 | `character-images.md` | 수동(#) |
 | 오디오 트림·전사·타이밍 | `audio-timing.md` | 수동(#) |
-| Higgsfield 영상 제작 | `higgsfield-video-workflow.md` | 수동(#) |
+| Higgsfield 영상 제작 (레퍼런스+seedance) | `higgsfield-video-workflow.md` | 수동(#) |
+| 통짜 장면 이미지→Higgsfield 영상화 (신규) | `higgsfield-image-video.md` | 수동(#) |
 | 영상 믹스(컷 섞기) | `video-mix.md` | 수동(#) |
 
 > 전체 개요는 워크스페이스 루트의 `GUIDE.md` (인덱스). 상세 규칙은 위 각 스티어링에 있다.

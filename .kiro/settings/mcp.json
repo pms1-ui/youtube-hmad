@@ -20,6 +20,14 @@
       "autoApprove": [
         "remotion-documentation"
       ]
+    },
+    "higgsfield": {
+      "command": "node",
+      "args": [
+        "d:\\kiro\\youtube\\tools\\mcp-sanitize-proxy.mjs",
+        "https://mcp.higgsfield.ai/mcp"
+      ],
+      "disabled": false
     }
   }
 }

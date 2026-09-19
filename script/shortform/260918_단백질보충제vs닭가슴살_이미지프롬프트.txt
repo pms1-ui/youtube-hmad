@@ -1,0 +1,129 @@
+====================================================================
+헬마드 숏폼 이미지 생성 프롬프트 — [04] 단백질 보충제 vs 닭가슴살
+문장 단위 12장면 / 9:16 세로 / 일관된 캐릭터(HMAD 실버 바디빌더)
+생성: OpenAI gpt-image-2, /v1/images/edits, size 1024x1536, quality high
+       참조 이미지 public/character-v2.png 를 image[]로 항상 함께 전송(외형 일관성 필수)
+       생성 후 rembg로 배경 제거(투명 PNG) → public/ 저장
+====================================================================
+
+────────────────────────────────────────────────────────────
+■ 공통 스타일 프리픽스 (모든 프롬프트 맨 앞에 그대로 붙일 것)
+────────────────────────────────────────────────────────────
+Same character as reference image exactly: silver metallic muscular bodybuilder
+with smooth featureless silver face without eyes nose or mouth, HMAD black cap,
+shirtless, black shorts, white sneakers. Consistent identical character across
+all scenes. Vertical 9:16 composition, solid pure white background, dramatic
+studio lighting, ultra high quality, 8K detail, photorealistic metallic texture.
+All limbs visible within frame, compact pose, nothing cut off at edges.
+
+※ 아래 각 장면 프롬프트 = [공통 프리픽스] + [장면별 지시]. 소품(닭가슴살/단백질 셰이커 등)은
+   손에 들거나 옆에 배치. 캐릭터 외형·재질·캡은 12장면 내내 동일하게 유지.
+※ 소품도 동일 톤(은색·무광 화이트 스튜디오)로 통일해 이질감 없게.
+
+
+────────────────────────────────────────────────────────────
+[1] "닭가슴살이 단백질 보충제보다 근육에 좋다, 다들 믿으시죠." (후킹·통념)
+────────────────────────────────────────────────────────────
+Pose: standing confidently, holding a grilled chicken breast in one hand and a
+white protein shaker bottle in the other, presenting both toward camera as if
+comparing them, head slightly tilted with curious posing. Upper body shot from
+waist up. Both objects clearly visible and evenly lit.
+
+
+────────────────────────────────────────────────────────────
+[2] "그렇게 매일 억지로 닭가슴살 씹는 분들, 잠깐 멈춰보셔야 됩니다." (경고·멈춤)
+────────────────────────────────────────────────────────────
+Pose: one palm raised forward in a clear "stop" gesture, other hand holding a
+plastic container of plain chicken breast, slightly weary expression conveyed
+through body language, upper body shot from waist up.
+
+
+────────────────────────────────────────────────────────────
+[3] "보충제 가루를 꺼리는 이유가 두 갠데, 둘 다 반대거든요." (전환·예고)
+────────────────────────────────────────────────────────────
+Pose: holding up two fingers to camera clearly indicating the number two,
+confident teaching stance, other hand on hip, upper body shot from waist up.
+
+
+────────────────────────────────────────────────────────────
+[4] "첫째, 가루는 혈당을 확 올린다? 오히려 낮춥니다." (통념깨기 1)
+────────────────────────────────────────────────────────────
+Pose: holding a white protein shaker bottle, other hand making a downward
+gesture indicating lowering, subtle confident head shake as if debunking a myth,
+upper body shot from waist up.
+
+
+────────────────────────────────────────────────────────────
+[5] "2023년 국제영양학회지 대규모 분석에서, 밥 전에 단백질 가루를 먼저 먹으니
+    식후 최고 혈당이 뚜렷하게 떨어졌는데요." (근거·수치)
+────────────────────────────────────────────────────────────
+Pose: pointing upward with index finger as if referencing data or a chart,
+holding a protein shaker in the other hand, authoritative explaining stance,
+upper body shot from waist up. (화면 그래픽으로 하강 라인그래프 오버레이 예정 — 캐릭터는 설명 포즈만)
+
+
+────────────────────────────────────────────────────────────
+[6] "장 호르몬을 자극해 인슐린이 제때 나오게 하고, 위에서 음식 내려가는 속도를
+    늦춰 탄수화물이 천천히 흡수되기 때문입니다." (기전 설명)
+────────────────────────────────────────────────────────────
+Pose: one hand gesturing toward own stomach/core area explaining digestion,
+other hand slightly raised in explanatory motion, thoughtful analytical stance,
+upper body shot from waist up.
+
+
+────────────────────────────────────────────────────────────
+[7] "둘째, 천천히 흡수되는 닭가슴살이 근육에 더 낫다? 이것도 반대입니다." (통념깨기 2)
+────────────────────────────────────────────────────────────
+Pose: holding up two fingers on one hand, other hand holding a grilled chicken
+breast with a skeptical debunking gesture, confident myth-busting posture, upper
+body shot from waist up.
+
+
+────────────────────────────────────────────────────────────
+[8] "운동 직후엔 빨리 흡수되는 가루가 근육 신호를 거의 두 배 세게 켜거든요." (근거·수치)
+────────────────────────────────────────────────────────────
+Pose: flexing one bicep powerfully while holding a protein shaker bottle in the
+other hand, dynamic energetic stance emphasizing muscle activation, upper body
+shot from waist up. (화면 그래픽으로 2배 비교 바 오버레이 예정)
+
+
+────────────────────────────────────────────────────────────
+[9] "가격도 단백질 1그램당 가루가 더 싸고 편하죠." (가성비)
+────────────────────────────────────────────────────────────
+Pose: holding a large protein powder tub under one arm like a great deal,
+other hand giving a thumbs up, cheerful confident stance, upper body shot from
+waist up.
+
+
+────────────────────────────────────────────────────────────
+[10] "그럼 닭가슴살은 왜 먹냐. 오래 든든하고 철분 같은 영양까지 딸려오기 때문입니다." (닭가슴살 강점)
+────────────────────────────────────────────────────────────
+Pose: presenting a grilled chicken breast on an open palm toward camera as if
+highlighting its value, other hand resting on chest indicating satisfaction and
+fullness, warm approving stance, upper body shot from waist up.
+
+
+────────────────────────────────────────────────────────────
+[11] "결론은, 2019년 맞비교 연구들을 종합해도 근육량 차이는 사실상 0.
+     하루 총량만 같으면 똑같습니다." (결론)
+────────────────────────────────────────────────────────────
+Pose: holding a grilled chicken breast in one hand and a protein shaker in the
+other, arms held out at equal height like a perfectly balanced scale, confident
+concluding stance, upper body shot from waist up. Both objects level and equal.
+
+
+────────────────────────────────────────────────────────────
+[12] "편할 땐 가루, 배고플 땐 닭가슴살. 상황 따라 고르세요." (마무리 CTA)
+────────────────────────────────────────────────────────────
+Pose: both arms crossed confidently with a slight friendly nod, protein shaker
+and chicken container placed on each side, decisive final pose, full body head
+to toe with some space around, victory-like confident finish.
+
+
+────────────────────────────────────────────────────────────
+■ 참고 (렌더 연계)
+────────────────────────────────────────────────────────────
+- 세로 9:16이므로 캐릭터는 화면 중앙~하단, 상단은 자막/그래픽 여백 확보.
+- [5]·[8]은 화면에 차트(하강 라인그래프 / 2배 비교 바)를 얹을 예정 → 캐릭터는 설명·강조 포즈만.
+- 소품 일관성: 단백질 셰이커=흰색 반투명 보틀, 통=화이트 라벨 톤 / 닭가슴살=그릴 자국 있는 담백한 색.
+- 생성 후 배경 제거(rembg) → 투명 PNG로 저장, RGBA 확인.

@@ -17,6 +17,7 @@ Remotion 기반 스크립트→영상 자동 생성 시스템. 스크립트를 �
 | **오디오 트림·타이밍** | `audio-timing.md` | 수동(#) | 무음 트림, faster-whisper 전사 기반 타이밍 재배분, 결과물 확인 |
 | **자막(SRT) 자동 생성** | `subtitle.md` | 수동(#) | 오디오+대본 정렬(WhisperX)로 문장단위 SRT 생성, 프리미어 임포트/스타일 |
 | **Higgsfield 영상 제작** | `higgsfield-video-workflow.md` | 수동(#) | 레퍼런스→영상 배치 생성→다운로드→히스토리 정리 절차 |
+| **통짜 장면→Higgsfield 영상화 (신규)** | `higgsfield-image-video.md` | 수동(#) | GPT Image 2로 캐릭터+한국 배경+오브젝트 통짜 장면 생성(투명화X) → 힉스필드 통업로드 image-to-video |
 | **영상 믹스** | `video-mix.md` | 수동(#) | 컷 자동 감지, seed 셔플, ffmpeg concat 렌더 |
 
 ## 빠른 참조

@@ -11,15 +11,16 @@ import { Scene } from "../data/script";
 
 export const DonutChartScene: React.FC<{ scene: Scene }> = ({ scene }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
   const accent = scene.accent || "#00e5ff";
   const donutData = scene.donutData || [];
   const hasChar = Boolean(scene.characterImage);
+  const isVertical = width < 1200;
 
-  const titleOpacity = interpolate(frame, [5, 20], [0, 1], { extrapolateRight: "clamp" });
+  const titleOpacity = interpolate(frame, [isVertical ? 2 : 5, isVertical ? 8 : 20], [0, 1], { extrapolateRight: "clamp" });
 
-  const donutSize = 300;
-  const thickness = 32;
+  const donutSize = isVertical ? 560 : 300;
+  const thickness = isVertical ? 60 : 32;
   const radius = (donutSize - thickness) / 2;
   const circumference = 2 * Math.PI * radius;
   const cx = donutSize / 2;
@@ -46,18 +47,18 @@ export const DonutChartScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         }}
       >
         {/* 타이틀 */}
-        <div style={{ opacity: titleOpacity, fontSize: 58, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream", marginBottom: 40, textAlign: "center", lineHeight: 1.4, wordBreak: "keep-all" as const }}>
+        <div style={{ opacity: titleOpacity, fontSize: isVertical ? 84 : 58, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream", marginBottom: isVertical ? 50 : 40, textAlign: "center", lineHeight: 1.35, wordBreak: "keep-all" as const, whiteSpace: "pre-line" as const }}>
           {scene.text}
         </div>
 
         {scene.description && (
-          <div style={{ opacity: interpolate(frame, [12, 24], [0, 1], { extrapolateRight: "clamp" }), fontSize: 32, color: "#999", fontFamily: "SCDream", textAlign: "center", marginBottom: 30, wordBreak: "keep-all" as const }}>
+          <div style={{ opacity: interpolate(frame, [12, 24], [0, 1], { extrapolateRight: "clamp" }), fontSize: isVertical ? 44 : 32, color: "#8a8f98", fontFamily: "SCDream", textAlign: "center", marginBottom: isVertical ? 40 : 30, wordBreak: "keep-all" as const, whiteSpace: "pre-line" as const }}>
             {scene.description}
           </div>
         )}
 
-        {/* 도넛 + 범례 */}
-        <div style={{ display: "flex", alignItems: "center", gap: 60, justifyContent: "center" }}>
+        {/* 도넛 + 범례 — 세로면 아래로 스택 */}
+        <div style={{ display: "flex", flexDirection: isVertical ? "column" : "row", alignItems: "center", gap: isVertical ? 44 : 60, justifyContent: "center" }}>
           {/* SVG 도넛 */}
           <div style={{ position: "relative", width: donutSize, height: donutSize }}>
             <svg width={donutSize} height={donutSize} style={{ overflow: "visible" }}>
@@ -77,21 +78,21 @@ export const DonutChartScene: React.FC<{ scene: Scene }> = ({ scene }) => {
               })}
             </svg>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-              <div style={{ fontSize: 58, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream" }}>{donutData[0]?.value}%</div>
+              <div style={{ fontSize: isVertical ? 110 : 58, fontWeight: 700, color: "#ffffff", fontFamily: "SCDream" }}>{donutData[0]?.value}%</div>
             </div>
           </div>
 
           {/* 범례 */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isVertical ? 26 : 20 }}>
             {donutData.map((item, i) => {
               const delay = 40 + i * 10;
               const legendOpacity = interpolate(frame, [delay, delay + 15], [0, 1], { extrapolateRight: "clamp" });
               const countUp = interpolate(frame, [delay + 5, delay + 30], [0, item.value], { extrapolateRight: "clamp" });
               return (
-                <div key={i} style={{ opacity: legendOpacity, display: "flex", alignItems: "center", gap: 16 }}>
-                  <div style={{ width: 20, height: 20, borderRadius: 6, backgroundColor: item.color, flexShrink: 0 }} />
-                  <span style={{ fontSize: 36, fontWeight: 500, color: "#e0e0e0", fontFamily: "SCDream", wordBreak: "keep-all" as const }}>{item.label}</span>
-                  <span style={{ fontSize: 38, fontWeight: 700, color: item.color, fontFamily: "SCDream" }}>{Math.round(countUp)}%</span>
+                <div key={i} style={{ opacity: legendOpacity, display: "flex", alignItems: "center", gap: isVertical ? 22 : 16 }}>
+                  <div style={{ width: isVertical ? 30 : 20, height: isVertical ? 30 : 20, borderRadius: 6, backgroundColor: item.color, flexShrink: 0 }} />
+                  <span style={{ fontSize: isVertical ? 48 : 36, fontWeight: 500, color: "#e0e0e0", fontFamily: "SCDream", wordBreak: "keep-all" as const }}>{item.label}</span>
+                  <span style={{ fontSize: isVertical ? 52 : 38, fontWeight: 700, color: item.color, fontFamily: "SCDream" }}>{Math.round(countUp)}%</span>
                 </div>
               );
             })}
