@@ -17,9 +17,8 @@ export type SceneType =
   | "beforeAfterChart";
 
 export type BarData = { label: string; value: number; color: string };
-// 전후 비교(개수/수치 기반): 항목별 before → after 그룹 막대
 export type BeforeAfterData = {
-  label: string; // 운동명 (예: 푸시업)
+  label: string;
   before: number;
   after: number;
 };
@@ -53,13 +52,10 @@ export type Scene = {
   durationInSeconds: number;
   accent?: string;
   characterImage?: string;
-  // 장면 특화 그래픽 이미지 (캐릭터와 별개, 크게 배치)
   sceneImage?: string;
-  // imageStat 타입용: 이미지 위/옆에 얹는 큰 수치
   statValue?: string;
   statLabel?: string;
   barData?: BarData[];
-  // 전후 비교 그룹 막대 (개수/수치). unit으로 단위 표기(예: "회")
   beforeAfterData?: BeforeAfterData[];
   unit?: string;
   donutData?: DonutData[];
@@ -74,445 +70,393 @@ export type Scene = {
   muscleData?: MuscleData[];
 };
 
-// 9번 롱폼: 러닝머신 vs 사이클, 체지방 연소 (오디오 260919_after.mp3 = 296.23초)
+// 버피 vs 데빌프레스 A안 (오디오 260922.mp3 = 343.47초)
 export const SCENES: Scene[] = [
-  // 1. 훅: 같은 시간, 갈리는 결과 (0.0~6.42)
+  // 1. 훅: 5개만 해도 표정 무너짐 (0~9.04)
   {
     type: "text",
-    text: "같은 시간, 같은 땀\n갈리는 결과",
-    subtitle: "한쪽은 쭉쭉, 한쪽은 제자리",
-    description: "노력은 똑같은데\n몸의 변화는 정반대",
-    durationInSeconds: 6.42,
+    text: "5개만 해도\n표정이 무너지는 두 동작",
+    subtitle: "둘 다 별명이 악마의 운동",
+    description: "하나는 전 세계가 인정한 악마\n하나는 악마도 울고 가는 운동",
+    durationInSeconds: 9.04,
     accent: "#ffd93d",
     characterImage: "char-01.png",
   },
-  // 2. 결정적 차이 (6.42~8.7)
+  // 2. 훅 마무리: 진짜 악마는? (9.04~14.56)
   {
     type: "text",
-    text: "이 둘의 결정적 차이",
-    subtitle: "대체 뭘까",
-    durationInSeconds: 2.28,
+    text: "더 사악한 진짜 악마는",
+    subtitle: "과연 누구일까",
+    durationInSeconds: 5.52,
     accent: "#ffd93d",
     characterImage: "char-02.png",
   },
-  // 3. 인사 + 러닝머신과 사이클 (8.7~13.54)
+  // 3. 인사 + 두 주인공 (14.56~20.72)
   {
     type: "text",
     text: "헬스 건강 정보\n헬마드",
-    subtitle: "러닝머신 vs 사이클",
-    description: "헬스장에 나란히 선 두 기계",
-    durationInSeconds: 4.84,
+    subtitle: "버피 vs 데빌프레스",
+    description: "이름만 들어도 다리가 후들거리는 두 동작",
+    durationInSeconds: 6.16,
     accent: "#4A90D9",
     characterImage: "char-03.png",
   },
-  // 4. 뛸까 vs 페달 (13.54~17.8)
+  // 4. 2024 연구: 버피 맨몸 1위 (20.72~30.5)
   {
-    type: "compare",
-    text: "당신의 선택은",
-    accent: "#4A90D9",
-    compareData: {
-      left: { title: "러닝머신", description: "오늘은\n뛸까" },
-      right: { title: "사이클", description: "아니면\n페달을 밟을까" },
-    },
-    durationInSeconds: 4.26,
+    type: "imageStat",
+    text: "2024년 연구, 맨몸 운동 강도 순위",
+    statValue: "버피 1위",
+    statLabel: "힘든 정도·부하 거의 모든 항목 1등\n맨몸 세계의 챔피언",
+    durationInSeconds: 9.78,
+    accent: "#00b894",
     characterImage: "char-04.png",
   },
-  // 5. 결과 가르는 두 가지 (17.8~26.74)
+  // 5. 데빌프레스 도전장 (30.5~39.7)
   {
-    type: "highlight",
-    text: "결과를 가르는 두 가지",
-    description: "이 사소한 차이가\n체지방 태우는 속도를 갈라놓는다",
-    bullets: ["기계 선택", "강도 기준"],
-    bulletDescriptions: [
-      "러닝머신이냐 사이클이냐",
-      "강도의 기준을 어디에 두고 운동했느냐",
-    ],
-    durationInSeconds: 8.94,
-    accent: "#4A90D9",
+    type: "text",
+    text: "여기에 덤벨을 들고\n체급을 올린 도전자",
+    subtitle: "데빌프레스",
+    description: "오늘 일곱 개 항목으로\n한 라운드씩 채점합니다",
+    durationInSeconds: 9.2,
+    accent: "#e17055",
     characterImage: "char-05.png",
   },
-  // 6. 심박수 넣으면 뒤집힘 (26.74~36.66)
+  // 6. 버피란? (39.7~47.96)
   {
     type: "text",
-    text: "칼로리만 보면\n답이 뻔한데",
-    subtitle: "심박수를 넣는 순간",
-    description: "이야기가 완전히 뒤집힌다",
-    durationInSeconds: 9.92,
-    accent: "#e17055",
+    text: "버피",
+    subtitle: "기구 없는 맨몸 동작",
+    description: "쪼그려 앉아 엎드리고\n팔굽혀펴기 하고, 튀어 올라 점프",
+    durationInSeconds: 8.26,
+    accent: "#4A90D9",
     characterImage: "char-06.png",
   },
-  // 7. 놓치는 숫자 두 개 (36.66~42.26)
+  // 7. 데빌프레스란? (47.96~60.48)
   {
     type: "text",
-    text: "대부분이 놓치는\n숫자 두 개",
-    subtitle: "모르면 헛바퀴",
-    description: "아무리 밟아도\n제자리만 도는 셈",
-    durationInSeconds: 5.6,
+    text: "데빌프레스",
+    subtitle: "덤벨 버피 + 스내치",
+    description: "엎드렸다 일어서며 덤벨을 머리 위로\n버피의 무게감 있는 버전",
+    durationInSeconds: 12.52,
     accent: "#e17055",
     characterImage: "char-07.png",
   },
-  // 8. 오늘 3가지 예고 (42.26~53.18)
+  // 8. 1R 칼로리 소개 (60.48~71.3)
   {
-    type: "timeline",
-    text: "오늘 정리할 세 가지",
-    accent: "#6c5ce7",
-    steps: [
-      { label: "칼로리", description: "같은 시간이면 뭐가 더 태우나" },
-      { label: "선택", description: "그런데도 왜 사이클이 나을 수 있나" },
-      { label: "숫자", description: "계기판 두 숫자를 어떻게 쓰나" },
-    ],
-    durationInSeconds: 10.92,
+    type: "imageStat",
+    text: "1라운드 · 칼로리",
+    statValue: "10~15",
+    statLabel: "버피는 1분에 10~15kcal\n설렁설렁 조깅의 1.5배, 맨몸치곤 괴물",
+    durationInSeconds: 10.82,
+    accent: "#4A90D9",
     characterImage: "char-08.png",
   },
-  // 9. 과학적으로 뜯어보기 (53.18~62.22)
-  {
-    type: "text",
-    text: "뭐가 진짜\n체지방 킬러인가",
-    subtitle: "과학으로 하나씩",
-    description: "오늘부터 어느 기계에 올라탈지\n딱 정리됩니다",
-    durationInSeconds: 9.04,
-    accent: "#4A90D9",
-    characterImage: "char-09.png",
-  },
-  // 10. MET 기준 소개 (62.22~69.0)
-  {
-    type: "text",
-    text: "강도를 재는 기준\nMET",
-    subtitle: "대사당량",
-    description: "운동 강도를 숫자로 재는 단위",
-    durationInSeconds: 6.78,
-    accent: "#6c5ce7",
-    characterImage: "char-10.png",
-  },
-  // 11. 왜 공통 잣대 (69.0~76.28)
-  {
-    type: "text",
-    text: "왜 MET로 잴까",
-    subtitle: "힘든 정도는 제각각",
-    description: "그냥 '힘들다'로만 말하면\n사람마다 기준이 다르니까\n공통 잣대를 만든 것",
-    durationInSeconds: 7.28,
-    accent: "#6c5ce7",
-    characterImage: "char-01.png",
-  },
-  // 12. 1 MET 정의 (76.28~88.58)
-  {
-    type: "imageStat",
-    text: "가만히 앉아 숨만 쉬는 상태",
-    statValue: "1 MET",
-    statLabel: "3 MET면 3배, 10 MET면 10배\n에너지를 쓴다는 뜻",
-    durationInSeconds: 12.3,
-    accent: "#6c5ce7",
-    characterImage: "char-02.png",
-  },
-  // 13. 러닝 9.8 MET (88.58~96.12)
-  {
-    type: "imageStat",
-    text: "시속 10km 러닝머신",
-    statValue: "9.8 MET",
-    statLabel: "가만히 있을 때보다\n에너지를 10배 가까이 태운다",
-    durationInSeconds: 7.54,
-    accent: "#e17055",
-    characterImage: "char-03.png",
-  },
-  // 14. 사이클 6~8 MET (96.12~101.66)
-  {
-    type: "imageStat",
-    text: "시속 16km 사이클",
-    statValue: "6~8 MET",
-    statLabel: "숫자만 보면 벌써 승부가 난 듯",
-    durationInSeconds: 5.54,
-    accent: "#4A90D9",
-    characterImage: "char-04.png",
-  },
-  // 15. 칼로리 비교 (101.66~109.08)
-  {
-    type: "beforeAfterChart",
-    text: "1시간 소모 칼로리",
-    subtitle: "체중 70kg 기준",
-    beforeAfterData: [
-      { label: "사이클", before: 350, after: 500 },
-      { label: "러닝머신", before: 490, after: 595 },
-    ],
-    unit: "kcal",
-    durationInSeconds: 7.42,
-    accent: "#e17055",
-  },
-  // 16. 25~40% 더 (109.08~115.5)
+  // 9. 1R 판정: 데빌 승 (71.3~84.8)
   {
     type: "barChart",
-    text: "같은 체감 강도 비교",
-    subtitle: "러닝머신이 더 태운다",
+    text: "같은 시간, 총 소모 열량",
+    subtitle: "무게가 곧 일의 양",
     barData: [
-      { label: "사이클", value: 100, color: "#4A90D9" },
-      { label: "러닝머신", value: 132, color: "#e17055" },
+      { label: "버피", value: 100, color: "#4A90D9" },
+      { label: "데빌프레스", value: 125, color: "#e17055" },
     ],
-    description: "러닝머신이 대략 25~40% 더 많은 칼로리 소모",
-    durationInSeconds: 6.42,
+    description: "덤벨을 들어 올리는 만큼 데빌프레스가 더 태운다\n1라운드 데빌프레스 승",
+    durationInSeconds: 13.5,
     accent: "#e17055",
   },
-  // 17. 체중 지지 차이 (115.5~124.66)
-  {
-    type: "compare",
-    text: "이유는 간단하다",
-    accent: "#4A90D9",
-    compareData: {
-      left: {
-        title: "달리기",
-        description: "매 발걸음마다\n체중 전체를\n띄웠다 받아낸다",
-      },
-      right: {
-        title: "사이클",
-        description: "안장이 몸무게를\n받쳐주니\n몸이 일을 덜 한다",
-      },
-    },
-    durationInSeconds: 9.16,
-    characterImage: "char-05.png",
-  },
-  // 18. 러닝 앞서지만 (124.66~133.02)
+  // 10. 2R 심박수 소개 (84.8~91.32)
   {
     type: "text",
-    text: "시간당 칼로리는\n러닝머신 승",
-    subtitle: "그럼 사이클은 접어야 하나",
-    description: "그런데 진짜 이야기는\n지금부터",
-    durationInSeconds: 8.36,
-    accent: "#e17055",
-    characterImage: "char-06.png",
-  },
-  // 19. 핵심 변수 심박수 (133.02~139.9)
-  {
-    type: "text",
-    text: "핵심 변수\n심박수",
-    subtitle: "체지방이 타느냐 마느냐",
-    description: "지금 심장이 몇 번 뛰고 있느냐에\n달려 있다",
-    durationInSeconds: 6.88,
-    accent: "#d63031",
-    characterImage: "char-07.png",
-  },
-  // 20. 지방연소존 60~70% (139.9~147.56)
-  {
-    type: "donutChart",
-    text: "지방연소존",
-    subtitle: "최대심박수의 60~70%",
-    donutData: [
-      { label: "지방연소존", value: 65, color: "#00b894" },
-      { label: "그 외 구간", value: 35, color: "#2a2a2a" },
-    ],
-    description: "이 강도에서 지방이 차지하는 비율이\n가장 높아진다",
-    durationInSeconds: 7.66,
-    accent: "#00b894",
-  },
-  // 21. 지방산화 최대 61% (147.56~155.5)
-  {
-    type: "imageStat",
-    text: "지방산화가 최대가 되는 지점",
-    statValue: "약 61%",
-    statLabel: "최대심박수의 61%\n최대산소섭취량 절반이 안 되는 지점",
-    durationInSeconds: 7.94,
-    accent: "#00b894",
-    characterImage: "char-08.png",
-  },
-  // 22. 220-나이 공식 (155.5~163.4)
-  {
-    type: "imageStat",
-    text: "내 최대심박수 = 220 - 나이",
-    statValue: "108~126",
-    statLabel: "40살이면 최대 180\n그 60~70%가 목표 심박수",
-    durationInSeconds: 7.9,
-    accent: "#d63031",
-    characterImage: "char-09.png",
-  },
-  // 23. 대화되나 노래 벅참 (163.4~168.64)
-  {
-    type: "text",
-    text: "딱 이 정도 강도",
-    subtitle: "대화는 되는데 노래는 벅찬",
-    description: "옆 사람과 말은 이어지지만\n노래 부르긴 숨찬 정도",
-    durationInSeconds: 5.24,
-    accent: "#d63031",
-    characterImage: "char-10.png",
-  },
-  // 24. 흔한 착각 (168.64~175.16)
-  {
-    type: "text",
-    text: "여기서 크게 착각한다",
-    subtitle: "저강도가 무조건 살 뺀다?",
-    description: "지방 연소 비율이 높다고\n무조건 더 빠지는 게 아니다",
+    text: "2라운드 · 심박수",
+    subtitle: "이게 진짜 악마의 핵심",
+    description: "몇 개 안 했는데 심장이\n목구멍까지 튀어나올 것 같은 느낌",
     durationInSeconds: 6.52,
+    accent: "#d63031",
+    characterImage: "char-09.png",
+  },
+  // 11. 2R 버피 산소섭취량 (91.32~102.54)
+  {
+    type: "imageStat",
+    text: "버피 산소 섭취량",
+    statValue: "22.9",
+    statLabel: "1분에 체중 1kg당 22.9ml\n웬만한 유산소보다 높은 수치",
+    durationInSeconds: 11.22,
+    accent: "#00b894",
+    characterImage: "char-10.png",
+  },
+  // 12. 2R 판정: 데빌 승 (102.54~114.56)
+  {
+    type: "text",
+    text: "데빌프레스는\n무게를 든 채로 끌어올린다",
+    subtitle: "심장이 천장을 뚫고, 목에서 피맛",
+    description: "체감 강도는 데빌프레스가 한 수 위\n2라운드 데빌프레스 승",
+    durationInSeconds: 12.02,
     accent: "#e17055",
     characterImage: "char-01.png",
   },
-  // 25. 저강도 vs 고강도 (175.16~184.82)
+  // 13. 3R 동원 근육 (114.56~124.12)
   {
     type: "compare",
-    text: "함정의 정체",
-    accent: "#6c5ce7",
+    text: "3라운드 · 동원 근육",
+    accent: "#e17055",
     compareData: {
       left: {
-        title: "낮은 강도",
-        description: "지방 비율 ↑\n총 에너지 자체가 적다",
+        title: "버피",
+        description: "다리·엉덩이·가슴\n어깨·코어\n훌륭한 전신",
       },
       right: {
-        title: "높은 강도",
-        description: "지방 비율 ↓\n총 소모량이 커서\n지방 절대량은 더 많을 수도",
+        title: "데빌프레스",
+        description: "여기에 등·삼두\n어깨 순간 파워까지\n더 얹는다",
       },
     },
-    durationInSeconds: 9.66,
+    durationInSeconds: 9.56,
     characterImage: "char-02.png",
   },
-  // 26. RPM·WATT 무기 (184.82~191.36)
+  // 14. 3R 판정: 데빌 승, 3대0 (124.12~137.62)
   {
     type: "text",
-    text: "사이클의 무기\nRPM · WATT",
-    subtitle: "러닝머신엔 없는 숫자 두 개",
-    durationInSeconds: 6.54,
-    accent: "#4A90D9",
+    text: "근력 자극 총량\n데빌프레스 우세",
+    subtitle: "초반 세 판을 쓸어 담았다",
+    description: "버피 팬 여러분, 아직 영상 끄지 마세요\n진짜 승부는 지금부터",
+    durationInSeconds: 13.5,
+    accent: "#e17055",
     characterImage: "char-03.png",
   },
-  // 27. RPM/WATT 정의 (191.36~198.28)
+  // 15. 4R 애프터번 소개 (137.62~145.28)
   {
-    type: "highlight",
-    text: "두 숫자의 뜻",
-    bullets: ["RPM", "WATT"],
-    bulletDescriptions: [
-      "1분에 페달을 몇 바퀴 — 다리 회전수",
-      "실제로 만들어내는 힘 — 파워를 숫자로",
-    ],
-    durationInSeconds: 6.92,
-    accent: "#4A90D9",
+    type: "text",
+    text: "4라운드 · 애프터번",
+    subtitle: "운동 끝난 뒤에도 계속 태운다",
+    description: "강도가 높을수록 폭발적으로 커지는 현상",
+    durationInSeconds: 7.66,
+    accent: "#6c5ce7",
     characterImage: "char-04.png",
   },
-  // 28. WATT=성장 증거 (198.28~210.52)
+  // 16. 4R 근거 수치 (145.28~156.9)
   {
-    type: "text",
-    text: "WATT로\n내 출력을 정확히 찍는다",
-    subtitle: "성장의 객관적 증거",
-    description: "어제와 같은 심박수에서\n더 높은 WATT = 몸이 좋아졌다는 증거",
-    durationInSeconds: 12.24,
-    accent: "#4A90D9",
+    type: "imageStat",
+    text: "고강도일 때 운동 후 추가 소모",
+    statValue: "몇 배 ↑",
+    statLabel: "강도를 최대치 근처로 올리자\n운동 후 태우는 에너지가 몇 배로 증가",
+    durationInSeconds: 11.62,
+    accent: "#6c5ce7",
     characterImage: "char-05.png",
   },
-  // 29. 1999 실험 60rpm (210.52~220.58)
-  {
-    type: "imageStat",
-    text: "1999년 사이클 선수 실험",
-    statValue: "60 RPM",
-    statLabel: "산소를 가장 아껴 쓰는\n효율적인 회전수 — 힘은 덜 든다",
-    durationInSeconds: 10.06,
-    accent: "#6c5ce7",
-    characterImage: "char-06.png",
-  },
-  // 30. 편한거≠살빠짐 (220.58~226.98)
+  // 17. 4R 판정: 무승부 (156.9~165.54)
   {
     type: "text",
-    text: "편한 것과\n살 빠지는 건 다르다",
-    subtitle: "여기서 함정",
-    description: "편하게 빠지면\n세상에 뚱뚱한 사람이 없겠죠",
-    durationInSeconds: 6.4,
-    accent: "#e17055",
+    text: "둘 다 바닥에 눕게 만든다",
+    subtitle: "애프터번을 최대로 끌어내는 극강도",
+    description: "우열을 가리기 어렵다\n4라운드는 무승부",
+    durationInSeconds: 8.64,
+    accent: "#8a8f98",
+    characterImage: "char-06.png",
+  },
+  // 18. 5R 부상·접근성 소개 (165.54~176.44)
+  {
+    type: "text",
+    text: "5라운드 · 부상 위험과 접근성",
+    subtitle: "데빌프레스는 어깨가 위험",
+    description: "덤벨을 머리 위로 올리다 지쳐 말리면 관절 부상\n게다가 덤벨 없으면 시작도 못 한다",
+    durationInSeconds: 10.9,
+    accent: "#d63031",
     characterImage: "char-07.png",
   },
-  // 31. 회전수↑ 지방연소↑, 76rpm (226.98~236.42)
+  // 19. 5R 판정: 버피 완승 (176.44~185.32)
   {
-    type: "lineGraph",
-    text: "회전수 ↑ → 지방 연소 ↑",
-    subtitle: "지방산화 최대 회전수",
-    lineData: [
-      { label: "60", value: 60 },
-      { label: "70", value: 80 },
-      { label: "76", value: 100 },
-      { label: "90", value: 88 },
-    ],
-    description: "빠르게 돌릴수록 지방 태우는 비율 상승\n최대 지점은 대략 분당 76회전",
-    durationInSeconds: 9.44,
-    accent: "#00b894",
-  },
-  // 32. 75~90rpm 권장 (236.42~246.8)
-  {
-    type: "imageStat",
-    text: "살이 목적이라면",
-    statValue: "75~90 RPM",
-    statLabel: "저항을 적당히 두고 경쾌하게\n심박수를 지방연소 구간에 올려두기 유리",
-    durationInSeconds: 10.38,
+    type: "text",
+    text: "버피는 몸 하나면 끝",
+    subtitle: "장비도 장소도 필요 없다",
+    description: "호텔 방에서도 가능, 무게가 없으니 위험도 작다\n5라운드 버피의 완승",
+    durationInSeconds: 8.88,
     accent: "#00b894",
     characterImage: "char-08.png",
   },
-  // 33. 정리: 칼로리는 러닝 (246.8~251.38)
+  // 20. 6R 시간효율 소개 (185.32~194.98)
   {
     type: "text",
-    text: "정리하겠습니다",
-    subtitle: "순수 칼로리 효율은 러닝머신 위",
-    durationInSeconds: 4.58,
-    accent: "#e17055",
+    text: "6라운드 · 시간 효율",
+    subtitle: "같은 5분엔 데빌프레스가 세지만",
+    description: "덤벨 찾고 무게 고르는 사이\n버피는 이미 30개를 끝냈다",
+    durationInSeconds: 9.66,
+    accent: "#4A90D9",
     characterImage: "char-09.png",
   },
-  // 34. 사이클 관절보호 (251.38~258.4)
+  // 21. 6R 판정: 버피 승 (194.98~207.02)
   {
-    type: "compare",
-    text: "하지만 사이클은",
-    accent: "#4A90D9",
-    compareData: {
-      left: {
-        title: "충격 ↓",
-        description: "안장이 체중을 받쳐\n무릎·발목 충격이\n달리기보다 훨씬 적다",
-      },
-      right: {
-        title: "지속 ↑",
-        description: "지치지 않고\n더 오래, 더 자주\n탈 수 있다",
-      },
-    },
-    durationInSeconds: 7.02,
+    type: "text",
+    text: "제대로 시작하기까지\n걸리는 시간",
+    subtitle: "데빌프레스는 예열·스트레칭 필수",
+    description: "이 시간이 운동을 하느냐 마느냐를 가른다\n실전 시간 효율은 버피 승",
+    durationInSeconds: 12.04,
+    accent: "#00b894",
     characterImage: "char-10.png",
   },
-  // 35. 상황별 선택 (258.4~269.46)
+  // 22. 7R 체지방 소개 (207.02~216) — 착각 (207.02~216.5 approx)
   {
-    type: "highlight",
-    text: "상황별 정답",
-    bullets: ["관절 약함 · 고체중", "시간 없음"],
-    bulletDescriptions: [
-      "사이클 — 오래 살을 태워주는 기계",
-      "러닝머신 경사 ↑ — 짧고 굵게 심박수",
-    ],
-    durationInSeconds: 11.06,
-    accent: "#4A90D9",
+    type: "text",
+    text: "마지막 7라운드 · 체지방",
+    subtitle: "제일 세게 태우면 살도 잘 빠진다?",
+    description: "이게 함정입니다",
+    durationInSeconds: 9.48,
+    accent: "#ffd93d",
     characterImage: "char-01.png",
   },
-  // 36. 진짜 열쇠: 총열량+꾸준함 (269.46~276.42)
+  // 23. 7R 원리: 총 운동량 (216.5~231.04)
   {
     type: "text",
-    text: "진짜 열쇠는\n총 소모 열량 · 꾸준함",
-    subtitle: "마법 같은 기계는 없다",
-    description: "특정 기계가 뱃살만 녹이는 일은\n일어나지 않는다",
-    durationInSeconds: 6.96,
-    accent: "#ffd93d",
+    text: "체지방을 결정하는 건\n순간 강도가 아니라 총 운동량",
+    subtitle: "데빌프레스는 금방 지쳐 나가떨어진다",
+    description: "버피는 강도는 낮아도\n더 오래, 더 많이 반복할 수 있다",
+    durationInSeconds: 14.54,
+    accent: "#00b894",
     characterImage: "char-02.png",
   },
-  // 37. 강도 흔들기 (276.42~286.68)
+  // 24. 7R 지방연소 구간 (231.04~244.08)
   {
     type: "text",
-    text: "강도를 조금씩 흔들어라",
-    subtitle: "매일 같으면 몸이 적응한다",
-    description: "똑같은 강도만 반복하면\n체지방 소모 효율이 떨어진다\n심박수 기준으로 강도를 바꿔라",
-    durationInSeconds: 10.26,
-    accent: "#6c5ce7",
+    text: "오래 버틸수록\n지방 연소 구간이 길어진다",
+    subtitle: "초반엔 탄수화물, 길어지면 지방",
+    description: "오래 버티는 버피가 이 구간을 더 길게 가져간다\n매일 반복하니 주간 총 소모량도 크다",
+    durationInSeconds: 13.04,
+    accent: "#00b894",
     characterImage: "char-03.png",
   },
-  // 38. 최고의 체지방 킬러 (286.68~291.9)
+  // 25. 7R 판정: 버피 승 (244.08~249.82)
   {
     type: "text",
-    text: "가장 오래 붙어 있을 기계",
-    subtitle: "그게 최고의 체지방 킬러",
-    description: "지루하지 않고 꾸준히 탈 수 있는 기계가\n당신의 정답",
-    durationInSeconds: 5.22,
+    text: "살을 빼는 꾸준함과 총량",
+    subtitle: "버피가 앞선다",
+    description: "7라운드도 버피의 승리",
+    durationInSeconds: 5.74,
     accent: "#00b894",
     characterImage: "char-04.png",
   },
-  // 39. 아웃트로 (291.9~296.23)
+  // 26. 라운드별 승자 요약 (249.82~255.64)
+  {
+    type: "compare",
+    text: "라운드 결과 정리",
+    accent: "#ffd93d",
+    compareData: {
+      left: {
+        title: "데빌프레스 승",
+        description: "칼로리\n심박수\n동원 근육",
+      },
+      right: {
+        title: "버피 승",
+        description: "접근성\n시간 효율\n체지방",
+      },
+    },
+    description: "애프터번은 무승부",
+    durationInSeconds: 5.82,
+  },
+  // 27. 3대 3 동점 (255.64~258.42)
+  {
+    type: "text",
+    text: "최종 3 대 3",
+    subtitle: "그야말로 동점입니다",
+    durationInSeconds: 2.78,
+    accent: "#ffd93d",
+    characterImage: "char-05.png",
+  },
+  // 27. 타이브레이커 (258.42~264.32)
+  {
+    type: "text",
+    text: "그래서 마지막 하나를\n더 추가합니다",
+    subtitle: "몸을 진짜 바꾸는 건",
+    description: "제일 센 운동이 아니라\n가장 오래 붙어 있는 운동이라는 것",
+    durationInSeconds: 5.9,
+    accent: "#ffd93d",
+    characterImage: "char-05.png",
+  },
+  // 28. 데빌 한계 (264.32~273.58)
+  {
+    type: "text",
+    text: "데빌프레스는\n순간 화력의 챔피언",
+    subtitle: "하지만 덤벨이 있어야 하고 몇 세트 못 버틴다",
+    description: "자세도 배워야 해 접근성이 살짝 떨어진다\n버피는 몸 하나로 오늘도 내일도",
+    durationInSeconds: 9.26,
+    accent: "#e17055",
+    characterImage: "char-06.png",
+  },
+  // 29. 종합 챔피언 버피 (273.58~281.54)
+  {
+    type: "imageStat",
+    text: "종합 챔피언 벨트",
+    statValue: "버피",
+    statLabel: "순간 강도의 왕관은 데빌프레스\n1년 뒤 몸을 바꿀 악마는 버피",
+    durationInSeconds: 7.96,
+    accent: "#00b894",
+    characterImage: "char-07.png",
+  },
+  // 30. 데빌도 좋은 운동 + 초보 팁 (281.54~293.5)
+  {
+    type: "compare",
+    text: "그래도 데빌프레스는",
+    accent: "#4A90D9",
+    compareData: {
+      left: {
+        title: "이런 분께",
+        description: "덤벨 다룰 줄 알고\n전신을 근력까지\n통째로 조지고 싶다면",
+      },
+      right: {
+        title: "초보라면",
+        description: "완성형 욕심 말고\n버피 자세부터\n완성하고 넘어가기",
+      },
+    },
+    durationInSeconds: 11.96,
+    characterImage: "char-08.png",
+  },
+  // 31. 광고 전환: 회복 (293.5~303.6)
+  {
+    type: "text",
+    text: "운동만큼 중요한 건\n그다음 회복",
+    subtitle: "단백질이 안 받쳐주면 근육은 안 자란다",
+    description: "마침 시기 좋은 세일 정보 하나 소개합니다",
+    durationInSeconds: 10.1,
+    accent: "#6c5ce7",
+    characterImage: "char-09.png",
+  },
+  // 32. 광고: 세일 일정+할인 (303.6~315.88)
+  {
+    type: "imageStat",
+    text: "마이프로틴 해피 추석 타임세일",
+    statValue: "최대 80%",
+    statLabel: "9/22 화 저녁 7시 ~ 9/23 수 밤 11:59\n할인코드 TEAMMP 입력 시 40% 추가",
+    durationInSeconds: 12.28,
+    accent: "#e17055",
+    characterImage: "char-10.png",
+  },
+  // 33. 광고: 추가 혜택 (315.88~328.46)
+  {
+    type: "highlight",
+    text: "추가 혜택도 가득",
+    bullets: [
+      "선착순 922명 쇼핑지원금 5천원",
+      "트렌드 제품 결제금액 5% 추가 할인",
+      "금액대별 사은품 최대 2개",
+      "앱 12만원 이상 제품지원금 7천원",
+    ],
+    durationInSeconds: 12.58,
+    accent: "#e17055",
+    characterImage: "char-01.png",
+  },
+  // 34. 광고 마무리 (328.46~335.24)
+  {
+    type: "text",
+    text: "링크는 고정댓글에",
+    subtitle: "이번 추석엔 운동도 회복도 알차게",
+    durationInSeconds: 6.78,
+    accent: "#6c5ce7",
+    characterImage: "char-02.png",
+  },
+  // 35. 아웃트로 (335.24~343.47)
   {
     type: "text",
     text: "구독 · 좋아요 · 알림",
     subtitle: "오늘도 득근하는 하루",
-    durationInSeconds: 4.33,
+    durationInSeconds: 8.23,
     accent: "#4A90D9",
-    characterImage: "char-05.png",
+    characterImage: "char-03.png",
   },
 ];
