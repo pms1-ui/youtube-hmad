@@ -70,393 +70,359 @@ export type Scene = {
   muscleData?: MuscleData[];
 };
 
-// 버피 vs 데빌프레스 A안 (오디오 260922.mp3 = 343.47초)
+// 브이 vs 펜듈럼 vs 핵스쿼트 (오디오 260924.mp4 = 259.26초)
 export const SCENES: Scene[] = [
-  // 1. 훅: 5개만 해도 표정 무너짐 (0~9.04)
+  // 1. 훅: 스쿼트 기계 3개, 아무거나 타면 헛수고 (0~9.64)
   {
     type: "text",
-    text: "5개만 해도\n표정이 무너지는 두 동작",
-    subtitle: "둘 다 별명이 악마의 운동",
-    description: "하나는 전 세계가 인정한 악마\n하나는 악마도 울고 가는 운동",
-    durationInSeconds: 9.04,
+    text: "똑같이 생긴\n스쿼트 기계 세 개",
+    subtitle: "아무거나 타면 헛수고",
+    description: "노리는 근육도, 관절 부담도\n제각각입니다",
+    durationInSeconds: 9.64,
     accent: "#ffd93d",
-    characterImage: "char-01.png",
+    characterImage: "scene-torso.png",
   },
-  // 2. 훅 마무리: 진짜 악마는? (9.04~14.56)
-  {
-    type: "text",
-    text: "더 사악한 진짜 악마는",
-    subtitle: "과연 누구일까",
-    durationInSeconds: 5.52,
-    accent: "#ffd93d",
-    characterImage: "char-02.png",
-  },
-  // 3. 인사 + 두 주인공 (14.56~20.72)
-  {
-    type: "text",
-    text: "헬스 건강 정보\n헬마드",
-    subtitle: "버피 vs 데빌프레스",
-    description: "이름만 들어도 다리가 후들거리는 두 동작",
-    durationInSeconds: 6.16,
-    accent: "#4A90D9",
-    characterImage: "char-03.png",
-  },
-  // 4. 2024 연구: 버피 맨몸 1위 (20.72~30.5)
-  {
-    type: "imageStat",
-    text: "2024년 연구, 맨몸 운동 강도 순위",
-    statValue: "버피 1위",
-    statLabel: "힘든 정도·부하 거의 모든 항목 1등\n맨몸 세계의 챔피언",
-    durationInSeconds: 9.78,
-    accent: "#00b894",
-    characterImage: "char-04.png",
-  },
-  // 5. 데빌프레스 도전장 (30.5~39.7)
-  {
-    type: "text",
-    text: "여기에 덤벨을 들고\n체급을 올린 도전자",
-    subtitle: "데빌프레스",
-    description: "오늘 일곱 개 항목으로\n한 라운드씩 채점합니다",
-    durationInSeconds: 9.2,
-    accent: "#e17055",
-    characterImage: "char-05.png",
-  },
-  // 6. 버피란? (39.7~47.96)
-  {
-    type: "text",
-    text: "버피",
-    subtitle: "기구 없는 맨몸 동작",
-    description: "쪼그려 앉아 엎드리고\n팔굽혀펴기 하고, 튀어 올라 점프",
-    durationInSeconds: 8.26,
-    accent: "#4A90D9",
-    characterImage: "char-06.png",
-  },
-  // 7. 데빌프레스란? (47.96~60.48)
-  {
-    type: "text",
-    text: "데빌프레스",
-    subtitle: "덤벨 버피 + 스내치",
-    description: "엎드렸다 일어서며 덤벨을 머리 위로\n버피의 무게감 있는 버전",
-    durationInSeconds: 12.52,
-    accent: "#e17055",
-    characterImage: "char-07.png",
-  },
-  // 8. 1R 칼로리 소개 (60.48~71.3)
-  {
-    type: "imageStat",
-    text: "1라운드 · 칼로리",
-    statValue: "10~15",
-    statLabel: "버피는 1분에 10~15kcal\n설렁설렁 조깅의 1.5배, 맨몸치곤 괴물",
-    durationInSeconds: 10.82,
-    accent: "#4A90D9",
-    characterImage: "char-08.png",
-  },
-  // 9. 1R 판정: 데빌 승 (71.3~84.8)
-  {
-    type: "barChart",
-    text: "같은 시간, 총 소모 열량",
-    subtitle: "무게가 곧 일의 양",
-    barData: [
-      { label: "버피", value: 100, color: "#4A90D9" },
-      { label: "데빌프레스", value: 125, color: "#e17055" },
-    ],
-    description: "덤벨을 들어 올리는 만큼 데빌프레스가 더 태운다\n1라운드 데빌프레스 승",
-    durationInSeconds: 13.5,
-    accent: "#e17055",
-  },
-  // 10. 2R 심박수 소개 (84.8~91.32)
-  {
-    type: "text",
-    text: "2라운드 · 심박수",
-    subtitle: "이게 진짜 악마의 핵심",
-    description: "몇 개 안 했는데 심장이\n목구멍까지 튀어나올 것 같은 느낌",
-    durationInSeconds: 6.52,
-    accent: "#d63031",
-    characterImage: "char-09.png",
-  },
-  // 11. 2R 버피 산소섭취량 (91.32~102.54)
-  {
-    type: "imageStat",
-    text: "버피 산소 섭취량",
-    statValue: "22.9",
-    statLabel: "1분에 체중 1kg당 22.9ml\n웬만한 유산소보다 높은 수치",
-    durationInSeconds: 11.22,
-    accent: "#00b894",
-    characterImage: "char-10.png",
-  },
-  // 12. 2R 판정: 데빌 승 (102.54~114.56)
-  {
-    type: "text",
-    text: "데빌프레스는\n무게를 든 채로 끌어올린다",
-    subtitle: "심장이 천장을 뚫고, 목에서 피맛",
-    description: "체감 강도는 데빌프레스가 한 수 위\n2라운드 데빌프레스 승",
-    durationInSeconds: 12.02,
-    accent: "#e17055",
-    characterImage: "char-01.png",
-  },
-  // 13. 3R 동원 근육 (114.56~124.12)
-  {
-    type: "compare",
-    text: "3라운드 · 동원 근육",
-    accent: "#e17055",
-    compareData: {
-      left: {
-        title: "버피",
-        description: "다리·엉덩이·가슴\n어깨·코어\n훌륭한 전신",
-      },
-      right: {
-        title: "데빌프레스",
-        description: "여기에 등·삼두\n어깨 순간 파워까지\n더 얹는다",
-      },
-    },
-    durationInSeconds: 9.56,
-    characterImage: "char-02.png",
-  },
-  // 14. 3R 판정: 데빌 승, 3대0 (124.12~137.62)
-  {
-    type: "text",
-    text: "근력 자극 총량\n데빌프레스 우세",
-    subtitle: "초반 세 판을 쓸어 담았다",
-    description: "버피 팬 여러분, 아직 영상 끄지 마세요\n진짜 승부는 지금부터",
-    durationInSeconds: 13.5,
-    accent: "#e17055",
-    characterImage: "char-03.png",
-  },
-  // 15. 4R 애프터번 소개 (137.62~145.28)
-  {
-    type: "text",
-    text: "4라운드 · 애프터번",
-    subtitle: "운동 끝난 뒤에도 계속 태운다",
-    description: "강도가 높을수록 폭발적으로 커지는 현상",
-    durationInSeconds: 7.66,
-    accent: "#6c5ce7",
-    characterImage: "char-04.png",
-  },
-  // 16. 4R 근거 수치 (145.28~156.9)
-  {
-    type: "imageStat",
-    text: "고강도일 때 운동 후 추가 소모",
-    statValue: "몇 배 ↑",
-    statLabel: "강도를 최대치 근처로 올리자\n운동 후 태우는 에너지가 몇 배로 증가",
-    durationInSeconds: 11.62,
-    accent: "#6c5ce7",
-    characterImage: "char-05.png",
-  },
-  // 17. 4R 판정: 무승부 (156.9~165.54)
-  {
-    type: "text",
-    text: "둘 다 바닥에 눕게 만든다",
-    subtitle: "애프터번을 최대로 끌어내는 극강도",
-    description: "우열을 가리기 어렵다\n4라운드는 무승부",
-    durationInSeconds: 8.64,
-    accent: "#8a8f98",
-    characterImage: "char-06.png",
-  },
-  // 18. 5R 부상·접근성 소개 (165.54~176.44)
-  {
-    type: "text",
-    text: "5라운드 · 부상 위험과 접근성",
-    subtitle: "데빌프레스는 어깨가 위험",
-    description: "덤벨을 머리 위로 올리다 지쳐 말리면 관절 부상\n게다가 덤벨 없으면 시작도 못 한다",
-    durationInSeconds: 10.9,
-    accent: "#d63031",
-    characterImage: "char-07.png",
-  },
-  // 19. 5R 판정: 버피 완승 (176.44~185.32)
-  {
-    type: "text",
-    text: "버피는 몸 하나면 끝",
-    subtitle: "장비도 장소도 필요 없다",
-    description: "호텔 방에서도 가능, 무게가 없으니 위험도 작다\n5라운드 버피의 완승",
-    durationInSeconds: 8.88,
-    accent: "#00b894",
-    characterImage: "char-08.png",
-  },
-  // 20. 6R 시간효율 소개 (185.32~194.98)
-  {
-    type: "text",
-    text: "6라운드 · 시간 효율",
-    subtitle: "같은 5분엔 데빌프레스가 세지만",
-    description: "덤벨 찾고 무게 고르는 사이\n버피는 이미 30개를 끝냈다",
-    durationInSeconds: 9.66,
-    accent: "#4A90D9",
-    characterImage: "char-09.png",
-  },
-  // 21. 6R 판정: 버피 승 (194.98~207.02)
-  {
-    type: "text",
-    text: "제대로 시작하기까지\n걸리는 시간",
-    subtitle: "데빌프레스는 예열·스트레칭 필수",
-    description: "이 시간이 운동을 하느냐 마느냐를 가른다\n실전 시간 효율은 버피 승",
-    durationInSeconds: 12.04,
-    accent: "#00b894",
-    characterImage: "char-10.png",
-  },
-  // 22. 7R 체지방 소개 (207.02~216) — 착각 (207.02~216.5 approx)
-  {
-    type: "text",
-    text: "마지막 7라운드 · 체지방",
-    subtitle: "제일 세게 태우면 살도 잘 빠진다?",
-    description: "이게 함정입니다",
-    durationInSeconds: 9.48,
-    accent: "#ffd93d",
-    characterImage: "char-01.png",
-  },
-  // 23. 7R 원리: 총 운동량 (216.5~231.04)
-  {
-    type: "text",
-    text: "체지방을 결정하는 건\n순간 강도가 아니라 총 운동량",
-    subtitle: "데빌프레스는 금방 지쳐 나가떨어진다",
-    description: "버피는 강도는 낮아도\n더 오래, 더 많이 반복할 수 있다",
-    durationInSeconds: 14.54,
-    accent: "#00b894",
-    characterImage: "char-02.png",
-  },
-  // 24. 7R 지방연소 구간 (231.04~244.08)
-  {
-    type: "text",
-    text: "오래 버틸수록\n지방 연소 구간이 길어진다",
-    subtitle: "초반엔 탄수화물, 길어지면 지방",
-    description: "오래 버티는 버피가 이 구간을 더 길게 가져간다\n매일 반복하니 주간 총 소모량도 크다",
-    durationInSeconds: 13.04,
-    accent: "#00b894",
-    characterImage: "char-03.png",
-  },
-  // 25. 7R 판정: 버피 승 (244.08~249.82)
-  {
-    type: "text",
-    text: "살을 빼는 꾸준함과 총량",
-    subtitle: "버피가 앞선다",
-    description: "7라운드도 버피의 승리",
-    durationInSeconds: 5.74,
-    accent: "#00b894",
-    characterImage: "char-04.png",
-  },
-  // 26. 라운드별 승자 요약 (249.82~255.64)
-  {
-    type: "compare",
-    text: "라운드 결과 정리",
-    accent: "#ffd93d",
-    compareData: {
-      left: {
-        title: "데빌프레스 승",
-        description: "칼로리\n심박수\n동원 근육",
-      },
-      right: {
-        title: "버피 승",
-        description: "접근성\n시간 효율\n체지방",
-      },
-    },
-    description: "애프터번은 무승부",
-    durationInSeconds: 5.82,
-  },
-  // 27. 3대 3 동점 (255.64~258.42)
-  {
-    type: "text",
-    text: "최종 3 대 3",
-    subtitle: "그야말로 동점입니다",
-    durationInSeconds: 2.78,
-    accent: "#ffd93d",
-    characterImage: "char-05.png",
-  },
-  // 27. 타이브레이커 (258.42~264.32)
-  {
-    type: "text",
-    text: "그래서 마지막 하나를\n더 추가합니다",
-    subtitle: "몸을 진짜 바꾸는 건",
-    description: "제일 센 운동이 아니라\n가장 오래 붙어 있는 운동이라는 것",
-    durationInSeconds: 5.9,
-    accent: "#ffd93d",
-    characterImage: "char-05.png",
-  },
-  // 28. 데빌 한계 (264.32~273.58)
-  {
-    type: "text",
-    text: "데빌프레스는\n순간 화력의 챔피언",
-    subtitle: "하지만 덤벨이 있어야 하고 몇 세트 못 버틴다",
-    description: "자세도 배워야 해 접근성이 살짝 떨어진다\n버피는 몸 하나로 오늘도 내일도",
-    durationInSeconds: 9.26,
-    accent: "#e17055",
-    characterImage: "char-06.png",
-  },
-  // 29. 종합 챔피언 버피 (273.58~281.54)
-  {
-    type: "imageStat",
-    text: "종합 챔피언 벨트",
-    statValue: "버피",
-    statLabel: "순간 강도의 왕관은 데빌프레스\n1년 뒤 몸을 바꿀 악마는 버피",
-    durationInSeconds: 7.96,
-    accent: "#00b894",
-    characterImage: "char-07.png",
-  },
-  // 30. 데빌도 좋은 운동 + 초보 팁 (281.54~293.5)
-  {
-    type: "compare",
-    text: "그래도 데빌프레스는",
-    accent: "#4A90D9",
-    compareData: {
-      left: {
-        title: "이런 분께",
-        description: "덤벨 다룰 줄 알고\n전신을 근력까지\n통째로 조지고 싶다면",
-      },
-      right: {
-        title: "초보라면",
-        description: "완성형 욕심 말고\n버피 자세부터\n완성하고 넘어가기",
-      },
-    },
-    durationInSeconds: 11.96,
-    characterImage: "char-08.png",
-  },
-  // 31. 광고 전환: 회복 (293.5~303.6)
-  {
-    type: "text",
-    text: "운동만큼 중요한 건\n그다음 회복",
-    subtitle: "단백질이 안 받쳐주면 근육은 안 자란다",
-    description: "마침 시기 좋은 세일 정보 하나 소개합니다",
-    durationInSeconds: 10.1,
-    accent: "#6c5ce7",
-    characterImage: "char-09.png",
-  },
-  // 32. 광고: 세일 일정+할인 (303.6~315.88)
-  {
-    type: "imageStat",
-    text: "마이프로틴 해피 추석 타임세일",
-    statValue: "최대 80%",
-    statLabel: "9/22 화 저녁 7시 ~ 9/23 수 밤 11:59\n할인코드 TEAMMP 입력 시 40% 추가",
-    durationInSeconds: 12.28,
-    accent: "#e17055",
-    characterImage: "char-10.png",
-  },
-  // 33. 광고: 추가 혜택 (315.88~328.46)
+  // 2. 공감: 뭘 메인으로 해야 할지 (9.64~18.62)
   {
     type: "highlight",
-    text: "추가 혜택도 가득",
+    text: "뭘 메인으로 해야 할까",
+    description: "이런 고민, 한 번쯤 있으시죠",
     bullets: [
-      "선착순 922명 쇼핑지원금 5천원",
-      "트렌드 제품 결제금액 5% 추가 할인",
-      "금액대별 사은품 최대 2개",
-      "앱 12만원 이상 제품지원금 7천원",
+      "허벅지 앞? 뒤? 어디에 좋은지",
+      "무릎·허리 안 아픈 건 뭔지",
+      "초보가 붙어도 되는 건 뭔지",
     ],
-    durationInSeconds: 12.58,
-    accent: "#e17055",
-    characterImage: "char-01.png",
+    durationInSeconds: 8.98,
+    accent: "#74b9ff",
+    characterImage: "scene-legs.png",
   },
-  // 34. 광고 마무리 (328.46~335.24)
+  // 3. 항목 예고: 4가지 기준 비교 (18.62~24.3)
   {
-    type: "text",
-    text: "링크는 고정댓글에",
-    subtitle: "이번 추석엔 운동도 회복도 알차게",
-    durationInSeconds: 6.78,
+    type: "timeline",
+    text: "네 가지 기준으로 쫙 비교",
+    steps: [
+      { label: "효과", description: "근성장 관점" },
+      { label: "자세", description: "궤적과 움직임" },
+      { label: "자극 부위", description: "어디에 실리나" },
+      { label: "위험도", description: "관절 부담" },
+    ],
+    durationInSeconds: 5.68,
     accent: "#6c5ce7",
-    characterImage: "char-02.png",
+    characterImage: "scene-torso.png",
   },
-  // 35. 아웃트로 (335.24~343.47)
+  // 4. 효과 인트로 (24.3~28.42)
   {
     type: "text",
-    text: "구독 · 좋아요 · 알림",
-    subtitle: "오늘도 득근하는 하루",
-    durationInSeconds: 8.23,
+    text: "먼저, 근성장 효과",
+    subtitle: "셋의 공통 강점부터",
+    durationInSeconds: 4.12,
+    accent: "#00b894",
+    characterImage: "scene-hack1.png",
+  },
+  // 5. 공통 강점: 바벨은 허리·코어가 먼저 (28.42~39.7)
+  {
+    type: "compare",
+    text: "왜 머신이 더 잘 클까",
+    compareData: {
+      left: {
+        title: "바벨 스쿼트",
+        description: "무게 오르면\n허리·코어가 먼저 방전\n다리 다 못 씀",
+      },
+      right: {
+        title: "스쿼트 머신",
+        description: "몸을 기대 궤적 고정\n방해 없이 다리를\n실패 지점까지",
+      },
+    },
+    durationInSeconds: 11.28,
+    accent: "#00b894",
+    characterImage: "scene-v1.png",
+  },
+  // 6. 근비대 결론 (39.7~42.7)
+  {
+    type: "text",
+    text: "셋 다 바벨보다\n근비대에 유리",
+    subtitle: "여기서부터 성격이 갈린다",
+    durationInSeconds: 3.0,
+    accent: "#00b894",
+    characterImage: "scene-torso.png",
+  },
+  // 7. 핵스쿼트: 사두 고립 최강 (42.7~48.28)
+  {
+    type: "imageText",
+    text: "핵스쿼트",
+    subtitle: "사두 고립 최강",
+    description: "허벅지 앞쪽 하나만\n집중적으로 조진다",
+    durationInSeconds: 5.58,
+    accent: "#e17055",
+    sceneImage: "scene-hack3.png",
+  },
+  // 8. 핵스쿼트: 고중량 때려박기 (48.28~58.08)
+  {
+    type: "imageText",
+    text: "밸런스 걱정 없이 고중량",
+    subtitle: "무릎 굽힘 위주",
+    description: "등판에 몸을 고정해\n계속 무게를 올릴 수 있다\n앞쪽에 고중량 때려박기 최고",
+    durationInSeconds: 9.8,
+    accent: "#e17055",
+    sceneImage: "scene-hack1.png",
+  },
+  // 9. 펜듈럼: 스트레치 자극 (58.08~70.5)
+  {
+    type: "imageText",
+    text: "펜듈럼, 곡선 궤적",
+    subtitle: "늘어난 지점에서 최대 장력",
+    description: "근육이 쭉 늘어난 바닥에서 자극\n요즘 연구가 주목하는 스트레치 자극\n늘어난 채 부하받을수록 성장 유리",
+    durationInSeconds: 12.42,
+    accent: "#6c5ce7",
+    sceneImage: "scene-pen1.png",
+  },
+  // 10. 펜듈럼: 종합 1티어 (70.5~77.88)
+  {
+    type: "imageStat",
+    text: "허리 부담 최저 + 사두 장력 최대",
+    statValue: "1티어",
+    statLabel: "종합 근성장 최고로 꼽는 사람 많음\n단, 헬스장에 잘 없다",
+    durationInSeconds: 7.38,
+    accent: "#6c5ce7",
+    sceneImage: "scene-pen2.png",
+  },
+  // 11. V스쿼트: 앞뒤 볼륨 동시 (77.88~89.86)
+  {
+    type: "imageText",
+    text: "V스쿼트",
+    subtitle: "앞뒤를 한 번에",
+    description: "사두에 엉덩이·뒷허벅지까지\n하체 앞뒤 볼륨 동시에\n자세가 직관적이라 초보도 금방 적응",
+    durationInSeconds: 11.98,
+    accent: "#00cec9",
+    sceneImage: "scene-v2.png",
+  },
+  // 12. 자세 인트로 (89.86~94.62)
+  {
+    type: "text",
+    text: "이번엔 자세와 궤적",
+    subtitle: "여기서 성격이 확 갈린다",
+    durationInSeconds: 4.76,
+    accent: "#fdcb6e",
+    characterImage: "scene-torso.png",
+  },
+  // 13. 핵스쿼트 궤적: 직선 (94.62~102.98)
+  {
+    type: "imageText",
+    text: "핵스쿼트: 직선 궤적",
+    subtitle: "레일 위 썰매",
+    description: "등을 패드에 붙이고\n정해진 트랙 위아래로 미끄러짐\n사두에 극한 스트레치",
+    durationInSeconds: 8.36,
+    accent: "#e17055",
+    sceneImage: "scene-hack3.png",
+  },
+  // 14. 펜듈럼 궤적: 곡선 (102.98~115.72)
+  {
+    type: "imageText",
+    text: "펜듈럼: 곡선 궤적",
+    subtitle: "그네처럼 호를 그림",
+    description: "곡선이라 힘 걸리는 지점이 바뀜\n바닥 깊은 구간에서 최대 장력\n등패드가 몸 따라 움직여 깊은 가동범위",
+    durationInSeconds: 12.74,
+    accent: "#6c5ce7",
+    sceneImage: "scene-pen3.png",
+  },
+  // 15. V스쿼트 궤적: 분산 (115.72~122.24)
+  {
+    type: "imageText",
+    text: "V스쿼트: V자 형태",
+    subtitle: "하중을 골고루",
+    description: "무릎·엉덩이·허리로 분산\n밸런스가 좋다",
+    durationInSeconds: 6.52,
+    accent: "#00cec9",
+    sceneImage: "scene-v3.png",
+  },
+  // 16. 궤적 결론 (122.24~127.16)
+  {
+    type: "text",
+    text: "이 궤적 차이가\n모든 걸 갈라놓는다",
+    subtitle: "자극 부위 · 관절 부담",
+    durationInSeconds: 4.92,
+    accent: "#fdcb6e",
+    characterImage: "scene-legs.png",
+  },
+  // 17. 자극 부위 인트로 + 핵 사두 편중 (127.16~136.92)
+  {
+    type: "muscleMap",
+    text: "핵스쿼트, 자극 부위",
+    subtitle: "철저한 사두 편중",
+    muscleData: [
+      { name: "대퇴사두", activation: 95, color: "#e17055" },
+      { name: "둔근", activation: 30, color: "#8a8f98" },
+      { name: "햄스트링", activation: 20, color: "#8a8f98" },
+    ],
+    description: "뒤쪽 근육 자극은 상대적으로 적다",
+    durationInSeconds: 9.76,
+    accent: "#e17055",
+    characterImage: "scene-hack1.png",
+  },
+  // 18. 펜듈럼 타겟: 균형 (136.92~141.96)
+  {
+    type: "muscleMap",
+    text: "펜듈럼, 자극 부위",
+    subtitle: "사두 중심 + 균형",
+    muscleData: [
+      { name: "대퇴사두", activation: 85, color: "#6c5ce7" },
+      { name: "대둔근", activation: 55, color: "#a29bfe" },
+      { name: "내전근", activation: 50, color: "#a29bfe" },
+    ],
+    description: "안쪽 허벅지까지 좀 더 균형 있게",
+    durationInSeconds: 5.04,
+    accent: "#6c5ce7",
+    characterImage: "scene-v1.png",
+  },
+  // 19. V스쿼트 타겟: 후면사슬 (141.96~151.58)
+  {
+    type: "muscleMap",
+    text: "V스쿼트, 자극 부위",
+    subtitle: "후면사슬 관여 최대",
+    muscleData: [
+      { name: "대퇴사두", activation: 80, color: "#00cec9" },
+      { name: "둔근", activation: 75, color: "#00b894" },
+      { name: "햄스트링", activation: 65, color: "#00b894" },
+    ],
+    description: "고관절 각도가 커서 앞뒤를 같이 쓴다",
+    durationInSeconds: 9.62,
+    accent: "#00cec9",
+    characterImage: "scene-pen3.png",
+  },
+  // 20. 발 위치로 편집 (151.58~159.06)
+  {
+    type: "compare",
+    text: "발 위치가 곧 스위치",
+    compareData: {
+      left: {
+        title: "발 높이고 넓게",
+        description: "둔근·햄스트링으로",
+      },
+      right: {
+        title: "발 낮추고 좁게",
+        description: "사두로 몰린다",
+      },
+    },
+    durationInSeconds: 7.48,
+    accent: "#fdcb6e",
+    characterImage: "scene-v3.png",
+  },
+  // 21. 위험도 인트로 + 핵 주의 2가지 (159.06~171.5)
+  {
+    type: "highlight",
+    text: "핵스쿼트, 주의 두 가지",
+    bullets: [
+      "무릎 완전히 펴 락 → 관절 스트레스",
+      "등 떼거나 허리 말면 → 허리 위험",
+    ],
+    description: "이 두 개만 피하면 된다",
+    durationInSeconds: 12.44,
+    accent: "#e17055",
+    characterImage: "scene-hack2.png",
+  },
+  // 22. EMG 연구: 핵스쿼트 안정성 (171.5~182.94)
+  {
+    type: "barChart",
+    text: "2019년 근전도 연구",
+    subtitle: "핵스쿼트, 뒤쪽 근육 활성도 최저",
+    barData: [
+      { label: "척추기립근", value: 42, color: "#e17055" },
+      { label: "안쪽 햄스트링", value: 38, color: "#e17055" },
+    ],
+    description: "다른 스쿼트 머신보다 유의미하게 낮음\n뒤집으면 무릎·척추 건강엔 좋은 선택",
+    durationInSeconds: 11.44,
+    accent: "#e17055",
+    characterImage: "scene-hack3.png",
+  },
+  // 23. 펜듈럼: 가장 관절 친화적 (182.94~192.8)
+  {
+    type: "imageStat",
+    text: "펜듈럼, 관절 친화 1위",
+    statValue: "주 2회",
+    statLabel: "요추 전단력·세로 압박 완화\n회복 부담 적어 자주 넣을 수 있다",
+    durationInSeconds: 9.86,
+    accent: "#6c5ce7",
+    sceneImage: "scene-pen2.png",
+  },
+  // 24. 펜듈럼도 방심 금지 (192.8~199.68)
+  {
+    type: "imageText",
+    text: "순하다고 방심은 금물",
+    description: "무게 확 올리기\n맨 위에서 무릎 락 걸기\n펜듈럼도 똑같이 조심",
+    durationInSeconds: 6.88,
+    accent: "#6c5ce7",
+    sceneImage: "scene-pen3.png",
+  },
+  // 25. V스쿼트 주의: 무릎 방향 (199.68~211.2)
+  {
+    type: "imageText",
+    text: "V스쿼트, 하중 분산형",
+    subtitle: "관절 스트레스 낮음",
+    description: "단, 발을 너무 넓게 벌리면\n무릎 안쪽에 스트레스\n무릎이 발끝 방향 따라가게",
+    durationInSeconds: 11.52,
+    accent: "#00cec9",
+    sceneImage: "scene-v1.png",
+  },
+  // 26. 공통 기본기 (211.2~220.56)
+  {
+    type: "highlight",
+    text: "세 기계 공통 기본기",
+    bullets: [
+      "맨 위에서 무릎 완전히 안 잠그기",
+      "살짝 굽힌 채 멈추기",
+      "무릎·발끝 방향 안 틀어지게",
+    ],
+    durationInSeconds: 9.36,
+    accent: "#ffd93d",
+    characterImage: "scene-legs.png",
+  },
+  // 27. 핵스쿼트 추천 대상 (220.56~229.92)
+  {
+    type: "imageStat",
+    text: "이런 분은 핵스쿼트",
+    statValue: "사두 극한",
+    statLabel: "앞쪽 갈라지게 키우고 싶고\n고통 잘 참고 자세에 자신 있는 분",
+    durationInSeconds: 9.36,
+    accent: "#e17055",
+    sceneImage: "scene-hack1.png",
+  },
+  // 28. 펜듈럼 추천 대상 (229.92~235.78)
+  {
+    type: "imageStat",
+    text: "이런 분은 펜듈럼",
+    statValue: "관절 보호",
+    statLabel: "허리가 걱정되거나\n가장 관절 친화적인 걸 원하는 분",
+    durationInSeconds: 5.86,
+    accent: "#6c5ce7",
+    sceneImage: "scene-pen2.png",
+  },
+  // 29. V스쿼트 추천 대상 (235.78~246.06)
+  {
+    type: "imageStat",
+    text: "이런 분은 V스쿼트",
+    statValue: "하체 전체",
+    statLabel: "앞뒤 밸런스 좋게 키우고 싶고\n재활 중이거나 가동성 제한 있는 분",
+    durationInSeconds: 10.28,
+    accent: "#00cec9",
+    sceneImage: "scene-v2.png",
+  },
+  // 30. 병행 팁 (246.06~252.16)
+  {
+    type: "text",
+    text: "머신 하나만 하지 말고",
+    subtitle: "프리웨이트와 섞으면 금상첨화",
+    description: "바벨 스쿼트·런지와 함께",
+    durationInSeconds: 6.1,
     accent: "#4A90D9",
-    characterImage: "char-03.png",
+    characterImage: "scene-legs.png",
+  },
+  // 31. 아웃트로 (252.16~259.26)
+  {
+    type: "text",
+    text: "구독·좋아요·알림·하이프",
+    subtitle: "오늘도 득근하는 하루",
+    durationInSeconds: 7.1,
+    accent: "#4A90D9",
+    characterImage: "scene-torso.png",
   },
 ];
