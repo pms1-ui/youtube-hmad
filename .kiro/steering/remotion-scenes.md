@@ -9,11 +9,13 @@ fileMatchPattern: 'src/**'
 
 ## 영상 제작 실행 순서 (매번 이 순서)
 1. **오디오 길이 측정** — `audio/`의 mp3 길이를 초 단위로 확인.
-2. **장면 구성** — 대본(hmad.txt)을 문장 단위로 쪼개어 장면 배분, 총 초수 = 오디오 길이와 정확히 일치.
-3. **이미지 생성** — 주제에 맞는 포즈로 병렬 생성 → 배경 제거 (상세: `character-images.md`).
+2. **장면 구성 + 타입 분포 점검** — 대본(hmad.txt)을 문장 단위로 쪼개어 장면 배분, 총 초수 = 오디오 길이와 정확히 일치. **각 장면은 "어떤 그림으로 보여줄지" 먼저 정하고 타입을 고른다.** 배분 후 타입 분포를 집계해 **text가 30%를 넘으면 초과분을 iconGrid/compare/splitFact/timeline/차트/이미지로 재배치**한다. (아래 "비주얼 우선 강령" 참조)
+3. **이미지 생성** — 주제에 맞는 포즈로 병렬 생성 → 배경 제거 (상세: `character-images.md`). 개념 일러스트가 필요하면 sceneImage용 PNG도 함께 준비.
 4. **script.ts 작성** — 장면 배열 작성, characterImage 순환 배정.
 5. **TypeScript 검증** — `npx tsc --noEmit ; Write-Output "EXIT=$LASTEXITCODE"`.
 6. **렌더링** — ProRes 4444 투명 .mov, TransitionOverlay 없음, `--concurrency=8` 병렬. 장기 렌더는 백그라운드.
+
+> **★ 자막·효과음은 이 프로젝트에서 만들지 않는다.** 사용자가 Vrew로 직접 처리한다. Remotion은 **화면(차트·캐릭터·인포그래픽) 투명 .mov만** 뽑는다. 전사 JSON(`audio/result/*_transcript.json`)은 장면 타이밍 산출용으로만 쓰고, SRT 자막 파일이나 효과음 트랙(SfxTrack)은 생성하지 않는다. (youtube-baby는 숏폼이라 자막·효과음을 Remotion에 넣지만, 이 롱폼 프로젝트는 Vrew 분업 체제다.)
 
 ### 병렬 처리
 ```
@@ -41,14 +43,30 @@ fileMatchPattern: 'src/**'
 | A vs B 비교(수치 없음) | compare |
 | 시계열/추이/변화 | lineGraph |
 | 항목 나열 + 정도 차이 | highlight + bulletValues(원형 프로그레스) |
-| 항목 나열(수치 없음) | highlight(카드 그리드) |
+| 항목 나열(수치 없음) | **iconGrid**(아이콘+라벨 카드) 우선, 또는 highlight(넘버링 카드) |
+| 개념 2~5개를 그림으로(음식·운동·시간·멘탈 등) | **iconGrid**(각 항목에 SVG 아이콘) |
+| 오해→진실 / 통념→반전 / 원인→결과 | **splitFact**(상하 2블록+화살표) |
 | 순서/과정/단계 | timeline |
+| A vs B 비교(수치 없음) | compare |
 | 큰 수치 1개 강조 + 이미지 | imageStat |
 | 이미지 + 짧은 설명 | imageText |
 | 이미지가 주인공 | imageShowcase |
-| 순수 메시지 | text |
+| 순수 메시지(위 어디에도 안 맞을 때만) | text |
 - **차트/그래프를 최우선**. text만 나열하지 말 것. "절반/두 배/거의 동일"은 수치로 변환. **근거 없는 수치는 만들지 않되** 표현에서 합리적으로 추론 가능한 수치는 사용.
 - **★ barChart는 값 뒤에 무조건 `%`가 붙는다.** 개수·횟수·kg 등 퍼센트가 아닌 수치, 또는 "전 vs 후" 짝 비교에는 **절대 barChart를 쓰지 말고 `beforeAfterChart`를 쓴다.**
+
+### ★★ 비주얼 우선 강령 — text 남발 금지 (필수, 반면교사 기반) ★★
+글자만 띡 박힌 `text` 장면이 연속되면 의미가 퇴색되고 영상이 단조로워진다. **대본 문장을 그대로 화면에 옮기는 것은 금지.** 각 장면은 "이 메시지를 어떤 그림으로 보여줄까"를 먼저 정하고 타입을 고른다.
+- **★ text 타입 상한: 전체 장면의 30% 이하.** (반면교사: 261009 체지방 편이 text 40/52 = 77%로 글자만 박혀 밋밋했음. 다시는 이렇게 하지 않는다.) 50장면이면 text는 최대 15개, 나머지는 iconGrid/compare/splitFact/timeline/차트/이미지로 분산한다.
+- **★ 같은 타입 3연속 금지.** text가 두 번 나왔으면 다음은 반드시 비주얼 타입(iconGrid/splitFact/compare/차트 등)으로 바꾼다.
+- **수치가 없어도 비주얼로 만들 수 있다** — 이게 핵심. 수치 없는 개념도 다음으로 그림이 된다:
+  - 키워드/항목 나열 → **iconGrid**(각 항목에 어울리는 SVG 아이콘). 예: 식단·유산소·운동·멘탈 → plate/run/dumbbell/brain.
+  - 통념이 틀렸다·반전 → **splitFact**(위=오해, 아래=진실, 가운데 화살표).
+  - A와 B 대조 → **compare**.
+  - 과정·순서·시간 흐름 → **timeline**.
+- **아이콘은 `src/components/Icons.tsx`의 `Icon`(라인 SVG 22종)만 사용.** 이모지·외부 아이콘폰트 금지(디자인 언어 통일). 부족한 개념 아이콘은 Icons.tsx에 같은 스타일(viewBox 24, stroke 1.7, accent color)로 추가한다.
+- **이미지(sceneImage)로 더 와닿는 장면**: 음식·식품·신체 등 "실물이 보여야 설득되는" 개념은 PNG 이미지가 아이콘보다 강하다. 이땐 imageText/imageShowcase로 가고, 이미지는 (a) gpt-image-2.5-sunburst로 개념 일러스트 생성, 또는 (b) 웹검색으로 적합한 png 확보 → `public/scene-*.png`. 단 Type A는 캐릭터가 이미 오버레이되므로, 이미지 주인공 장면은 캐릭터 없이(또는 imageText 중앙배치로) 구성해 복잡해지지 않게 한다.
+- **장면 설계 산출 시 타입 분포를 스스로 집계**해 text 비율을 점검하고, 30%를 넘으면 초과분을 비주얼 타입으로 재배치한 뒤 script.ts를 확정한다. (글자수·합계 검증과 동급의 필수 절차)
 
 ## 장면 타입 (SceneType)
 - `text`: 메인(82px 흰색) + subtitle(56px accent) + description(32px 회색). 테두리/카드 없음.
@@ -62,6 +80,7 @@ fileMatchPattern: 'src/**'
 - `imageStat`: 이미지 + 큰 수치 1개 강조. `text`(accent 소형 캡션/eyebrow) → `statValue`(**흰색 대형 수치, 히어로**) → 짧은 accent 구분선 → `statLabel`(하단 설명). 세 요소를 하나의 덩어리로 묶어 배치. 이미지=`sceneImage` 우선, 없으면 `characterImage` fallback. 중앙 정렬. **`statValue`는 짧은 수치 전용**(16살/+3년/60~70% 등) — 긴 문장 넣으면 220px에서 깨짐, 문장은 `text` 타입으로.
 - `imageText`: 이미지 + 짧은 텍스트(title/subtitle/description)를 화면 중앙에 나란히(가로형)/위아래(세로형). 이미지=`sceneImage`→`characterImage` fallback.
 - `imageShowcase`: 이미지가 주인공. 이미지+캡션(text/subtitle)을 화면 정중앙 세로 스택. `sceneImage` 사용.
+- `iconGrid`: **수치 없는 개념 2~5개를 아이콘 카드 그리드로.** `iconItems: {icon,label,desc?}[]` + 타이틀 `text` + 선택 `description`. 각 카드 = 원형 accent 배경 안의 라인 SVG 아이콘 + 라벨(+부연). 캐릭터 있으면 2열, 없으면 최대 3열(3개 이하+캐릭터X면 big 모드로 큼직). `icon` 값은 Icons.tsx의 IconName(scale/note/plate/run/dumbbell/clock/heart/meat/leaf/flame/brain/sleep/up/down/warning/check/target/calendar/shaker/drop/muscle/bulb). **글자만 나열하던 장면을 대체하는 1순위 타입.**
 
 ### 이미지 씬 필드 (sceneImage 계열)
 - `sceneImage`: 장면 특화 그래픽 이미지 파일명(캐릭터와 별개). `public/scene-*.png`.

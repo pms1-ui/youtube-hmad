@@ -16,6 +16,7 @@ import { ImageShowcaseScene } from "./scenes/ImageShowcaseScene";
 import { ImageTextScene } from "./scenes/ImageTextScene";
 import { ImageStatScene } from "./scenes/ImageStatScene";
 import { BeforeAfterChartScene } from "./scenes/BeforeAfterChartScene";
+import { IconGridScene } from "./scenes/IconGridScene";
 import { TransitionOverlay } from "./components/TransitionOverlay";
 
 export type HealthVideoProps = {
@@ -60,6 +61,7 @@ export const HealthVideo: React.FC<HealthVideoProps> = ({ scenes }) => {
             {scene.type === "imageText" && <ImageTextScene scene={scene} />}
             {scene.type === "imageStat" && <ImageStatScene scene={scene} />}
             {scene.type === "beforeAfterChart" && <BeforeAfterChartScene scene={scene} />}
+            {scene.type === "iconGrid" && <IconGridScene scene={scene} />}
           </Sequence>
         );
       })}

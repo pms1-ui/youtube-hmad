@@ -94,6 +94,17 @@ npx remotion render src/index.ts <HealthVideo|ShortVideo> out/<longform|shortfor
 - `out/` = Remotion이 뽑은 화면 .mov(투명) · `video_output/` = 외부 생성 영상 · `video_before/` = 편집 전 소스
 - **임시파일(`_*.py`, `*_raw.b64`, `*_tmp` 등)은 작업 후 항상 삭제**한다.
 
+## ★ 자막·효과음 분업 규칙 (필수)
+- **자막과 효과음은 이 프로젝트(Remotion)에서 만들지 않는다. 사용자가 Vrew로 직접 처리한다.**
+- Remotion은 **화면(차트·캐릭터·인포그래픽) 투명 .mov만** 산출. SRT 자막 파일·효과음 트랙(SfxTrack)·`public/sfx` 등은 생성하지 않는다.
+- 전사(faster-whisper → `audio/result/*_transcript.json`)는 **장면 타이밍 산출 용도로만** 사용(자막 파일로 내보내지 않음).
+- (youtube-baby는 숏폼이라 Remotion 안에 자막·효과음을 넣지만, 이 롱폼 프로젝트는 Vrew 분업 체제다. 혼동 금지.)
+
+## ★ Remotion 화면 비주얼 우선 규칙 (필수 — text 남발 금지)
+- 글자만 박힌 `text` 장면 남발 금지. **대본 문장을 그대로 화면에 옮기지 않는다.** 각 장면은 "어떤 그림으로 보여줄까"를 먼저 정한다.
+- **text 타입은 전체 장면의 30% 이하.** 나머지는 iconGrid(아이콘 카드)·compare·splitFact·timeline·차트·이미지로 분산. (반면교사: 261009 체지방 편 text 77% → 밋밋. 재발 금지.)
+- 수치가 없어도 비주얼로 만든다: 키워드 나열→iconGrid, 통념 반전→splitFact, A vs B→compare, 과정→timeline. 상세는 `remotion-scenes.md`.
+
 ## 작업 완료 후 안내 규칙
 - **영상 렌더링 또는 Remotion 화면 작업 완료 시에만** 미리보기 주소(`http://localhost:3000`) 안내.
 - 스크립트 작업·문서 업데이트·이미지 생성 등에는 미리보기 불필요.
