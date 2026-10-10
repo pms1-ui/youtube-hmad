@@ -18,6 +18,8 @@ mix/
 video_output/
 # 편집 전 원본 영상
 video_before/
+# 프리미어/Vrew 편집 프로젝트 + 소스 미디어 (대용량, 로컬 전용)
+project/
 # 생성 캐릭터 이미지 (재생성 가능한 대용량 PNG)
 public/*.png
 public/image_2026/

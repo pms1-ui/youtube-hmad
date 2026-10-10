@@ -9,7 +9,7 @@ fileMatchPattern: 'src/**'
 
 ## 영상 제작 실행 순서 (매번 이 순서)
 1. **오디오 길이 측정** — `audio/`의 mp3 길이를 초 단위로 확인.
-2. **장면 구성 + 타입 분포 점검** — 대본(hmad.txt)을 문장 단위로 쪼개어 장면 배분, 총 초수 = 오디오 길이와 정확히 일치. **각 장면은 "어떤 그림으로 보여줄지" 먼저 정하고 타입을 고른다.** 배분 후 타입 분포를 집계해 **text가 30%를 넘으면 초과분을 iconGrid/compare/splitFact/timeline/차트/이미지로 재배치**한다. (아래 "비주얼 우선 강령" 참조)
+2. **장면 구성 + 타입 분포 점검** — 대본(hmad.txt)을 문장 단위로 쪼개어 장면 배분, 총 초수 = 오디오 길이와 정확히 일치. **각 장면은 "어떤 그림으로 보여줄지" 먼저 정하고 타입을 고른다.** 배분 후 타입 분포를 집계해 ① **text ≤ 30%**, ② **진짜 데이터 시각화(차트/radar/muscle/beforeAfter) ≥ 20%**, ③ **핵심 개념·로직은 conceptArt로** — 세 기준을 모두 점검하고 초과/미달분을 재배치한다. (아래 "비주얼 우선 강령"·"데이터 시각화 쿼터" 참조)
 3. **이미지 생성** — 주제에 맞는 포즈로 병렬 생성 → 배경 제거 (상세: `character-images.md`). 개념 일러스트가 필요하면 sceneImage용 PNG도 함께 준비.
 4. **script.ts 작성** — 장면 배열 작성, characterImage 순환 배정.
 5. **TypeScript 검증** — `npx tsc --noEmit ; Write-Output "EXIT=$LASTEXITCODE"`.
@@ -37,14 +37,15 @@ fileMatchPattern: 'src/**'
 | 조건 | 시각 표현 |
 |------|-----------|
 | 구체적 수치 데이터 | 차트/그래프 (barChart, donutChart, lineGraph) |
-| 비율/퍼센트(절반, 두 배 등) | 도넛/원형 프로그레스 |
+| 비율/퍼센트(절반, 두 배 등) | **donutChart**(원형) |
 | **개수·수치의 전/후, 대조군 비교 (예: 7.5회→19.6회)** | **beforeAfterChart** |
 | 여러 항목의 단일 퍼센트 값 비교 | barChart |
-| A vs B 비교(수치 없음) | compare |
+| **여러 능력치/영역을 한눈에 비교(악력·코어·균형·심폐 등)** | **radarChart**(운동 영상 1순위 후보) |
+| **동원 근육·신체 부위별 활성도** | **muscleMap**(운동 영상 1순위 후보) |
 | 시계열/추이/변화 | lineGraph |
 | 항목 나열 + 정도 차이 | highlight + bulletValues(원형 프로그레스) |
-| 항목 나열(수치 없음) | **iconGrid**(아이콘+라벨 카드) 우선, 또는 highlight(넘버링 카드) |
-| 개념 2~5개를 그림으로(음식·운동·시간·멘탈 등) | **iconGrid**(각 항목에 SVG 아이콘) |
+| **핵심 개념·로직·인과를 "그림 하나"로 (손아귀→힘, 척추 코르셋, 균형추, 병목 등)** | **conceptArt**(큰 커스텀 SVG/이모지, 아래 전용 섹션) |
+| 항목 나열(수치 없음) | **iconGrid**(아이콘+라벨 카드), 또는 highlight(넘버링 카드) |
 | 오해→진실 / 통념→반전 / 원인→결과 | **splitFact**(상하 2블록+화살표) |
 | 순서/과정/단계 | timeline |
 | A vs B 비교(수치 없음) | compare |
@@ -52,19 +53,33 @@ fileMatchPattern: 'src/**'
 | 이미지 + 짧은 설명 | imageText |
 | 이미지가 주인공 | imageShowcase |
 | 순수 메시지(위 어디에도 안 맞을 때만) | text |
-- **차트/그래프를 최우선**. text만 나열하지 말 것. "절반/두 배/거의 동일"은 수치로 변환. **근거 없는 수치는 만들지 않되** 표현에서 합리적으로 추론 가능한 수치는 사용.
+
+#### ★★ 데이터 시각화 쿼터 (필수) ★★
+- **진짜 데이터 시각화(barChart·donutChart·lineGraph·radarChart·muscleMap·beforeAfterChart) 를 롱폼 한 편에 최소 20% 이상** 배치한다. iconGrid(글자카드)로 전부 때우지 말 것. (반면교사: 261010 파머스캐리 편이 진짜 차트 1개뿐, iconGrid 11개로 밋밋했음.)
+- **수치가 없어도 차트로 변환**한다 — "숫자 있을 때만 차트"는 틀린 접근. 근거 범위 내에서 **합리적으로 추론 가능한 수치는 적극 생성**:
+  - 능력치 여러 개(악력/코어/균형/심폐/근성장) → **radarChart** (각 축 60~95 사이 추정값).
+  - 동원 근육(전완·승모근·광배근·둔근·코어) → **muscleMap** (활성도 % 추정).
+  - "절반/대부분/두 배/치솟는다" → **donutChart** 또는 barChart로 수치화.
 - **★ barChart는 값 뒤에 무조건 `%`가 붙는다.** 개수·횟수·kg 등 퍼센트가 아닌 수치, 또는 "전 vs 후" 짝 비교에는 **절대 barChart를 쓰지 말고 `beforeAfterChart`를 쓴다.**
+- 운동 영상은 "능력치"와 "동원 근육"이 거의 항상 나오므로 **radarChart·muscleMap을 1순위로 검토**한다.
 
 ### ★★ 비주얼 우선 강령 — text 남발 금지 (필수, 반면교사 기반) ★★
 글자만 띡 박힌 `text` 장면이 연속되면 의미가 퇴색되고 영상이 단조로워진다. **대본 문장을 그대로 화면에 옮기는 것은 금지.** 각 장면은 "이 메시지를 어떤 그림으로 보여줄까"를 먼저 정하고 타입을 고른다.
 - **★ text 타입 상한: 전체 장면의 30% 이하.** (반면교사: 261009 체지방 편이 text 40/52 = 77%로 글자만 박혀 밋밋했음. 다시는 이렇게 하지 않는다.) 50장면이면 text는 최대 15개, 나머지는 iconGrid/compare/splitFact/timeline/차트/이미지로 분산한다.
 - **★ 같은 타입 3연속 금지.** text가 두 번 나왔으면 다음은 반드시 비주얼 타입(iconGrid/splitFact/compare/차트 등)으로 바꾼다.
 - **수치가 없어도 비주얼로 만들 수 있다** — 이게 핵심. 수치 없는 개념도 다음으로 그림이 된다:
+  - **핵심 개념·로직·인과 → `conceptArt`로 "그림 하나"로 설명** (아래 전용 섹션). 예: "손아귀 힘→미는/당기는 힘"=flow 다이어그램, "척추를 코르셋이 감싼다"=hero 상징.
   - 키워드/항목 나열 → **iconGrid**(각 항목에 어울리는 SVG 아이콘). 예: 식단·유산소·운동·멘탈 → plate/run/dumbbell/brain.
   - 통념이 틀렸다·반전 → **splitFact**(위=오해, 아래=진실, 가운데 화살표).
   - A와 B 대조 → **compare**.
   - 과정·순서·시간 흐름 → **timeline**.
-- **아이콘은 `src/components/Icons.tsx`의 `Icon`(라인 SVG 22종)만 사용.** 이모지·외부 아이콘폰트 금지(디자인 언어 통일). 부족한 개념 아이콘은 Icons.tsx에 같은 스타일(viewBox 24, stroke 1.7, accent color)로 추가한다.
+- **아이콘 선택**: 작은 라벨 카드용 아이콘은 `Icons.tsx`의 라인 SVG(22종). **핵심 개념을 "크게" 그릴 땐 `conceptArt`** — `ConceptArt.tsx`의 큰 커스텀 SVG(viewBox 120) 또는 **이모지**(conceptArt·flow 노드 한정 허용). iconGrid/highlight 등 일반 카드엔 여전히 이모지 금지(라인 아이콘만, 디자인 언어 통일).
+
+### ★★ 소제목·부연 최소화 + 라벨 대본복붙 금지 (필수) ★★
+(반면교사: 261010에서 iconGrid 카드마다 대본 어구를 label에, 부연을 desc에 그대로 박아 "글자 떡칠"이 됨.)
+- **카드 부연·소제목은 기본적으로 비운다.** iconGrid의 `description`·카드 `desc`, highlight의 `bulletDescriptions`, progressCards의 `description`은 **꼭 필요한 수치/단위가 아니면 생략**. 라벨(키워드) 하나로 전달한다. (코드는 값 없으면 자동으로 안 그림.)
+- **라벨은 대본 문장 복붙 금지 → 짧은 키워드/체언(명사형).** 예: "견갑골 뒤·아래로 꾹 눌러넣기"(대본투) → **"견갑골 고정"**. "손아귀 힘이 세진다" → **"악력↑"**. 구어 어미·서술형 금지.
+- 소제목(subtitle)이 "메인을 그냥 풀어쓴 것"이면 삭제. 반전·수치·핵심 한 방일 때만 유지.
 - **이미지(sceneImage)로 더 와닿는 장면**: 음식·식품·신체 등 "실물이 보여야 설득되는" 개념은 PNG 이미지가 아이콘보다 강하다. 이땐 imageText/imageShowcase로 가고, 이미지는 (a) gpt-image-2.5-sunburst로 개념 일러스트 생성, 또는 (b) 웹검색으로 적합한 png 확보 → `public/scene-*.png`. 단 Type A는 캐릭터가 이미 오버레이되므로, 이미지 주인공 장면은 캐릭터 없이(또는 imageText 중앙배치로) 구성해 복잡해지지 않게 한다.
 - **장면 설계 산출 시 타입 분포를 스스로 집계**해 text 비율을 점검하고, 30%를 넘으면 초과분을 비주얼 타입으로 재배치한 뒤 script.ts를 확정한다. (글자수·합계 검증과 동급의 필수 절차)
 
@@ -80,7 +95,12 @@ fileMatchPattern: 'src/**'
 - `imageStat`: 이미지 + 큰 수치 1개 강조. `text`(accent 소형 캡션/eyebrow) → `statValue`(**흰색 대형 수치, 히어로**) → 짧은 accent 구분선 → `statLabel`(하단 설명). 세 요소를 하나의 덩어리로 묶어 배치. 이미지=`sceneImage` 우선, 없으면 `characterImage` fallback. 중앙 정렬. **`statValue`는 짧은 수치 전용**(16살/+3년/60~70% 등) — 긴 문장 넣으면 220px에서 깨짐, 문장은 `text` 타입으로.
 - `imageText`: 이미지 + 짧은 텍스트(title/subtitle/description)를 화면 중앙에 나란히(가로형)/위아래(세로형). 이미지=`sceneImage`→`characterImage` fallback.
 - `imageShowcase`: 이미지가 주인공. 이미지+캡션(text/subtitle)을 화면 정중앙 세로 스택. `sceneImage` 사용.
-- `iconGrid`: **수치 없는 개념 2~5개를 아이콘 카드 그리드로.** `iconItems: {icon,label,desc?}[]` + 타이틀 `text` + 선택 `description`. 각 카드 = 원형 accent 배경 안의 라인 SVG 아이콘 + 라벨(+부연). 캐릭터 있으면 2열, 없으면 최대 3열(3개 이하+캐릭터X면 big 모드로 큼직). `icon` 값은 Icons.tsx의 IconName(scale/note/plate/run/dumbbell/clock/heart/meat/leaf/flame/brain/sleep/up/down/warning/check/target/calendar/shaker/drop/muscle/bulb). **글자만 나열하던 장면을 대체하는 1순위 타입.**
+- `iconGrid`: **수치 없는 개념 2~5개를 아이콘 카드 그리드로.** `iconItems: {icon,label,desc?}[]` + 타이틀 `text`. 각 카드 = 원형 accent 배경 안의 라인 SVG 아이콘 + 라벨. **열 배치는 항목 수가 자동 결정: 2개=2열, 3개=3열, 4개=2×2, 5개=3열**(캐릭터 있어도 홀수는 3열 가로배치 — 2+1로 깨지지 않음, 코드가 compact 모드로 자동 축소). `icon` 값은 Icons.tsx의 IconName(scale/note/plate/run/dumbbell/clock/heart/meat/leaf/flame/brain/sleep/up/down/warning/check/target/calendar/shaker/drop/muscle/bulb). **`desc`·`description`은 기본 생략**(소제목·부연 최소화 규칙), 라벨은 짧은 키워드/체언. **카드 개수 가이드**: 캐릭터 있는 장면은 2·4개(2열 정렬이 가장 깔끔), 3·5개는 3열로 자동.
+- `conceptArt`: **핵심 개념·로직·인과를 "큰 그림 하나"로.** 두 레이아웃:
+  - **hero**(단일 상징): `conceptArt`(ConceptArt.tsx 커스텀 SVG 키) 또는 `conceptEmoji`(큰 이모지) + 선택 `subtitle`(accent 캡션). 예: 척추 코르셋=`conceptArt:"spine"`.
+  - **flow**(로직 다이어그램): `conceptNodes: {art?|emoji?|icon?, label, sub?, color?}[]` 를 **화살표(→)로 연결**. 인과·단계·전이 표현. 예: 손아귀 → 미는 힘 → 당기는 힘.
+  - 커스텀 SVG 키(ConceptArt.tsx): grip(악력)·spine(척추코르셋)·balance(균형추)·link(상관연결)·carry(들고걷기)·fullbody(전신)·posture(자세교정)·bottleneck(병목)·cardio(심폐)·mental(인내오르막). **없는 개념은 ConceptArt.tsx에 같은 스타일(viewBox 120, strokeWidth 3~3.5, accent+글로우)로 직접 그려 추가**한다 — "핵심 로직을 내가 그려서 보여준다"가 이 타입의 목적.
+  - 글리프 우선순위: `art`(커스텀 SVG) > `emoji`(이모지) > `icon`(라인아이콘 fallback).
 
 ### 이미지 씬 필드 (sceneImage 계열)
 - `sceneImage`: 장면 특화 그래픽 이미지 파일명(캐릭터와 별개). `public/scene-*.png`.

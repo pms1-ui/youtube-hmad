@@ -15,7 +15,8 @@ export type SceneType =
   | "imageText"
   | "imageStat"
   | "beforeAfterChart"
-  | "iconGrid";
+  | "iconGrid"
+  | "conceptArt";
 
 export type BarData = { label: string; value: number; color: string };
 export type BeforeAfterData = {
@@ -49,6 +50,18 @@ export type IconItem = {
   desc?: string;
 };
 
+// conceptArt — 핵심 개념/로직을 큰 그림(커스텀 SVG 일러스트 or 이모지)으로 표현.
+//  · 플로우 노드: 인과/로직을 아이콘+라벨 노드로 두고 화살표(→)로 연결.
+//    glyph 우선순위: art(사전정의 커스텀 SVG) > emoji(큰 이모지) > icon(Icons.tsx 라인아이콘).
+export type ConceptNode = {
+  art?: string;    // ConceptArt.tsx에 사전 정의한 커스텀 일러스트 키 (예: "grip", "spine")
+  emoji?: string;  // 큰 이모지 (예: "💪", "🏋️")
+  icon?: string;   // Icons.tsx IconName fallback
+  label: string;
+  sub?: string;    // 노드 하단 짧은 보조어 (선택)
+  color?: string;  // 노드 개별 색 (미지정 시 accent)
+};
+
 export type Scene = {
   type: SceneType;
   title?: string;
@@ -75,519 +88,450 @@ export type Scene = {
   progressCards?: ProgressCardData[];
   muscleData?: MuscleData[];
   iconItems?: IconItem[];
+  // conceptArt 전용
+  conceptArt?: string;        // 단일 히어로 커스텀 SVG 키 (ConceptArt.tsx)
+  conceptEmoji?: string;      // 단일 히어로 큰 이모지
+  conceptNodes?: ConceptNode[]; // 플로우 다이어그램 노드들 (화살표로 연결)
+  conceptLayout?: "flow" | "hero"; // flow=노드 연결, hero=단일 상징(기본 자동 판별)
 };
 
-// 체지방 감량은 사실 간단합니다 (크리스 범스테드) — 오디오 261009_final.mp3 = 370.47초
-// 52장면, 전사 타임스탬프 기반. 캐릭터 char-01~10 순환.
+// 파머스 캐리 들고 걷기의 힘 — 오디오 261010 jamak.mp3 = 257.23초
+// 37장면, 전사 타임스탬프(261010_transcript.json) 기반. 캐릭터 char-01~10 순환.
+// 자막·효과음은 Vrew로 사용자가 직접 처리 → Remotion은 화면(차트·캐릭터·인포그래픽) 투명 .mov만 렌더.
 export const SCENES: Scene[] = [
-  // 1. 훅: 범스테드는 체지방 감량이 쉽다고 말함 (0.00~4.64)
+  // 1. 훅: 세계 최강 스트롱맨 톰 해빌랜드 "들고 걷는 게 진짜" (seg1-2, 0.00~9.78)
   {
     type: "text",
-    text: "세계 최고 보디빌더가 말한다",
-    subtitle: "\"체지방 감량, 사실 너무 쉽다\"",
-    description: "크리스 범스테드",
-    durationInSeconds: 4.64,
+    text: "이 하나로 최강이 된다",
+    subtitle: "제자리 쇠질보다 들고 걷기",
+    description: "세계 최강 스트롱맨 톰 해빌랜드",
+    durationInSeconds: 9.78,
     accent: "#ffd93d",
     characterImage: "char-01.png",
   },
-  // 2. 왜? 쉬워서? 뭔가 있나 (4.64~8.32)
-  {
-    type: "text",
-    text: "정말 쉬워서일까",
-    subtitle: "아니면 우리가 모르는 뭔가가",
-    durationInSeconds: 3.68,
-    accent: "#ffd93d",
-    characterImage: "char-02.png",
-  },
-  // 3. 사람들은 유행 식단·공복 유산소·저녁 운동·단백질에 헤맴 (8.32~15.16)
-  {
-    type: "highlight",
-    text: "다들 여기서 헤맨다",
-    bullets: ["어떤 식단이 유행인지", "공복 유산소가 맞는지", "저녁 운동이 좋은지", "단백질은 어떻게 채울지"],
-    durationInSeconds: 6.84,
-    accent: "#6c5ce7",
-    characterImage: "char-03.png",
-  },
-  // 4. 15년 선수·체지방 4%까지 간 범스테드의 답은 간단 (15.16~23.24)
+  // 2. 조 로건, 32kg 케틀벨로 100m 언덕 (seg3, 9.78~16.68)
   {
     type: "imageStat",
-    text: "15년 프로가 내려가 본 지점",
-    statValue: "체지방 4%",
-    statLabel: "혈관이 다 비치는 그곳까지 가본 사람의 답은\n어이가 없을 만큼 간단합니다",
-    durationInSeconds: 8.08,
+    text: "조 로건이 직접 해본 실험",
+    statValue: "100m 언덕",
+    statLabel: "32kg 케틀벨을 양손에 들고\n반신반의하며 오르내리기 시작",
+    durationInSeconds: 6.9,
+    accent: "#6c5ce7",
+    characterImage: "char-02.png",
+  },
+  // 3. 세 달 후 효과: 악력↑ 다리 굵어짐 등 편해짐 수행능력↑ (seg4-5, 16.68~25.06)
+  {
+    type: "iconGrid",
+    text: "세 달 후, 몸이 달라졌다",
+    description: "들고 걷기만 했을 뿐인데",
+    iconItems: [
+      { icon: "muscle", label: "악력 폭발", desc: "손아귀 힘 급상승" },
+      { icon: "dumbbell", label: "다리 굵어짐", desc: "하체 볼륨 증가" },
+      { icon: "check", label: "등 편해짐", desc: "뻐근함 해소" },
+      { icon: "up", label: "수행능력↑", desc: "다른 운동도 상승" },
+    ],
+    durationInSeconds: 8.38,
+    accent: "#00b894",
+    characterImage: "char-03.png",
+  },
+  // 4. 어쩌면 몸의 모든 걸 바꿀 운동 (seg6, 25.06~29.18)
+  {
+    type: "text",
+    text: "내 몸의 모든 걸 바꿀 운동",
+    subtitle: "그가 내린 결론",
+    durationInSeconds: 4.12,
     accent: "#ffd93d",
     characterImage: "char-04.png",
   },
-  // 5. 인사 + 감기 양해 (23.24~29.44)
+  // 5. 파머스 캐리 유래 — 농부·시장 봉다리 유머 (seg7-9, 29.18~40.66)
   {
     type: "text",
-    text: "안녕하세요, 헬마드입니다",
-    subtitle: "환절기 감기로 코가 살짝 막힌 점 양해 부탁드립니다",
-    durationInSeconds: 6.2,
-    accent: "#4A90D9",
+    text: "파머스 캐리",
+    subtitle: "곡물 포대를 양손에 들고 나르던 농부",
+    description: "시장에서 까만 봉다리 한가득 들고 걷는\n그 모습이 바로 완벽한 파머스 캐리\n생활의 고수들은 이미 다 하고 계셨다",
+    durationInSeconds: 11.48,
+    accent: "#fdcb6e",
     characterImage: "char-05.png",
   },
-  // 6. 다이어트 몇 번씩, 늘 안 쉬웠고 금방 돌아옴 (29.44~36.10)
-  {
-    type: "text",
-    text: "빼도 금방 돌아온다",
-    subtitle: "다이어트, 늘 쉽지 않았죠",
-    description: "원래 체중으로 돌아오고 마는 이유,\n왜일까요",
-    durationInSeconds: 6.66,
-    accent: "#e17055",
-    characterImage: "char-06.png",
-  },
-  // 7. 범스테드 영상 하루만에 100만 조회, 비법 파헤치기 (36.10~42.84)
-  {
-    type: "imageStat",
-    text: "업로드 하루 만에",
-    statValue: "조회수 100만",
-    statLabel: "범스테드가 공개한 그 비법,\n쉽고 빠르게 파헤쳐 봅니다",
-    durationInSeconds: 6.74,
-    accent: "#ffd93d",
-    characterImage: "char-07.png",
-  },
-  // 8. 첫 번째, 가장 기본은 측정과 기록 (42.84~46.62)
-  {
-    type: "text",
-    text: "첫 번째",
-    subtitle: "가장 기본은 측정과 기록",
-    durationInSeconds: 3.78,
-    accent: "#00b894",
-    characterImage: "char-08.png",
-  },
-  // 9. 측정 안 하면 관리 못 함, 먹는 걸 다 적기 (46.62~51.32)
-  {
-    type: "text",
-    text: "측정하지 않으면\n관리할 수 없다",
-    subtitle: "거창할 것 없이, 먹는 걸 다 적는 것",
-    durationInSeconds: 4.7,
-    accent: "#00b894",
-    characterImage: "char-09.png",
-  },
-  // 10. 1700명 연구, 기록 그룹 감량 2배 이상 (51.32~58.32)
-  {
-    type: "text",
-    text: "1,700명 연구 결과",
-    subtitle: "매일 기록한 그룹의 감량",
-    description: "기록 안 한 그룹의 무려 두 배 이상",
-    durationInSeconds: 7.0,
-    accent: "#6c5ce7",
-    characterImage: "char-10.png",
-  },
-  // 11. 9kg vs 절반 (58.32~62.30)
-  {
-    type: "beforeAfterChart",
-    text: "기록이 가른 결과",
-    beforeAfterData: [{ label: "기록 안 함", before: 4, after: 4 }, { label: "매일 기록", before: 4, after: 9 }],
-    unit: "kg",
-    durationInSeconds: 3.98,
-    accent: "#00b894",
-    characterImage: "char-01.png",
-  },
-  // 12. 적는 행동 하나가 과식 막고 감량 확률 올림 (62.30~67.50)
-  {
-    type: "text",
-    text: "재능이 아니다",
-    subtitle: "적는다는 행동 하나가",
-    description: "과식을 막고 감량 확률을 끌어올린다",
-    durationInSeconds: 5.2,
-    accent: "#00b894",
-    characterImage: "char-02.png",
-  },
-  // 13. 체중은 같은 시간·같은 조건, 하루 숫자 말고 (67.50~72.06)
-  {
-    type: "text",
-    text: "체중은 같은 시간, 같은 조건에서",
-    subtitle: "하루치 숫자에 일희일비 금지",
-    durationInSeconds: 4.56,
-    accent: "#4A90D9",
-    characterImage: "char-03.png",
-  },
-  // 14. 일주일 평균으로 흐름만, 조건 맞출수록 정직 (72.06~79.76)
-  {
-    type: "text",
-    text: "일주일 평균으로 흐름만 본다",
-    subtitle: "조건을 똑같이 맞출수록",
-    description: "체중계가 체지방 변화를\n정직하게 보여준다",
-    durationInSeconds: 7.7,
-    accent: "#4A90D9",
-    characterImage: "char-04.png",
-  },
-  // 15. 두 번째, 칼로리 기준점 — 남의 숫자 가져오는 실수 (79.76~87.30)
-  {
-    type: "text",
-    text: "두 번째, 내 칼로리 기준점",
-    subtitle: "여기서 다들 실수한다",
-    description: "\"누구는 2,000 먹고 뺐다더라\"\n남의 숫자를 그대로 가져오는 것",
-    durationInSeconds: 7.54,
-    accent: "#00b894",
-    characterImage: "char-05.png",
-  },
-  // 16. 신진대사는 사람마다 다름 + 직종 (87.30~98.20)
-  {
-    type: "text",
-    text: "남의 숫자는 의미 없다",
-    subtitle: "신진대사는 사람마다 다 다르다",
-    description: "직종이 달라 기초 활동 칼로리도 제각각\n그래서 내 기준이 필요하다",
-    durationInSeconds: 10.9,
-    accent: "#e17055",
-    characterImage: "char-06.png",
-  },
-  // 17. 유지 섭취량 파악 → 딱 200 줄임 (98.20~105.22)
-  {
-    type: "imageStat",
-    text: "유지 섭취량을 먼저 파악",
-    statValue: "-200kcal",
-    statLabel: "며칠 기록하면 나온다\n거기서 딱 200칼로리만 줄인다",
-    durationInSeconds: 7.02,
-    accent: "#ffd93d",
-    characterImage: "char-07.png",
-  },
-  // 18. 작게 떼고 반응 보기 (105.22~112.40)
-  {
-    type: "text",
-    text: "확 굶기지 않는다",
-    subtitle: "아주 조금만 줄이고 반응을 본다",
-    description: "몸이 어떻게 반응하는지 기록하며\n천천히 조정",
-    durationInSeconds: 7.18,
-    accent: "#00b894",
-    characterImage: "char-08.png",
-  },
-  // 19. 세 번째, 식단 — 세 가지만 (112.40~121.58)
-  {
-    type: "highlight",
-    text: "식단은 이것만 기억하면 된다",
-    bullets: ["전체 칼로리", "단백질", "자연식품"],
-    durationInSeconds: 9.18,
-    accent: "#6c5ce7",
-    characterImage: "char-09.png",
-  },
-  // 20. 가공식품 vs 자연식품 (121.58~129.34)
+  // 6. 예고: 왜 바뀌는지, 어떻게 하는지 (seg10, 40.66~45.62)
   {
     type: "compare",
-    text: "가공식품 vs 자연식품",
+    text: "쉽고 빠르게 뜯어본다",
     compareData: {
-      left: { title: "가공식품", description: "칼로리는 높은데\n미량영양소는 거의 없다" },
-      right: { title: "자연식품", description: "같은 칼로리에\n영양 밀도가 훨씬 높다" },
+      left: { title: "왜 몸이 바뀌는가", description: "다섯 가지 핵심 효과" },
+      right: { title: "어떻게 하는가", description: "제대로 하는 법과 루틴" },
     },
-    durationInSeconds: 7.76,
-    accent: "#4A90D9",
-    characterImage: "char-10.png",
+    durationInSeconds: 4.96,
+    accent: "#74b9ff",
+    characterImage: "char-06.png",
   },
-  // 21. 가공식품 10%↑마다 영양 질 저하 (129.34~135.22)
+  // 7. ①악력 — 전완 근육 총동원 (seg11-12, 45.62~53.10)
+  {
+    type: "iconGrid",
+    text: "첫 번째 · 악력의 폭발적 상승",
+    description: "무거운 걸 들고 걸으면 총동원되는 근육",
+    iconItems: [
+      { icon: "muscle", label: "심지굴근", desc: "손가락 깊은 굽힘근" },
+      { icon: "muscle", label: "천지굴근", desc: "손가락 얕은 굽힘근" },
+      { icon: "dumbbell", label: "손목·손가락 안정근", desc: "쥐는 힘 유지" },
+    ],
+    durationInSeconds: 7.48,
+    accent: "#e17055",
+    characterImage: "char-07.png",
+  },
+  // 8. 악력이 왜 중요한가 — 수행능력을 끌어올림 (seg13-14, 53.10~60.26)
   {
     type: "text",
-    text: "가공식품 10% 더 먹을 때마다",
-    subtitle: "식단 전체의 영양의 질이",
-    description: "상당히 낮아진다는 분석",
-    durationInSeconds: 5.88,
+    text: "악력이 왜 중요한가",
+    subtitle: "다른 운동 수행 능력을 그대로 끌어올린다",
+    description: "악력과 주요 운동 최대 중량을 비교한 연구",
+    durationInSeconds: 7.16,
+    accent: "#e17055",
+    characterImage: "char-08.png",
+  },
+  // 9. 악력-1RM 상관계수: 벤치 0.73 / 데드 0.69 (seg15, 60.26~66.44)
+  {
+    type: "barChart",
+    text: "악력과 1RM의 상관계수",
+    barData: [
+      { label: "벤치프레스 1RM", value: 73, color: "#e17055" },
+      { label: "데드리프트 1RM", value: 69, color: "#fdcb6e" },
+    ],
+    description: "1에 가까울수록 강한 상관 · 아주 강하게 연결",
+    durationInSeconds: 6.18,
+    accent: "#e17055",
+    characterImage: "char-09.png",
+  },
+  // 10. 쉽게 말해: 손아귀 힘↑ → 미는 힘·당기는 힘 같이↑ (seg16-17, 66.44~74.18)
+  {
+    type: "splitFact",
+    text: "쉽게 말하면",
+    compareData: {
+      left: { title: "손아귀 힘이 세진다", description: "악력 상승" },
+      right: { title: "미는 힘·당기는 힘이 같이 오른다", description: "전반적 중량 상승" },
+    },
+    durationInSeconds: 7.74,
+    accent: "#00b894",
+    characterImage: "char-10.png",
+  },
+  // 11. 바벨 미끄러지면 등 강해도 소용없다 → 악력은 병목 (seg18-19, 74.18~79.78)
+  {
+    type: "splitFact",
+    text: "악력은 모든 중량 운동의 병목",
+    compareData: {
+      left: { title: "손에서 바벨이 미끄러진다", description: "아무리 등이 강해도" },
+      right: { title: "데드리프트 중량이 안 는다", description: "악력이 발목을 잡는다" },
+    },
+    durationInSeconds: 5.6,
     accent: "#e17055",
     characterImage: "char-01.png",
   },
-  // 22. 가공→자연 바꾸면 영양제 불필요 (135.22~139.76)
+  // 12. ②자세 교정 — 어깨 처질 것 같은데, 의외 (seg20-21, 79.78~83.74)
   {
     type: "text",
-    text: "자연식품으로 바꾸기만 해도",
-    subtitle: "영양제 몇 알에 매달릴 필요가 없다",
-    durationInSeconds: 4.54,
-    accent: "#00b894",
+    text: "두 번째 · 자세 교정",
+    subtitle: "어깨가 처질 것 같은데, 의외죠?",
+    durationInSeconds: 3.96,
+    accent: "#74b9ff",
     characterImage: "char-02.png",
   },
-  // 23. 가장 많이 하는 실수: 유산소 (139.76~149.70)
+  // 13. 폰 보고 웅크리면 어깨 말리고 거북목 (seg22, 83.74~87.96)
   {
-    type: "text",
-    text: "가장 많이 하는 실수",
-    subtitle: "바로 유산소",
-    description: "지방 태우는 마법으로 착각하고\n웨이트 버린 채 러닝머신만",
-    durationInSeconds: 9.94,
+    type: "splitFact",
+    text: "하루 종일 웅크린 몸",
+    compareData: {
+      left: { title: "어깨가 앞으로 말린다", description: "라운드 숄더" },
+      right: { title: "목은 거북목이 된다", description: "폰·책상 자세의 결과" },
+    },
+    durationInSeconds: 4.22,
     accent: "#e17055",
     characterImage: "char-03.png",
   },
-  // 24. 근육 13kcal vs 지방 4.5kcal (149.70~155.72)
+  // 14. 견갑골 뒤·아래로, 가슴 펴야 버틴다 (seg23-24, 87.96~95.90)
   {
-    type: "beforeAfterChart",
-    text: "가만있어도 쓰는 칼로리",
-    beforeAfterData: [{ label: "지방 1kg", before: 0, after: 4.5 }, { label: "근육 1kg", before: 0, after: 13 }],
-    unit: "kcal",
-    durationInSeconds: 6.02,
+    type: "iconGrid",
+    text: "버티려면 자세가 잡힌다",
+    description: "무거운 걸 들려면 강제로 만들어지는 자세",
+    iconItems: [
+      { icon: "down", label: "견갑골 뒤·아래로", desc: "꾹 눌러넣기" },
+      { icon: "up", label: "가슴을 편다", desc: "흉추 신전" },
+      { icon: "check", label: "안 그러면 못 버틴다", desc: "자세가 저절로 교정" },
+    ],
+    durationInSeconds: 7.94,
     accent: "#00b894",
     characterImage: "char-04.png",
   },
-  // 25. 근육 많을수록 하루 종일 더 태움 (155.72~158.96)
+  // 15. 걷는 내내 등 윗부분 근육 — 승모근 중하부·능형근·회전근개 (seg25, 95.90~100.84)
   {
-    type: "text",
-    text: "근육이 많을수록",
-    subtitle: "가만히 있어도 하루 종일 더 태운다",
-    durationInSeconds: 3.24,
-    accent: "#00b894",
+    type: "iconGrid",
+    text: "걷는 내내 쓰는 등 근육",
+    iconItems: [
+      { icon: "muscle", label: "승모근 중하부", desc: "날개뼈를 아래로" },
+      { icon: "muscle", label: "능형근", desc: "날개뼈 모음" },
+      { icon: "muscle", label: "회전근개", desc: "어깨 안정화" },
+    ],
+    durationInSeconds: 4.94,
+    accent: "#4A90D9",
     characterImage: "char-05.png",
   },
-  // 26. 유산소는 보조 수단 (158.96~165.66)
+  // 16. 근력운동으로 위장한 공짜 물리치료 (seg26-27, 100.84~105.52)
   {
     type: "text",
-    text: "유산소는 보조 수단",
-    subtitle: "지방을 녹이는 도구가 아니라",
-    description: "조금 더 먹으면서도 날씬함을\n유지하게 도와주는 쪽",
-    durationInSeconds: 6.7,
-    accent: "#4A90D9",
+    text: "근력운동으로 위장한 공짜 물리치료",
+    subtitle: "몇 주만 해도 날개뼈 사이 결림이 사라진다",
+    durationInSeconds: 4.68,
+    accent: "#00cec9",
     characterImage: "char-06.png",
   },
-  // 27. 숨넘어가게 안 뛰어도, 걷기로 시작 (165.66~172.26)
+  // 17. ③코어 — 윗몸일으키기 vs 파머스 캐리 (seg28-30, 105.52~116.78)
   {
-    type: "text",
-    text: "숨넘어가게 뛸 필요 없다",
-    subtitle: "걸음 수를 늘리고",
-    description: "밥 먹고 10~15분만 걷는 걸로\n시작해도 충분",
-    durationInSeconds: 6.6,
-    accent: "#4A90D9",
+    type: "compare",
+    text: "세 번째 · 코어",
+    compareData: {
+      left: { title: "윗몸일으키기", description: "몸을 접었다 펴는 운동" },
+      right: { title: "파머스 캐리", description: "쏠리고 비틀리려는 걸 버티는 운동" },
+    },
+    durationInSeconds: 11.26,
+    accent: "#6c5ce7",
     characterImage: "char-07.png",
   },
-  // 28. 범스테드도 올림피아 준비 땐 걷기 20분→1.5시간 (172.26~179.24)
+  // 18. 항측굴·항회전 — 복횡근·내복사근이 코르셋처럼 (seg31, 116.78~123.48)
   {
     type: "timeline",
-    text: "범스테드의 올림피아 유산소",
+    text: "척추를 코르셋처럼 잡는다",
     steps: [
-      { label: "느린 속도로 걷기", description: "달리기 아님" },
-      { label: "처음 20분", description: "짧게 시작" },
-      { label: "1시간~1시간 반", description: "점진적으로 늘림" },
+      { label: "항측굴", description: "옆으로 꺾이는 걸 버틴다" },
+      { label: "항회전", description: "비틀리는 걸 버틴다" },
+      { label: "복횡근·내복사근", description: "배 가장 깊은 곳에서 척추 고정" },
     ],
-    durationInSeconds: 6.98,
+    durationInSeconds: 6.7,
     accent: "#6c5ce7",
     characterImage: "char-08.png",
   },
-  // 29. 네 번째, 운동 — 흔한 속설 (179.24~184.30)
+  // 19. 척추 권위자 스튜어트 맥길 박사 (seg32-33, 123.48~133.28)
   {
     type: "text",
-    text: "네 번째, 운동",
-    subtitle: "커팅할 때 흔한 속설 하나",
-    durationInSeconds: 5.06,
-    accent: "#00b894",
+    text: "척추 연구 권위자 스튜어트 맥길",
+    subtitle: "캐리 동작은 코어 전체를 유기적으로 작동",
+    description: "척추를 지키기 위해 몸통 전체가 함께 일한다\n허리 통증에 시달리는 분들에게 특히 좋은 이유",
+    durationInSeconds: 9.8,
+    accent: "#6c5ce7",
     characterImage: "char-09.png",
   },
-  // 30. 가벼운 고반복이 선명? → 근육 깎는 지름길 (184.30~189.58)
+  // 20. ④전신 근성장 — 핵심 근육 거의 다 (seg34-36, 133.28~143.28)
   {
-    type: "text",
-    text: "\"가벼운 무게로 많이 들어야 선명해진다\"",
-    subtitle: "이게 오히려",
-    description: "근육을 깎아먹는 지름길",
-    durationInSeconds: 5.28,
-    accent: "#e17055",
+    type: "iconGrid",
+    text: "네 번째 · 전신 근성장",
+    description: "이 동작 하나에 들어가는 핵심 근육",
+    iconItems: [
+      { icon: "dumbbell", label: "전완·승모근", desc: "쥐고 지탱" },
+      { icon: "muscle", label: "광배근·둔근", desc: "상·하체 대근육" },
+      { icon: "run", label: "다리", desc: "걷는 추진력" },
+      { icon: "target", label: "코어", desc: "중심을 잡는 축" },
+    ],
+    durationInSeconds: 10.0,
+    accent: "#00b894",
     characterImage: "char-10.png",
   },
-  // 31. 무게 낮추고 고반복 → 근력·근육 같이 빠짐 (189.58~194.64)
+  // 21. 걷는데 심박↑ 근육 긴장 → 근력+유산소 동시 (seg37, 143.28~149.48)
   {
-    type: "text",
-    text: "무게를 확 낮추면",
-    subtitle: "근력이 빠지고",
-    description: "근육도 같이 빠진다",
-    durationInSeconds: 5.06,
-    accent: "#e17055",
+    type: "compare",
+    text: "근력과 유산소를 동시에",
+    compareData: {
+      left: { title: "심박수가 치솟는다", description: "무게가 있으니 유산소 효과" },
+      right: { title: "근육은 계속 긴장", description: "들고 있으니 근력 자극" },
+    },
+    durationInSeconds: 6.2,
+    accent: "#00cec9",
     characterImage: "char-01.png",
   },
-  // 32. 커팅 중에도 무겁게, 강도 오래 유지 (194.64~202.60)
+  // 22. 2016 연구 — 러닝·인클라인 걷기와 비슷한 칼로리 (seg38, 149.48~154.54)
   {
-    type: "text",
-    text: "커팅 중에도 무겁게",
-    subtitle: "운동 강도를 최대한 오래 유지",
-    description: "그래야 몸이 \"이 근육은 꼭 필요하구나\"\n하고 지켜낸다",
-    durationInSeconds: 7.96,
-    accent: "#00b894",
+    type: "imageStat",
+    text: "2016년 연구 결과",
+    statValue: "러닝급 칼로리",
+    statLabel: "일반 러닝·인클라인 걷기와\n비슷한 칼로리 소모를 보였다",
+    durationInSeconds: 5.06,
+    accent: "#e17055",
     characterImage: "char-02.png",
   },
-  // 33. 가능하면 점진적 과부하도 지속 (202.60~206.72)
+  // 23. 강도 조절 자유 — 무겁게/가볍게 멀리/한 손 (seg39-40, 154.54~162.76)
   {
-    type: "text",
-    text: "살 빼는 중에도",
-    subtitle: "조금씩 더 드는 점진적 과부하",
-    durationInSeconds: 4.12,
-    accent: "#00b894",
+    type: "iconGrid",
+    text: "드는 방식으로 목적이 달라진다",
+    iconItems: [
+      { icon: "dumbbell", label: "무겁게 들면", desc: "근력 중심" },
+      { icon: "run", label: "가볍게 멀리", desc: "체력·지구력" },
+      { icon: "target", label: "한 손으로", desc: "복사근 집중" },
+    ],
+    durationInSeconds: 8.22,
+    accent: "#fdcb6e",
     characterImage: "char-03.png",
   },
-  // 34. 왜 다들 실패? 음식으로 감정 채우기 (206.72~214.72)
+  // 24. ⑤균형·멘탈 — 고유수용감각 (seg41-44, 162.76~174.90)
   {
-    type: "text",
-    text: "이렇게 단순한데 왜 실패할까",
-    subtitle: "의외의 데서 이유를 찾는다",
-    description: "많은 경우, 음식으로\n감정을 채우기 때문",
-    durationInSeconds: 8.0,
-    accent: "#e17055",
+    type: "iconGrid",
+    text: "다섯 번째 · 균형과 고유수용감각",
+    description: "매 걸음 신호를 주고받으며 균형을 잡는다",
+    iconItems: [
+      { icon: "target", label: "발목", desc: "지면 접지 안정" },
+      { icon: "target", label: "무릎", desc: "충격 흡수" },
+      { icon: "target", label: "고관절", desc: "체중 분배" },
+      { icon: "check", label: "헛디딤·낙상 감소", desc: "일상 실수가 준다" },
+    ],
+    durationInSeconds: 12.14,
+    accent: "#a29bfe",
     characterImage: "char-04.png",
   },
-  // 35. 명상·호흡·상담이 더 필요할 수도 (214.72~225.82)
+  // 25. 허리·무릎·발목 관절 안정화 → 나이 들어도 건강 (seg45, 174.90~179.80)
   {
-    type: "text",
-    text: "허무할 때, 외로울 때",
-    subtitle: "그걸 먹는 걸로 메꾼다",
-    description: "때로는 최고의 식단 프로그램보다\n명상·호흡·상담이 더 필요할 수 있다",
-    durationInSeconds: 11.1,
-    accent: "#6c5ce7",
+    type: "highlight",
+    text: "자연스럽게 안정화되는 관절",
+    description: "나이가 들어도 훨씬 건강하게",
+    bullets: ["허리", "무릎", "발목"],
+    bulletDescriptions: ["코어가 받쳐준다", "주변근 강화", "흔들림 감소"],
+    durationInSeconds: 4.9,
+    accent: "#00b894",
     characterImage: "char-05.png",
   },
-  // 36. 결정을 줄여라 — 루틴화 (225.82~236.62)
+  // 26. 멘탈 — 힘들 때 한 걸음 더 → 인내심 (seg46-48, 179.80~188.02)
   {
-    type: "text",
-    text: "결정을 줄여라",
-    subtitle: "매일 뭘 먹을지 고민하는 순간이",
-    description: "다 의지력 소모\n같은 시간, 비슷한 음식, 정해진 루틴",
-    durationInSeconds: 10.8,
-    accent: "#4A90D9",
+    type: "splitFact",
+    text: "멘탈까지 단련된다",
+    compareData: {
+      left: { title: "너무 힘든 그 순간", description: "포기하고 싶은 지점" },
+      right: { title: "한 걸음 더 간다", description: "버티는 습관과 인내심\n운동 밖 삶으로도 번진다" },
+    },
+    durationInSeconds: 8.22,
+    accent: "#6c5ce7",
     characterImage: "char-06.png",
   },
-  // 37. 올림피아 준비가 오히려 더 쉬웠던 이유 (236.62~241.90)
+  // 27. 제대로 하는 법 — 자세 틀어지면 효과 반·부상 (seg49-50, 188.02~192.64)
   {
     type: "text",
-    text: "올림피아 준비가 더 쉬웠다",
-    subtitle: "모든 게 정해져 있으니까",
-    durationInSeconds: 5.28,
-    accent: "#ffd93d",
-    characterImage: "char-07.png",
-  },
-  // 38. 외식 팁: 스테이크+채소, 버터 빼기 (241.90~248.50)
-  {
-    type: "text",
-    text: "외식·여행은 이렇게",
-    subtitle: "스테이크에 채소",
-    description: "버터는 빼고 구워달라고 하기",
-    durationInSeconds: 6.6,
-    accent: "#00b894",
-    characterImage: "char-08.png",
-  },
-  // 39. 소스·기름·버터로 칼로리↑, 나가기 전 쉐이크 (248.50~257.62)
-  {
-    type: "text",
-    text: "식당 음식은 생각보다 고칼로리",
-    subtitle: "소스·기름·버터로 덮여 있다",
-    description: "나가기 전 단백질 쉐이크 한 잔이면\n식욕이 눌려 과식을 막아준다",
-    durationInSeconds: 9.12,
-    accent: "#4A90D9",
-    characterImage: "char-09.png",
-  },
-  // 40. 마지막, 정체기 — 몸은 적응한다 (257.62~266.12)
-  {
-    type: "text",
-    text: "마지막, 정체기",
-    subtitle: "다 완벽하게 해도 몸은 적응한다",
-    description: "어느 순간 체중이 안 빠지는 때가\n반드시 온다",
-    durationInSeconds: 8.5,
-    accent: "#e17055",
-    characterImage: "char-10.png",
-  },
-  // 41. 재급식으로 처진 대사 깨우기 (266.12~270.74)
-  {
-    type: "text",
-    text: "일주일 정도 재급식",
-    subtitle: "칼로리를 살짝 다시 올려",
-    description: "처진 대사를 깨워준다",
+    text: "이제 제대로 하는 법",
+    subtitle: "자세가 틀어지면 효과도 반, 다치기 쉽다",
     durationInSeconds: 4.62,
     accent: "#ffd93d",
-    characterImage: "char-01.png",
-  },
-  // 42. 끝낼 신호: 수행능력·성장·잠의 질 저하 (270.74~283.82)
-  {
-    type: "highlight",
-    text: "다이어트를 끝낼 신호",
-    bullets: ["헬스장 수행능력이 떨어진다", "근성장이 멈춘다", "잠의 질이 나빠진다"],
-    bulletDescriptions: ["이 신호가 오면 멈춰야 한다", "", "삶을 망가뜨리면서까지 할 건 아니다"],
-    durationInSeconds: 13.08,
-    accent: "#e17055",
-    characterImage: "char-02.png",
-  },
-  // 43. 결론 요약 (283.82~293.24)
-  {
-    type: "highlight",
-    text: "결국, 정말 간단하다",
-    bullets: ["기록하고", "조금만 덜 먹고", "단백질 챙기고", "무겁게 운동하고", "많이 걷고"],
-    durationInSeconds: 9.42,
-    accent: "#00b894",
-    characterImage: "char-03.png",
-  },
-  // 44. 가장 큰 적: 배고픔, 이기는 법 2개 (293.24~299.94)
-  {
-    type: "text",
-    text: "가장 힘들게 만드는 적",
-    subtitle: "바로 배고픔",
-    description: "이기는 방법은 두 가지\n관점, 그리고 음식",
-    durationInSeconds: 6.7,
-    accent: "#e17055",
-    characterImage: "char-04.png",
-  },
-  // 45. 관점 전환 (299.94~309.68)
-  {
-    type: "text",
-    text: "\"지금 체지방이 빠지고 있구나\"",
-    subtitle: "\"배고파 죽겠다\"가 아니라",
-    description: "그 공복감은 몸이 지방을\n꺼내 쓰고 있다는 신호",
-    durationInSeconds: 9.74,
-    accent: "#6c5ce7",
-    characterImage: "char-05.png",
-  },
-  // 46. 부피 큰 저칼로리 음식 (309.68~317.26)
-  {
-    type: "text",
-    text: "부피로 채운다",
-    subtitle: "상추 같은 잎채소, 살사처럼",
-    description: "칼로리는 거의 없는데 부피가 큰 음식\n적게 먹어도 입이 심심하지 않게",
-    durationInSeconds: 7.58,
-    accent: "#00b894",
-    characterImage: "char-06.png",
-  },
-  // 47. 포만감 압도하는 건 단백질 (317.26~326.74)
-  {
-    type: "text",
-    text: "이 모든 걸 압도하는 하나",
-    subtitle: "바로 단백질",
-    description: "고단백 식단은 배고픔을 눌러주고\n다이어트 중 근육까지 지켜준다",
-    durationInSeconds: 9.48,
-    accent: "#ffd93d",
     characterImage: "char-07.png",
   },
-  // 48. 닭가슴살 매끼 어려움 → 프로틴 한 스쿱 (326.74~338.14)
+  // 28. ①어깨 — 견갑골 뒤·아래 고정, 가슴 펴고 당당하게 (seg51-52, 192.64~198.36)
   {
-    type: "text",
-    text: "매 끼 닭가슴살은 쉽지 않다",
-    subtitle: "가장 간편하고 확실한 방법",
-    description: "프로틴 한 스쿱\n칼로리는 낮게, 단백질은 쏙",
-    durationInSeconds: 11.4,
-    accent: "#00b894",
+    type: "iconGrid",
+    text: "하나 · 어깨를 말지 마라",
+    iconItems: [
+      { icon: "down", label: "견갑골 뒤·아래 고정", desc: "말리지 않게" },
+      { icon: "up", label: "가슴을 살짝 편다", desc: "흉추 신전" },
+      { icon: "check", label: "당당하게 걷는다", desc: "자세 유지가 핵심" },
+    ],
+    durationInSeconds: 5.72,
+    accent: "#4A90D9",
     characterImage: "char-08.png",
   },
-  // 49. 마프 10/10 타임세일 일정 (338.14~347.00)
+  // 29. ②속도 — 처음엔 통제된 걸음, 익숙해지면 올림 (seg53-54, 198.36~203.72)
   {
-    type: "text",
-    text: "지금이 프로틴 쟁여둘 때",
-    subtitle: "마이프로틴 10/10 마프 대란",
-    description: "10월 9일 금 저녁 7시 ~\n10월 10일 토 밤 11시 59분",
-    durationInSeconds: 8.86,
-    accent: "#ffd93d",
+    type: "timeline",
+    text: "둘 · 처음엔 빨리 걷지 마라",
+    steps: [
+      { label: "통제된 걸음", description: "한 걸음 한 걸음 또박또박" },
+      { label: "익숙해지면", description: "속도를 올려도 된다" },
+    ],
+    durationInSeconds: 5.36,
+    accent: "#74b9ff",
     characterImage: "char-09.png",
   },
-  // 50. 할인 상세 (347.00~359.36)
+  // 30. ③코어 — 복압 유지, 복식호흡 (seg55-56, 203.72~210.44)
   {
-    type: "highlight",
-    text: "고정 댓글 링크로 접속",
-    bullets: ["최대 80% 할인", "할인코드 팀MP로 40% 추가", "트렌드 제품 담으면 5% 더", "금액대별 사은품 최대 2개"],
-    durationInSeconds: 12.36,
-    accent: "#f39c12",
+    type: "text",
+    text: "셋 · 코어를 풀지 마라",
+    subtitle: "배에 한 대 맞기 직전이라 생각하고 복압 유지",
+    description: "복식호흡을 쓰면 자연스럽게 된다",
+    durationInSeconds: 6.72,
+    accent: "#6c5ce7",
     characterImage: "char-10.png",
   },
-  // 51. 단백질 1년치 쟁여둘 기회 (359.36~363.80)
+  // 31. 루틴 — 초보 45초×3~4세트 / 익숙 1분×4~5세트 (seg57-58, 210.44~219.86)
   {
-    type: "text",
-    text: "체지방 감량의 핵심, 단백질",
-    subtitle: "1년치 쟁여둘 기회",
-    description: "이 타이밍, 놓치지 마세요",
-    durationInSeconds: 4.44,
-    accent: "#ffd93d",
+    type: "compare",
+    text: "루틴은 이렇게",
+    compareData: {
+      left: { title: "초보", description: "중간 무게 45초 × 3~4세트\n세트 사이 60초 휴식" },
+      right: { title: "익숙해지면", description: "1분 × 4~5세트\n무게↑ 휴식 45초로↓" },
+    },
+    durationInSeconds: 9.42,
+    accent: "#00b894",
     characterImage: "char-01.png",
   },
-  // 52. 아웃트로 (363.80~370.47)
+  // 32. 인터벌 — 30초 걷고 30초 쉬고 5~6세트 (seg59, 219.86~223.66)
+  {
+    type: "timeline",
+    text: "인터벌 방식도 좋다",
+    steps: [
+      { label: "30초 걷기", description: "무게를 들고 이동" },
+      { label: "30초 휴식", description: "호흡 정리" },
+      { label: "5~6세트 반복", description: "짧고 굵게" },
+    ],
+    durationInSeconds: 3.8,
+    accent: "#fdcb6e",
+    characterImage: "char-02.png",
+  },
+  // 33. 변형 3종 — 수트케이스·베어허그·랙 포지션 (seg60, 223.66~228.74)
+  {
+    type: "iconGrid",
+    text: "변형 3종",
+    iconItems: [
+      { icon: "dumbbell", label: "수트케이스 캐리", desc: "한 손으로 들기" },
+      { icon: "heart", label: "베어허그", desc: "가슴에 안고" },
+      { icon: "muscle", label: "랙 포지션", desc: "어깨에 올리고" },
+    ],
+    durationInSeconds: 5.08,
+    accent: "#a29bfe",
+    characterImage: "char-03.png",
+  },
+  // 34. 집에서 — 물통·장바구니·배낭, 주 2~3회 마무리 10분 (seg61-62, 228.74~233.04)
+  {
+    type: "highlight",
+    text: "헬스장 없이 집에서 당장",
+    description: "주 2~3회 · 다른 운동 마무리에 10분이면 충분",
+    bullets: ["물통 두 개", "장바구니", "무거운 배낭"],
+    bulletDescriptions: ["손잡이로 쥐기 좋다", "무게 조절 자유", "안아서 캐리"],
+    durationInSeconds: 8.9,
+    accent: "#00b894",
+    characterImage: "char-04.png",
+  },
+  // 35. 요약 — 악력·자세·코어·전신·심폐·균형·멘탈 (seg63-64, 233.04~237.64)
+  {
+    type: "iconGrid",
+    text: "운동 하나로 이만큼",
+    description: "이렇게 다 가져가는 동작은 흔치 않다",
+    iconItems: [
+      { icon: "muscle", label: "악력·전신 근육", desc: "쥐는 힘부터 대근육까지" },
+      { icon: "up", label: "자세·코어", desc: "교정과 안정" },
+      { icon: "heart", label: "심폐·균형", desc: "유산소와 밸런스" },
+      { icon: "brain", label: "멘탈", desc: "버티는 인내심" },
+    ],
+    durationInSeconds: 8.4,
+    accent: "#ffd93d",
+    characterImage: "char-05.png",
+  },
+  // 36. 오늘 당장 — 무거운 거 두 개 들고 집 안 걷기 (seg65, 237.64~246.04)
   {
     type: "text",
-    text: "구독·좋아요·알림·하이프",
-    subtitle: "오늘도 득근하는 하루",
-    durationInSeconds: 6.67,
-    accent: "#4A90D9",
-    characterImage: "char-02.png",
+    text: "오늘 당장 두 개 들고 걸어라",
+    subtitle: "무거운 거 아무거나, 집 안을",
+    description: "그 단순한 게 몸을 바꿉니다",
+    durationInSeconds: 3.04,
+    accent: "#ffd93d",
+    characterImage: "char-06.png",
+  },
+  // 37. 아웃트로 — 구독·좋아요·알림, 득근하는 하루 (seg66-67, 246.04~257.23)
+  {
+    type: "text",
+    text: "득근하는 하루 되세요",
+    subtitle: "구독 · 좋아요 · 알림 · 하이프",
+    description: "헬마드 구독자 여러분, 오늘도 득근!",
+    durationInSeconds: 8.15,
+    accent: "#00b894",
+    characterImage: "char-07.png",
   },
 ];
